@@ -1,19 +1,44 @@
-body {
-  margin: 0px;
-  font-family: 'Open sans';
+html {
+  position: relative;
+  height: 100%;
 }
 
-a {
-  text-decoration: none;
-  color: white;
+body {
+  position: relative;
+  height: 100%;
+  background: #fff;
+  color: #000;
+  margin: 0;
+}
+
+swiper-container {
+  width: 50%;
+  height: 100%;
+  margin: 0;
+}
+
+swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+swiper-slide img {
+  display: block;
+  width: 100%;
+  height: auto;  
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
+  box-sizing: border-box;
   align-items: center;
   background:#263343;
-  padding: 8px 100px;
+  padding: 20px 100px;
   position: fixed;
   right: 0;
   left: 0;
@@ -21,12 +46,13 @@ a {
   z-index: 1030;
 }
 
-.navbar__logo {
+.navbar__logo a {
+  text-decoration: none;
   font-size: 24px;
   color: white;
 }
 
-.navbar__account button {
+.navbar__vote button, .navbar__account button {
   background-color: #5ebabc!important;
   border: 1px solid #5ebabc!important;
   color: #fff!important;
@@ -44,10 +70,11 @@ a {
 .navbar__menu {
   display: flex;
   list-style: none;
-  padding-left: 0px;
 }
 
-.navbar__menu li {
+.navbar__menu li a {
+  text-decoration: none;
+  color: white;
   padding: 8px 30px;
 }
 
@@ -68,7 +95,7 @@ a {
   .navbar {
       flex-direction: column;
       align-items: flex-start;
-      padding: 8px 24px;
+      padding: 35px 24px;
   }
   
   .navbar__menu {
@@ -76,6 +103,7 @@ a {
       flex-direction: column;
       align-items: center;
       width: 100%;
+      padding-left: 0px;
   }
   .navbar__account {
     display: none;
