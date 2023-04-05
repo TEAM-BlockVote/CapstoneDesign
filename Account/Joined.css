@@ -1,0 +1,67 @@
+* {
+    margin:0px;
+    padding:0px;
+    text-decoration:none;
+    font-family:Arial;
+}
+
+body {
+    background-color:rgb(222, 222, 222);
+}
+
+.Joined {
+    position:absolute;
+    padding:30px 40px;
+    background:linear-gradient(to bottom,rgb(0, 187, 255), rgb(122, 122, 233));
+    opacity:0.8;
+    text-align:center;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+}
+
+.Title {
+    color:white;
+    font-weight:bold;
+}
+
+.TextForm {
+    border-bottom: 2px solid white;
+    margin: 30px;
+    padding: 10px 10px;
+}
+
+img {
+    width:200px;
+    height:200px;
+}
+
+.BTN1 {
+    margin:20px;
+    position:relative;
+    margin-bottom:5px;
+    width:60%;
+    height:50px;
+    border-radius: 10px;
+    background:linear-gradient(to bottom,rgb(75, 78, 119), rgb(27, 27, 58));
+    color:white;
+    font-size:15px;
+    font-weight: bold;
+    border:none;
+    cursor:pointer;
+    display:inline;
+}
+
+.BTN2 {
+    width:60%;
+    height:50px;
+    border-radius: 10px;
+    background:linear-gradient(to bottom,rgb(75, 78, 119), rgb(27, 27, 58));
+    color:white;
+    font-size:15px;
+    font-weight: bold;
+    border:none;
+    cursor:pointer;
+    display:inline;
+}
