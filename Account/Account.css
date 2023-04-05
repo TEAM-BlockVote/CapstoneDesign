@@ -1,0 +1,139 @@
+* {
+    margin:0px;
+    padding:0px;
+    text-decoration:none;
+    font-family:Arial;
+}
+
+body {
+    background-color:rgb(222, 222, 222);
+}
+
+.Account {
+    position:absolute;
+    padding:30px 40px;
+    background:linear-gradient(to bottom,rgb(0, 187, 255), rgb(122, 122, 233));
+    opacity:0.8;
+    text-align:center;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+}
+
+.Title {
+    color:white;
+    font-weight:bold;
+}
+
+.TextForm {
+    border-bottom: 2px solid white;
+    margin: 30px;
+    padding: 10px 10px;
+}
+
+.TextForm input::placeholder {
+    color:white;
+    font-weight:bold;
+}
+
+select {
+    color:white;
+    font-weight:bold;
+}
+
+option:not(:first-of-type) {
+    color:black;
+}
+
+.CN {
+    width: 100%;
+    border:none;
+    outline:none;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    height:20px;
+    background: none;
+}
+
+.SN {
+    width: 100%;
+    border:none;
+    outline:none;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    height:20px;
+    background: none;
+}
+
+.DEP {
+    width: 100%;
+    border:none;
+    outline:none;
+    font-size:15px;
+    height:20px;
+    background: none;
+}
+
+.PW {
+    width: 100%;
+    border:none;
+    outline:none;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    height:20px;
+    background: none;
+}
+
+.PWC {
+    width: 100%;
+    border:none;
+    outline:none;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    height:20px;
+    background: none;
+}
+
+.PN {
+    width: 100%;
+    border:none;
+    outline:none;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    height:20px;
+    background: none;
+}
+
+.BTN1 {
+    position:relative;
+    margin-bottom:5px;
+    width:80%;
+    height:40px;
+    border-radius: 10px;
+    background:linear-gradient(to bottom,rgb(75, 78, 119), rgb(27, 27, 58));
+    color:white;
+    font-size:15px;
+    font-weight: bold;
+    border:none;
+    cursor:pointer;
+    display:inline;
+}
+
+.BTN2 {
+    width:80%;
+    height:40px;
+    border-radius: 10px;
+    background:linear-gradient(to bottom,rgb(75, 78, 119), rgb(27, 27, 58));
+    color:rgb(255, 255, 255);
+    font-size:15px;
+    font-weight: bold;
+    border:none;
+    cursor:pointer;
+    display:inline;
+}
