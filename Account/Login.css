@@ -5,56 +5,48 @@
     font-family:Arial;
 }
 
-body {
-    background-color:rgb(222, 222, 222);
-}
-
 .Login {
     position:absolute;
-    width:70%;
-    height:80%;
+    width:400px;
+    height:400px;
+    padding:30px 20px;
+    background:white;
     text-align:center;
-    top:60%;
-    left:50%;
+    top:50%;
+    left:70%;
     transform: translate(-50%, -50%);
 }
 
-.LoginLeft {
-    width:50%;
-    height:70%;
-    background:white;
-    float:left;
-    border-radius: 10px 0px 0px 10px;
+img {
+    position:absolute;
+    background:url("images/Seoil2.png");
+    width:350px;
+    height:auto;
+    left:-140%;
+    top:10%;
 }
 
-.LoginRight {
-    width:50%;
-    height:70%;
-    background:linear-gradient(to bottom,rgb(0, 187, 255), rgb(122, 122, 233));
-    float:right;
-    border-radius: 0px 10px 10px 0px ;
-}
-
-.Writing {
-    color:Black;
-    font-weight:bold;
-    margin:20px;
+.VLine {
+    position:absolute;
+    border-left:2px solid #adadad;
+    height:400px;
+    left:-25%;
 }
 
 .Title {
     margin:30px;
-    color:white;
+    color:black;
     font-weight:bold;
 }
 
 .TextForm {
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid #adadad;
     margin: 30px;
     padding: 10px 10px;
 }
 
 .TextForm input::placeholder {
-    color:white;
+    color:#636e72;
     font-weight:bold;
 }
 
@@ -62,7 +54,7 @@ body {
     width:100%;
     border:none;
     outline:none;
-    color:white;
+    color:#636e72;
     font-size:15px;
     font-weight:bold;
     height:20px;
@@ -73,7 +65,7 @@ body {
     width:100%;
     border:none;
     outline:none;
-    color:white;
+    color:#636e72;
     font-size:15px;
     font-weight:bold;
     height:20px;
@@ -83,10 +75,9 @@ body {
 .BTN1 {
     position:relative;
     margin-bottom:5px;
-    width:60%;
+    width:80%;
     height:50px;
-    border-radius: 10px;
-    background:linear-gradient(to bottom,rgb(75, 78, 119), rgb(27, 27, 58));
+    background:rgb(22, 25, 61);
     color:white;
     font-size:15px;
     font-weight: bold;
@@ -96,10 +87,9 @@ body {
 }
 
 .BTN2 {
-    width:60%;
+    width:80%;
     height:50px;
-    border-radius: 10px;
-    background:linear-gradient(to bottom,rgb(75, 78, 119), rgb(27, 27, 58));
+    background:rgb(22, 25, 61);
     color:white;
     font-size:15px;
     font-weight: bold;
