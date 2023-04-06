@@ -6,24 +6,29 @@
 }
 
 body {
-    background-color:rgb(222, 222, 222);
+    background-color:body;
 }
 
 .Joined {
     position:absolute;
     padding:30px 40px;
-    background:linear-gradient(to bottom,rgb(0, 187, 255), rgb(122, 122, 233));
-    opacity:0.8;
+    background:white;
     text-align:center;
     top:50%;
     left:50%;
     transform: translate(-50%, -50%);
-    border-radius: 10px;
 }
 
-.Title {
-    color:white;
+img {
+    position:absolute;
+    left:25%;
+    top:-200%;
+}
+
+.Message {
+    color:black;
     font-weight:bold;
+    top:50%;
 }
 
 .TextForm {
@@ -38,13 +43,12 @@ img {
 }
 
 .BTN1 {
-    margin:20px;
-    position:relative;
-    margin-bottom:5px;
-    width:60%;
+    position:absolute;
+    width:80%;
     height:50px;
-    border-radius: 10px;
-    background:linear-gradient(to bottom,rgb(75, 78, 119), rgb(27, 27, 58));
+    left:-40%;
+    top:150%;
+    background:rgb(22, 25, 61);
     color:white;
     font-size:15px;
     font-weight: bold;
@@ -54,10 +58,12 @@ img {
 }
 
 .BTN2 {
-    width:60%;
+    position:absolute;
+    width:80%;
     height:50px;
-    border-radius: 10px;
-    background:linear-gradient(to bottom,rgb(75, 78, 119), rgb(27, 27, 58));
+    left:50%;
+    top:150%;
+    background:rgb(22, 25, 61);
     color:white;
     font-size:15px;
     font-weight: bold;
