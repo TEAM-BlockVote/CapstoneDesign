@@ -22,6 +22,7 @@
     text-align: center;
     font-size: 30px;
   }
+  
  .write-form{
   float: right;
   padding: 10px 20px; 
@@ -53,6 +54,7 @@
 
   table {
     
+    width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     width: 100%;
