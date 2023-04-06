@@ -28,8 +28,9 @@ img {
 
 .VLine {
     position:absolute;
-    border-left:2px solid #adadad;
-    height:400px;
+    border-left:2px ridge #adadad;
+    height:450px;
+    top:0%;
     left:-25%;
 }
 
