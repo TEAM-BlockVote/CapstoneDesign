@@ -14,7 +14,7 @@
     color: #1d1a1a;
     padding: 10px;
     font-weight: bold;
-    width: 80%;
+    width: 100%;
    
     
   }
@@ -24,9 +24,27 @@
   }
  .write-form{
   float: right;
-  border-radius: 30px;
+  padding: 10px 20px; 
+  font-size: 30px; 
+  border: none; 
+  border-radius: 5px; 
+  background-color: #98FB98; 
+  color: #141111; 
+  cursor: pointer; 
+
+
+    
   
  }
+ .category1 a{
+  text-decoration-line: none;
+}
+.category2 a{
+  text-decoration-line: none;
+}
+.category3 a{
+  text-decoration-line: none;
+}
 
   body{
     background-color: #F0F8FF;
@@ -37,7 +55,7 @@
     
     border-collapse: collapse;
     margin-top: 20px;
-    width: 110%;
+    width: 100%;
  
     
   }
@@ -56,7 +74,7 @@
     border-bottom: 3px solid rgb(24, 25, 26);
     font-size: 15px;
     font-weight: 1000;
-    height: 70px;
+    height: 50px;
    
   }
   
@@ -73,7 +91,7 @@
     font-weight: bold;
     color: #666;
     font-size: 20px;
-    height: 70px;
+    height: 50px;
   }
   
 
@@ -81,14 +99,14 @@
     width: 50%;
     padding-left: 40px;
     font-size: 20px;
-    height: 70px;
+    height: 50px;
   }
   
   td:nth-child(2) a {
     color: #333;
     text-decoration: none;
     font-weight: bold;
-    height: 70px;
+    height: 50px;
    
   }
   
@@ -96,6 +114,7 @@
     text-decoration: underline;
     font-size: 20px;
     width: 50%;
+    height: 50px;
   }
   
 
@@ -104,6 +123,7 @@
     text-align: center;
     color: #666;
     font-size: 20px;
+    
   }
   
 
@@ -168,7 +188,8 @@
   }
   
   .category .category1 {
-    background-color: #6a5acd;
+    background-color: #00BFFF;
+    
     display: inline-block;
     margin: 0 10px;
     width: 100px;
@@ -176,7 +197,7 @@
   }
   
   .category .category2 {
-    background-color: #6495ed;
+    background-color: #F08080;
     display: inline-block;
     margin: 0 10px;
     width: 100px;
@@ -184,7 +205,7 @@
   }
   
   .category .category3 {
-    background-color: #20b2aa;
+    background-color: #FFFF00;
     display: inline-block;
     margin: 0 10px;
     width: 100px;
