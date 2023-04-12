@@ -7,31 +7,30 @@
 
 .Login {
     position:absolute;
-    width:400px;
-    height:400px;
-    padding:30px 20px;
+    width:30%;
+    height:30%;
+    padding:30% 20%;
     background:white;
     text-align:center;
-    top:50%;
-    left:70%;
+    top:40%;
+    left:30%;
     transform: translate(-50%, -50%);
 }
 
 img {
     position:absolute;
-    background:url("images/Seoil2.png");
-    width:350px;
+    width:45%;
     height:auto;
-    left:-140%;
-    top:10%;
+    left:90%;
+    top:35%;
 }
 
 .VLine {
     position:absolute;
-    border-left:2px ridge #adadad;
-    height:450px;
-    top:0%;
-    left:-25%;
+    border-left:3px solid #adadad;
+    height:50%;
+    top:30%;
+    left:80%;
 }
 
 .Title {
