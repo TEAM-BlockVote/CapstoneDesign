@@ -1,6 +1,6 @@
 * {
-    margin:0px;
-    padding:0px;
+    margin:0%;
+    padding:0%;
     text-decoration:none;
     font-family:Arial;
 }
@@ -9,14 +9,21 @@ body {
     background-color:white;
 }
 
+img {
+    position:relative;
+    width:100%;
+    height:auto;
+    top:-35%;
+    left:0%;
+}
+
 .Account {
     position:absolute;
-    width:400px;
-    height:400px;
-    padding:30px 20px;
+    width:350px;
+    height:350px;
     background:white;
     text-align:center;
-    top:30%;
+    top:27%;
     left:50%;
     transform: translate(-50%, -50%);
 }
@@ -106,10 +113,11 @@ option:not(:first-of-type) {
 }
 
 .BTN1 {
-    position:relative;
-    margin-bottom:5px;
+    position:absolute;
     width:80%;
-    height:50px;
+    height:13%;
+    top:165%;
+    left:10%;
     background:rgb(22, 25, 61);
     color:white;
     font-size:15px;
@@ -120,8 +128,11 @@ option:not(:first-of-type) {
 }
 
 .BTN2 {
+    position:absolute;
     width:80%;
-    height:50px;
+    height:13%;
+    top:180%;
+    left:10%;
     background:rgb(22, 25, 61);
     color:white;
     font-size:15px;

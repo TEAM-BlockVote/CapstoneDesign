@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
     <link rel="stylesheet" href="Account.css"/>
+    <script src="Account.js"></script>
 </head>
 <body>
     <form method='post' class="Account">
@@ -61,11 +62,12 @@
             <input id="PasswordCheck" type="password" class="PWC" placeholder="비밀번호 확인">
         </div>
         <div class="TextForm">
-            <input id="PhoneNumber" type="tel" class="PN" placeholder="전화번호">
+            <input id="PhoneNumber" oninput="AutoHyphen(this)" maxlength="13" type="tel" class="PN" placeholder="전화번호"">
             </input>
         </div>
         <div class="ButtonForm">
-            <input id="Account" type="submit" class="BTN1" value="회원가입" formaction = "Joined.html">
+            <input id="Account" type="submit" class="BTN1" value="회원가입" onclick="PassCompare()">
+            </input>
         </div>
         <div class="ButtonForm">
             <input id="BackHome" type="submit" class="BTN2" value="메인 홈">
