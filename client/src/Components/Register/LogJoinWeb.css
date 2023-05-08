@@ -1,0 +1,38 @@
+.login_join {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.joinimg_01 {
+    margin: auto;
+    margin-top: 1.2rem;
+    display: block;
+    width: 5.125rem;    
+}
+
+.login_joinl1 {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: auto;
+    margin-top: 1.1rem;
+    font-weight: 1000;
+}
+
+.joinimg_02 {
+    margin: auto;
+    margin-top: 2.75rem;
+    display: block;
+    width: 5.125rem;
+}
+
+.login_joinl2 {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: auto;
+    margin-top: 1.1rem;
+    font-weight: 1000;
+}
