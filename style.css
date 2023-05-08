@@ -63,65 +63,6 @@ swiper-slide img {
   height: auto;  
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  box-sizing: border-box;
-  align-items: center;
-  background:#263343;
-  padding: 20px 100px;
-  position: fixed;
-  right: 0;
-  left: 0;
-  top: 0;
-  z-index: 1030;
-}
-
-.navbar__logo a {
-  text-decoration: none;
-  font-size: 24px;
-  color: white;
-}
-
-.navbar__vote button, .navbar__account button {
-  background-color: #5ebabc!important;
-  border: 1px solid #5ebabc!important;
-  color: #fff!important;
-  box-shadow: 0 3px 5px 0 rgba(94,186,188,.3);
-  cursor: pointer;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 17px; 
-}
-
-.navbar__logo i {
-  color: #d49466;
-}
-
-.navbar__menu {
-  display: flex;
-  list-style: none;
-}
-
-.navbar__menu li a {
-  text-decoration: none;
-  color: white;
-  padding: 8px 30px;
-}
-
-.navbar__menu :hover {
-  background: #d49466;
-  border-radius: 4px;
-}
-
-.navbar__toogleBtn {
-  display: none;
-  position: absolute;
-  right: 32px;
-  font-size: 24px;
-  color: #d49466;
-}
-
 @media screen and (max-width: 920px) {
   .navbar {
       flex-direction: column;
