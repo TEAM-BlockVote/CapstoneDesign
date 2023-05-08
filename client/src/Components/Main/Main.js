@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Header from "./Header";
 import HorizonLine from './HorizonLine';
 import './Main.css';
-import img from './seoilLogo.png';
+
 import img2 from './01.png';
 import { Navigation} from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -33,7 +33,7 @@ const Main = () => {
                 <h5>투표기간: 04.17 - 04.30 </h5>
               </div>
               <div className="right">
-                <img className="img1" src={img} alt="seoilLogo"/>
+                <img className="img1" src={img2} alt="seoilLogo"/>
               </div>
             </div>
           </div>
