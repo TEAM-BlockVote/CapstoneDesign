@@ -1,33 +1,17 @@
-body {
-    background: linear-gradient(to right, blue, rgb(205, 205, 249));
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-repeat: no-repeat;
-}
-
-* {
+.register_site {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
     color: inherit;
     font: inherit;
-}
-
-a {
-    cursor: pointer;
-    text-decoration: none;
-}
-
-input::placeholder {
-    color:#b9b9b9;
-    font-weight: 600;
-}
-
-.login_site {
     position: relative;
     display: flex;
     width: 100%;
     min-height: 100vh;
     flex-direction: column;
+    background: linear-gradient(to right, blue, rgb(205, 205, 249));
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-repeat: no-repeat;
 }
 
 .login_header {
@@ -191,6 +175,8 @@ input::placeholder {
     justify-content: center;
     border-radius: 0.9375rem 0.9375rem 0 0;
     margin: auto;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 @media (max-width: 575px) {
@@ -210,6 +196,8 @@ input::placeholder {
     background: #f4f4f4;
     font-weight: 600;
     color:black;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 @media (max-width: 575px) {
@@ -255,6 +243,11 @@ input::placeholder {
     border-radius: 0.25rem;
 }
 
+.login_classnumber::placeholder {
+    color:#d2d2d2;
+    font-weight: 600;   
+}
+
 .login_label2 {
     margin-top: 2.25rem;
     width: 100%;
@@ -277,6 +270,11 @@ input::placeholder {
     padding: 0.5rem 2.5rem 0.5rem 0.875rem;
     border: 1px solid #d2d2d2;
     border-radius: 0.25rem;
+}
+
+.login_password::placeholder {
+    color:#d2d2d2;
+    font-weight: 600;   
 }
 
 .login_button {
