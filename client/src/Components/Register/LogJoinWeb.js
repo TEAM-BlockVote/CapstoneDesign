@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 
 export default function LogJoinWeb() {
     return (
-            <div className='login_site'>
+            <div className='register_site'>
                 <div className='login_header'>
                     <div className='login_logo'>
                         BLOCK VOTE

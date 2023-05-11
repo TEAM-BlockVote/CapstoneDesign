@@ -1,27 +1,3 @@
-body {
-    background: linear-gradient(to right, blue, rgb(205, 205, 249));
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-repeat: no-repeat;
-}
-
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    color: inherit;
-    font: inherit;
-}
-
-a {
-    cursor: pointer;
-    text-decoration: none;
-}
-
-input::placeholder {
-    color:#b9b9b9;
-    font-weight: 600;
-}
-
 .join_site {
     position: relative;
     display: flex;
@@ -216,6 +192,11 @@ input::placeholder {
     border-radius: 0.25rem;
 }
 
+.join_mclassnumber::placeholder {
+    color:#d2d2d2;
+    font-weight: 600;   
+}
+
 .join_mlabel2 {
     margin-top: 2.25rem;
     width: 100%;
@@ -240,6 +221,20 @@ input::placeholder {
     border-radius: 0.25rem;
 }
 
+.join_mname::placeholder {
+    color:#d2d2d2;
+    font-weight: 600;   
+}
+
+.join_mnameerror {
+    margin-top: 0.55rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: .9125rem;
+    font-weight: 700;
+    color: red;
+}
+
 .join_mlabelst1 {
     margin-top: 2.25rem;
     width: 100%;
@@ -255,13 +250,24 @@ input::placeholder {
     align-items: center;
 }
 
-.join_mdep {
+.join_magency {
     padding-left: 2.75rem;
     width: 100%;
     height: 2.875rem;
     padding: 0.5rem 2.5rem 0.5rem 0.875rem;
     border: 1px solid #d2d2d2;
     border-radius: 0.25rem;
+    color:#d2d2d2;
+    font-weight: 600; 
+}
+
+.join_magencyerror {
+    margin-top: 0.55rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: .9125rem;
+    font-weight: 700;
+    color: red;
 }
 
 .join_mlabelst2 {
@@ -288,6 +294,20 @@ input::placeholder {
     border-radius: 0.25rem;
 }
 
+.join_moffice::placeholder {
+    color:#d2d2d2;
+    font-weight: 600; 
+}
+
+.join_mofficeerror {
+    margin-top: 0.55rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: .9125rem;
+    font-weight: 700;
+    color: red;
+}
+
 .join_mlabel3 {
     margin-top: 2.25rem;
     width: 100%;
@@ -312,6 +332,11 @@ input::placeholder {
     border-radius: 0.25rem;
 }
 
+.join_mpassword::placeholder {
+    color:#d2d2d2;
+    font-weight: 600; 
+}
+
 .join_minput3_1 {
     margin-top: 10px;
     position: relative;
@@ -327,6 +352,11 @@ input::placeholder {
     padding: 0.5rem 2.5rem 0.5rem 0.875rem;
     border: 1px solid #d2d2d2;
     border-radius: 0.25rem;
+}
+
+.join_mpasswordchk::placeholder {
+    color:#d2d2d2;
+    font-weight: 600; 
 }
 
 .join_mlabel4 {
@@ -351,6 +381,11 @@ input::placeholder {
     padding: 0.5rem 2.5rem 0.5rem 0.875rem;
     border: 1px solid #d2d2d2;
     border-radius: 0.25rem;
+}
+
+.join_mnumber::placeholder {
+    color:#d2d2d2;
+    font-weight: 600; 
 }
 
 .join_mbutton {

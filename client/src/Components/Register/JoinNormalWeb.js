@@ -1,64 +1,69 @@
 import React, {useState} from 'react';
 import "./JoinNormalWeb.css";
 import {NavLink} from 'react-router-dom';
+import JoinCompClassNum from './JoinCompClassNum';
+import JoinCompName from './JoinCompName';
+import JoinCompDep from './JoinCompDep';
+import JoinCompPassword from './JoinCompPassword';
+import JoinCompTel from './JoinCompTel';
 
 export default function JoinManageWeb() {
-    const [userClassNum, setClassNum] = useState('');
-    const [userName, setName] = useState('');
-    const [userDep, setDep] = useState(false);
-    const [userPass, setPass] = useState('');
-    const [userPassChk, setPassChk] = useState('');
-    const [userTelNum, setTelNum] = useState('');
-    const [userPassError, setPassError] = useState(false);
-    const [userDepError, setDepError] = useState(false);
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-        if(userPass !== userPassChk) {
-            return setPassError(true);
+    
+    const [userClassNum, setClassNum] = useState("");
+    const [userClassNumError, setClassNumError] = useState("");
+    const [userName, setName] = useState("");
+    const [userNameError, setNameError] = useState("");
+    const [userDep, setDep] = useState("");
+    const [userDepError, setDepError] = useState("");
+    const [userPass, setPass] = useState("");
+    const [userPassChk, setPassChk] = useState("");
+    const [userPasswordError, setPasswordError] = useState("");
+    const [userTelNum, setTelNum] = useState("");
+    const [userTelNumError, setTelNumError] = useState("");
+    
+    const NormalJoinSubmit = (event) => {
+        event.preventDefault();
+        const error1 = JoinCompClassNum(userClassNum);
+        if (error1) {
+            setClassNumError(error1);
+        } else {
+            setClassNumError("");
         }
-        if(!userDep) {
-            return setDepError(true);
+
+        const error2 = JoinCompName(userName);
+        if (error2) {
+            setNameError(error2);
+        } else {
+            setNameError("")
         }
-        console.log({
-            userClassNum,
-            userName,
-            userDep,
-            userPass,
-            userPassChk,
-            userTelNum
-        });
-    };
 
-    const onChangeClassNum = (e) => {
-        setClassNum(e.target.value);
-    };
+        const error3 = JoinCompDep(userDep);
+        if (error3) {
+            setDepError(error3);
+        } else {
+            setDepError("");
+        }
 
-    const onChangeName = (e) => {
-        setName(e.target.value);
-    };
+        const error4 = JoinCompPassword(userPass, userPassChk)
+        if (error4) {
+            setPasswordError(error4);
+        } else {
+            setPasswordError("");
+        }
 
-    const onChangeDep = (e) => {
-        setDepError(false);
-        setDep(e.target.value);
-    };
+        const error5 = JoinCompTel(userTelNum)
+        if (error5) {
+            setTelNumError(error5);
+        } else {
+            setTelNumError("");
+        }
 
-    const onChangePass = (e) => {
-        setPass(e.target.value);
-    };
-
-    const onChangePassChk = (e) => {
-        setPassError(e.target.value !== userPass);
-        setPassChk(e.target.value);
-    };
-
-    const onChangeTelNum = (e) => {
-        setTelNum(e.target.value);
-    };
+        return alert("회원가입이 완료되었습니다.");
+    }
 
     return (
-        <form onSubmit={onSubmit}>
-            <div className='join_site'>
+        <form onSubmit = {NormalJoinSubmit} action='get' method='/test'>
+            <div className='register_site'>
                 <div className='join_header'>
                     <div className='join_logo'>
                         BLOCK VOTE
@@ -88,19 +93,25 @@ export default function JoinManageWeb() {
                                             학번
                                         </div>
                                         <div className='join_ninput1'>
-                                            <input id='nclassnumber' name='nclassnumber' className='join_nclassnumber' type='text' placeholder='학번을 입력하세요.'></input>
+                                            <input id='nclassnumber' name='nclassnumber' className='join_nclassnumber' type='text' maxLength={9} value={userClassNum} onChange={(e) => setClassNum(e.target.value)} placeholder='학번을 입력하세요.'></input>
+                                        </div>
+                                        <div className='join_nclassnumerror'>
+                                            {userClassNumError && <div>{userClassNumError}</div>}
                                         </div>
                                         <div className='join_nlabel2'>
                                             이름
                                         </div>
                                         <div className='join_ninput2'>
-                                            <input id='nname' name='nname' className='join_nname' type='text' placeholder='이름을 입력하세요.'></input>
+                                            <input id='nname' name='nname' className='join_nname' type='text' maxLength={20} value={userName} onChange={(e) => setName(e.target.value)} placeholder='이름을 입력하세요.'></input>
+                                        </div>
+                                        <div className='join_nnameerror'>
+                                            {userNameError && <div>{userNameError}</div>}
                                         </div>
                                         <div className='join_nlabelst'>
                                             학과
                                         </div>
                                         <div className='join_nselect'>
-                                            <select name='ndep' className='join_ndep'>
+                                            <select name='ndep' className='join_ndep' value={userDep} onChange={(e) =>  setDep(e.target.value)} requir>
                                                 <option value="ndep0" >학과를 선택하세요.</option>
                                                 <option value="ndep1">컴퓨터전자공학과</option>
                                                 <option value="ndep2">전기공학과</option>
@@ -133,25 +144,31 @@ export default function JoinManageWeb() {
                                                 <option value="ndep29">커뮤니케이션디자인학과</option>
                                             </select>
                                         </div>
+                                        <div className='join_ndeperror'>
+                                            {userDepError && <div>{userDepError}</div>}
+                                        </div>
                                         <div className='join_nlabel3'>
                                             비밀번호
                                         </div>
                                         <div className='join_ninput3'>
-                                            <input id='npassword' name='npassword' className='join_npassword' type='password' value={userPass} required onChange={onChangePass} placeholder='비밀번호를 입력하세요.'></input>
+                                            <input id='npassword' name='npassword' className='join_npassword' type='password' maxLength={20} value={userPass} onChange={(e) => setPass(e.target.value)} placeholder='비밀번호를 입력하세요.'></input>
                                         </div>
                                         <div className='join_ninput3_1'>
-                                            <input id='npasswordchk' name='npasswordchk' className='join_npasswordchk' type='password' value={userPassChk} required onChange={onChangePassChk} placeholder='비밀번호를 확인하세요.'></input>
-                                            <div className='join_npasswordchkerror'>
-                                                {userPassError && <div className='join_npasswordchk_error'>비밀번호가 일치하지 않습니다.</div>}
-                                            </div>
+                                            <input id='npasswordchk' name='npasswordchk' className='join_npasswordchk' type='password' maxLength={20} value={userPassChk} onChange={(e) => setPassChk(e.target.value)} placeholder='비밀번호를 확인하세요.'></input>
+                                        </div>
+                                        <div className='join_npasswordchkerror'>
+                                            {userPasswordError && <div>{userPasswordError}</div>}
                                         </div>
                                         <div className='join_nlabel4'>
                                             전화번호
                                         </div>
                                         <div className='join_ninput4'>
-                                            <input name='nnumber' className='join_nnumber' type='tel' placeholder='전화번호를 확인하세요.'></input>
+                                            <input name='nnumber' className='join_nnumber' type='tel' maxLength={11} value={userTelNum} onChange={(e) => setTelNum(e.target.value)} placeholder='전화번호를 입력하세요.'></input>
                                         </div>
-                                        <button type='primary' className='join_nbutton'>회원가입</button>
+                                        <div className='join_ntelnumerror'>
+                                            {userTelNumError && <div>{userTelNumError}</div>}
+                                        </div>
+                                        <button type='submit' className='join_nbutton'>회원가입</button>
                                     </div>
                                 </div>
                             </div>
@@ -159,6 +176,6 @@ export default function JoinManageWeb() {
                     </div>
                 </div>
             </div>
-            </form>
-        );
-    }
+        </form>
+    );
+}

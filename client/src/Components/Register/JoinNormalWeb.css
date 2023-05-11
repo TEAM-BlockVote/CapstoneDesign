@@ -1,40 +1,3 @@
-body {
-    background: linear-gradient(to right, blue, rgb(205, 205, 249));
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-repeat: no-repeat;
-}
-
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    color: inherit;
-    font: inherit;
-}
-
-a {
-    cursor: pointer;
-    text-decoration: none;
-}
-
-input::placeholder {
-    color:#b9b9b9;
-    font-weight: 600;
-}
-
-select {
-    color:#b9b9b9;
-    font-weight: 600;
-}
-
-.join_site {
-    position: relative;
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-    flex-direction: column;
-}
-
 .join_header {
     position: sticky;
     z-index: 1;
@@ -197,6 +160,8 @@ select {
     justify-content: center;
     border-radius: 0.9375rem 0.9375rem 0 0;
     margin: auto;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 @media (max-width: 575px) {
@@ -216,6 +181,8 @@ select {
     background: #f4f4f4;
     font-weight: 600;
     color:black;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 @media (max-width: 575px) {
@@ -261,6 +228,20 @@ select {
     border-radius: 0.25rem;
 }
 
+.join_nclassnumber::placeholder {
+    color:#d2d2d2;
+    font-weight: 600;   
+}
+
+.join_nclassnumerror {
+    margin-top: 0.55rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: .9125rem;
+    font-weight: 700;
+    color: red;
+}
+
 .join_nlabel2 {
     margin-top: 2.25rem;
     width: 100%;
@@ -285,6 +266,20 @@ select {
     border-radius: 0.25rem;
 }
 
+.join_nname::placeholder {
+    color:#d2d2d2;
+    font-weight: 600;   
+}
+
+.join_nnameerror {
+    margin-top: 0.55rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: .9125rem;
+    font-weight: 700;
+    color: red;
+}
+
 .join_nlabelst {
     margin-top: 2.25rem;
     width: 100%;
@@ -307,6 +302,17 @@ select {
     padding: 0.5rem 2.5rem 0.5rem 0.875rem;
     border: 1px solid #d2d2d2;
     border-radius: 0.25rem;
+    color:#d2d2d2;
+    font-weight: 600;
+}
+
+.join_ndeperror {
+    margin-top: 0.55rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: .9125rem;
+    font-weight: 700;
+    color: red;
 }
 
 .join_nlabel3 {
@@ -333,6 +339,11 @@ select {
     border-radius: 0.25rem;
 }
 
+.join_npassword::placeholder {
+    color:#d2d2d2;
+    font-weight: 600;   
+}
+
 .join_ninput3_1 {
     margin-top: 10px;
     position: relative;
@@ -350,12 +361,18 @@ select {
     border-radius: 0.25rem;
 }
 
+.join_npasswordchk::placeholder {
+    color:#d2d2d2;
+    font-weight: 600;   
+}
+
 .join_npasswordchkerror {
-    margin-top: 2.25rem;
+    margin-top: 0.55rem;
     width: 100%;
     margin-bottom: 0.5rem;
     font-size: .9125rem;
     font-weight: 700;
+    color: red;
 }
 
 .join_nlabel4 {
@@ -381,6 +398,20 @@ select {
     padding: 0.5rem 2.5rem 0.5rem 0.875rem;
     border: 1px solid #d2d2d2;
     border-radius: 0.25rem;
+}
+
+.join_nnumber::placeholder {
+    color:#d2d2d2;
+    font-weight: 600;   
+}
+
+.join_ntelnumerror {
+    margin-top: 0.55rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: .9125rem;
+    font-weight: 700;
+    color: red;
 }
 
 .join_nbutton {
