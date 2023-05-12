@@ -1,22 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    font-size: 10px;
-}
-
-ul, li {
-    list-style: none;
-}
-
-a {
-    color: inherit !important;
-    text-decoration: none !important;
-  }
-  
-
 .board_wrap {
     width: 1000px;
     margin: 100px auto;

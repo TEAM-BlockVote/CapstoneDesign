@@ -4,8 +4,18 @@ import Viewvote from './Viewvote';
 import make from './make-vote.png';
 import set from './set-vote.png';
 
-const AdmainMain = () => {
-    const [content, setContent] = useState(null);
+const AdmainMain = (props) => {
+
+    const dataDummy = [{
+        title: "투표 1",
+        name: "전준호",
+        vote_type: " 찬반 투표 ",
+        start_date: "2023-03-05",
+        end_date: "2023-07-25",    
+      }]
+    
+    const [data, setData] = useState(props.data);
+    const [content, setContent] = useState('');
 
     const [notices, setNotices] = useState([]);
 
@@ -20,10 +30,11 @@ const AdmainMain = () => {
     function SetVoteClick() {
         setContent(<Viewvote notices={notices} />);
     }
+    console.log(notices)
     return (
         <div>
             <section className="vote-images bg-light text-center mt-5">
-                <div className="container">
+                <div className="container2">
                     <div className="row">
                         <div className="col-6">
                             <div className="vote-images-item mx-auto mb-5 mb-lg-0 mb-lg-3">
@@ -45,7 +56,6 @@ const AdmainMain = () => {
                 </div>
             </section>
             {content}
-            <Viewvote notices={notices} />
         </div>
     )
 }

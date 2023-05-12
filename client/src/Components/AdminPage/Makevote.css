@@ -1,10 +1,4 @@
-body {
-    background-color: #F7F7F7;
-    font-family: '나눔고딕', 'Nanum Gothic', sans-serif;
-    font-size: 14px;
-  }
-  
-  .container {
+  .containerAdmin {
     margin-top: 30px;
     margin-bottom: 30px;
     background-color: #fff;
@@ -13,19 +7,6 @@ body {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     padding: 20px;
   }
-  
-  h1 {
-    font-size: 36px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 30px;
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
   
   .btn-primary {
     background-color: #070707 !important;

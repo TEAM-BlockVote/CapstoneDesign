@@ -3,8 +3,7 @@ import "./Makevote.css";
 import Viewvote from './Viewvote';
 import VotePlus from './VotePlus';
 
-function Makevote({ notices, setNotices }) {
-
+function Makevote({ notices, setNotices, han }) {
 
   const [voteComponents, setVoteComponents] = useState([<VotePlus />]);
 
@@ -13,27 +12,37 @@ function Makevote({ notices, setNotices }) {
   };
 
   const handleRegister = () => {
-    const title = document.getElementsByName("title")[0].value;
-    const vote_type = document.getElementsByName("vote_type")[0].value;
-    const start_date = document.getElementsByName('start_date')[0].value;
-    const end_date = document.getElementsByName('end_date')[0].value;
-    setNotices(...notices, [{ title, vote_type, start_date, end_date }]);
+    // const title = document.getElementsByName("title")[0].value;
+    // const vote_type = document.getElementsByName("vote_type")[0].value;
+    // const start_date = document.getElementsByName('start_date')[0].value;
+    // const end_date = document.getElementsByName('end_date')[0].value;
+
+    const data = {
+      title: document.getElementsByName("title")[0].value,
+      vote_type: document.getElementsByName("vote_type")[0].value,
+      start_date: document.getElementsByName('start_date')[0].value,
+      end_date: document.getElementsByName('end_date')[0].value,
+    };
+
+    setNotices([data, ...notices]);
   };
 
   return (
     <div>
-      <div className="container">
+      <div className="containerAdmin">
         <div className="row">
+          <div className='mt-20 mb-30 text-center fw-bold fs-1'>
           <h1>투표 만들기</h1>
+          </div>          
           <hr />
           <div>
             <div className="form-group">
-              <label htmlFor="subject">투표 제목</label><br />
+              <label htmlFor="subject fw-bold">투표 제목</label><br />
               <input type="text" className="form-control2 col-12" name="title"  />
             </div>
             <br />
             <div className="form-group">
-              <label htmlFor="vote_type">투표 유형:</label><br />
+              <label htmlFor="vote_type fw-bold">투표 유형:</label><br />
               <select className="form-control2 col-12 require" name="vote_type" required>
                 <option value="">투표 유형 선택</option>
                 <option value="찬반 투표">찬반 투표</option>
@@ -42,7 +51,7 @@ function Makevote({ notices, setNotices }) {
             </div>
             <br />
             <div className='form-group'>
-              <label htmlFor="vote_date">투표 기간</label><br />
+              <label htmlFor="vote_date fw-bold">투표 기간</label><br />
               <input type='date' name='start_date'></input>
               -
               <input type='date' name='end_date'></input>
@@ -61,9 +70,6 @@ function Makevote({ notices, setNotices }) {
               <button type="button" className="btn btn-dark btn-lg btn-block col-1" onClick={handleRegister}>등록</button>
             </div>
           </div>
-          {notices.map((notice, index) => (
-            <Viewvote key={index} title={notice.title} vote_type={notice.vote_type} start_date={notice.start_date} end_date={notice.end_date} />
-          ))}
         </div>
       </div>
     </div>

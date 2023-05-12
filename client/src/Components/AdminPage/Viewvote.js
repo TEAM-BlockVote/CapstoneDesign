@@ -4,6 +4,8 @@ import './css.css';
 
 function Viewvote({notices}) {
 
+    console.log(notices);
+
     return (
         <div>
             {notices && notices.map((notice, index) => (
