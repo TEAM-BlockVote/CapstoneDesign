@@ -1,11 +1,12 @@
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.css';
-import Main from './Components/Main/Main';
+import router from "./Router/RoutePath";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
 
   return (
-    <Main/>
+    <RouterProvider router={router}/>
   );
   
 }

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Header from "./Header";
 import HorizonLine from './HorizonLine';
 import './Main.css';
 
@@ -22,7 +21,6 @@ const Main = () => {
   };
   return (
     <>
-      <Header/>
       <div className="main_content_wrapper">
         <div className="main_content">
           <div className="banner">
