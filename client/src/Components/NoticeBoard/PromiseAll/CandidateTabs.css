@@ -1,0 +1,20 @@
+.candi-nav-tabs {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.candi-nav-item {
+  display: inline-block;
+}
+
+.candi-nav-link {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  cursor: pointer;
+}
+
+.candi-nav-link.active {
+  background-color: #fff;
+  border-color: #ccc #ccc #fff;
+}

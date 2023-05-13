@@ -1,15 +1,15 @@
 import React from "react";
-import "./Post3.css"; // 새로운 CSS 파일을 import합니다.
+import "./Post3.css"; 
 
 import PromiseTabs from "../PromiseAll/PromiseTabs.jsx";
 import WriteButton from "../WriteAll/WriteButton.jsx";
-import Pagination from "../TableAll/Pagination.jsx";
+
 
 function Post3() {
   return (
-    <div className="post3-container"> {/* 클래스 이름을 추가합니다. */}
+    <div className="qna-post3-container"> 
       <h1>게시글 제목</h1>
-      <div className="post3-info"> {/* 클래스 이름을 추가합니다. */}
+      <div className="qna-post3-info"> 
         <p>작성자: 이서진</p>
         <p>작성일: 2023.5.5 / 조회수: 3</p>
       </div>

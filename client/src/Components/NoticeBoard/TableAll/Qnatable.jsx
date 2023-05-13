@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Qnatable.css";
+
 
 function Qnatable() {
   const writer = [
@@ -13,74 +14,91 @@ function Qnatable() {
     },
     {
       no: 2222,
-      title: "제목2",
-      name: "이름2",
-      date: "2023.5.9",
-      view: 120,
+      title: "안녕하세여",
+      name: "전주노",
+      date: "2023.5.8",
+      view: 80,
     },
     {
       no: 2223,
-      title: "제목3",
-      name: "이름3",
-      date: "2023.5.10",
-      view: 50,
+      title: "안녕하세여",
+      name: "전주노",
+      date: "2023.5.8",
+      view: 80,
     },
     {
       no: 2224,
-      title: "제목4",
-      name: "이름4",
-      date: "2023.5.11",
-      view: 90,
+      title: "안녕하세여",
+      name: "전주노",
+      date: "2023.5.8",
+      view: 80,
     },
     {
       no: 2225,
       title: "제목5",
       name: "이름5",
       date: "2023.5.12",
-      view: 200,
-    },
-    {
-      no: 2226,
-      title: "제목6",
-      name: "이름6",
-      date: "2023.5.13",
-      view: 30,
-    },
+      view: 120,
+    }
   ];
 
+  const [activePage, setActivePage] = useState(1);
+
+  const handleClick = (pageNumber) => {
+    setActivePage(pageNumber);
+  };
+
   return (
-    <table className="qnatable-table">
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>날짜</th>
-          <th>조회수</th>
-        </tr>
-      </thead>
-      <tbody className="table-body qnatable-table">
-        {writer.map((item) => (
-          <tr key={item.no}>
-            <td>{item.no}</td>
-            <td>
-              <Link to={`/post/${item.no}`}>
-                {item.title}
-              </Link>
-            </td>
-            <td>{item.name}</td>
-            <td>{item.date}</td>
-            <td>{item.view}</td>
+    <>
+      <table className="qnatable-table">
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>날짜</th>
+            <th>조회수</th>
           </tr>
-        ))}
-      </tbody>
-      <tr>
-        <td colSpan="5">
-          <hr />
-        </td>
-      </tr>
-    </table>
+        </thead>
+        <tbody className="table-body qnatable-table">
+          {writer.map((item) => (
+            <tr key={item.no}>
+              <td>{item.no}</td>
+              <td>
+                <Link to={`/post/${item.no}`}>
+                  {item.title}
+                </Link>
+              </td>
+              <td>{item.name}</td>
+              <td>{item.date}</td>
+              <td>{item.view}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tr>
+          <td colSpan="5">
+            <hr />
+          </td>
+        </tr>
+      </table>
+
+      <div className="qna-pageCh">
+        <nav aria-label="qna-pageChange">
+          <ul className="qna-pagination">
+            <li className={`qna-page-item ${activePage === 1 ? 'disabled' : ''}`}>
+              <a className="qna-page-link" href="javascript:void(0)" onClick={() => handleClick(activePage - 1)}>Previous</a>
+            </li>
+            <li className={`qna-page-item ${activePage === 1 ? 'active' : ''}`}><a className="page-link" href="javascript:void(0)" onClick={() => handleClick(1)}>1</a></li>
+            <li className={`qna-page-item ${activePage === 2 ? 'active' : ''}`}><a className="page-link" href="javascript:void(0)" onClick={() => handleClick(2)}>2</a></li>
+            <li className={`qna-page-item ${activePage === 3 ? 'active' : ''}`}><a className="page-link" href="javascript:void(0)" onClick={() => handleClick(3)}>3</a></li>
+            <li className={`qna-page-item ${activePage === 3 ? 'disabled' : ''}`}>
+              <a className="qna-page-link" href="javascript:void(0)" onClick={() => handleClick(activePage + 1)}>Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </>
   );
 }
 
-export default Qnatable
+export default Qnatable;

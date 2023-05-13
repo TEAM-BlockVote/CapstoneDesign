@@ -5,7 +5,7 @@ import "./WriteButton.css";
 function WriteButton() {
   return (
     <div >
-      <Link to="/WritingForm" className="btn btn-default btn-sm" >글 작성하기</Link>
+      <Link to="/WritingForm" className="btn btn-default btn-write" >글 작성하기</Link>
     </div>
   );
 }

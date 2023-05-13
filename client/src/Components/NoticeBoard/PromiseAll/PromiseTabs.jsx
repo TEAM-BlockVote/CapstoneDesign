@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PromiseNum from './PromiseNum';
 
+
 function PromiseTabs() {
-  const [activeIndex, setActiveIndex] = useState(0); // 현재 활성화된 버튼 index
+  const [activeIndex, setActiveIndex] = useState(0); 
   const [promises, setPromises] = useState([
     [
       "1번 공약: 더 좋은 대학교를 만들겠습니다.",
