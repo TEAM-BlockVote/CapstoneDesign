@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function CandidateTabs() {
+function CandidateTabs(props) {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabClick = (index) => {
@@ -9,25 +9,17 @@ function CandidateTabs() {
 
   return (
     <>
-    <ul className="nav nav-tabs" style={{ width: '70%', margin: '0 auto' }}>
-      <li className="nav-item">
-        <a className={`nav-link ${activeTab === 0 ? 'active' : ''}`} href="javascript:void(0)" onClick={() => handleTabClick(0)}>
-          후보자 1
-        </a>
-      </li>
-      <li className="nav-item">
-        <a className={`nav-link ${activeTab === 1 ? 'active' : ''}`} href="javascript:void(0)" onClick={() => handleTabClick(1)}>
-          후보자 2
-        </a>
-      </li>
-      <li className="nav-item">
-        <a className={`nav-link ${activeTab === 2 ? 'active' : ''}`} href="javascript:void(0)" onClick={() => handleTabClick(2)}>
-          후보자 3
-        </a>
-      </li>
-    </ul>
-   <br />
-   <br />
+      <ul className="nav nav-tabs" style={{ width: '70%', margin: '0 auto' }}>
+        {props.candidates && props.candidates.map((candidate, index) => (
+          <li className="nav-item" key={index}>
+            <a className={`nav-link ${activeTab === index ? 'active' : ''}`} href="javascript:void(0)" onClick={() => handleTabClick(index)}>
+              {candidate.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <br />
+      <br />
     </>
   );
 }

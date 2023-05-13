@@ -1,0 +1,16 @@
+.qnatable-table {
+    width: 70%;
+    height: 500px;
+    margin: auto;
+    vertical-align: middle;
+    border-collapse: collapse;
+  }
+  
+  .table-body.qnatable-table {
+    text-decoration: none;
+  }
+  
+  .table-body.qnatable-table > tr {
+    border-top: 1px solid #ccc;
+  }
+  

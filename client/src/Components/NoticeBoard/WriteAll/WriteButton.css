@@ -1,0 +1,16 @@
+.WriteButton {
+  text-align: right;
+}
+
+.WriteButton > a {
+  display: inline-block;
+  border: 1px solid #ccc;
+  width: 100px;
+  margin-left: 10px;
+}
+
+.btn.btn-default.btn-sm {
+  border: 1px solid #ccc;
+  width: 100px;
+  margin-right: 0px;
+}

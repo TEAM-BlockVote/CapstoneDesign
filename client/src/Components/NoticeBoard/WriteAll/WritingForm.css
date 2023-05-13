@@ -1,0 +1,23 @@
+.qna-write-form__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qna-write-form__label {
+  display: flex;
+  align-items: center;
+}
+
+.qna-form__input {
+  width: 400px;
+}
+
+.qna-write-form__textarea {
+  width: 900px;
+  height: 200px;
+}
+
+.qna-write-form__button {
+  margin-top: 1rem;
+}
