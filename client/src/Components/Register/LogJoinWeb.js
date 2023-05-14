@@ -1,5 +1,5 @@
 import React from 'react';
-import "./LogJoinWeb.css";
+
 import {NavLink} from 'react-router-dom';
 
 export default function LogJoinWeb() {
@@ -26,8 +26,7 @@ export default function LogJoinWeb() {
                             <div className='login_form'>
                                 <div className='login_join'>
                                     <div className='login_formtop'>
-                                        <NavLink to='/' className='login_topjoin'>로그인</NavLink>
-                                        <NavLink to='/LogJoinWeb' className='login_toplogin'>회원가입</NavLink>
+                                        
                                     </div>
                                     <div className='login_formbottom'>
                                         <NavLink to='/JoinNormalWeb'>

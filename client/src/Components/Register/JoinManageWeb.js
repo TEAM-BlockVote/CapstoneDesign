@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import "./JoinManageWeb.css";
+
 import {NavLink} from 'react-router-dom';
 import JoinCompClassNum from './JoinCompClassNum';
 import JoinCompManager from './JoinCompManager';
@@ -95,8 +95,7 @@ export default function JoinManageWeb() {
                             <div className='join_form'>
                                 <div className='join_manage'>
                                     <div className='join_formtop'>
-                                        <NavLink to='/JoinNormalWeb' className='join_topmanage'>일반 회원가입</NavLink>
-                                        <NavLink to='/JoinManageWeb' className='join_topnormal'>관리자 회원가입</NavLink>
+                                        
                                     </div>
                                     <div className='join_formbottom'>
                                     <div className='join_mlabel1'>

@@ -24,6 +24,10 @@ app.get("/api", (req, res) => {
   })
 });
 
+app.get('/test', (req, res, next) => {
+  console.log(req.body);
+})
+
 app.get("/api22", (req, res) => {
   const sql = 'select id from user';
   pool.query(sql, (err, results, fields) => {
