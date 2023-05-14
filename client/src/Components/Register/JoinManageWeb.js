@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 
-import {NavLink} from 'react-router-dom';
 import JoinCompClassNum from './JoinCompClassNum';
 import JoinCompManager from './JoinCompManager';
 import JoinCompAgency from './JoinCompAgency';
