@@ -1,0 +1,19 @@
+.future-wrapper {
+  display: flex; 
+}
+
+.future-info {
+  background-color: #f8f9fc;
+  border: 10px #ffffff solid;
+  padding: 3rem 2rem;
+  width: 33.33%;
+}
+
+.future-img {
+  width: 50px;
+}
+
+.future-title {
+  color: #5ebabc;
+  margin: 1rem 0;
+}

@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import seoilLogo from '../Main/images/seoilBlue.png';
 
 const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">LOGO</Link>
+      <div className="container-md">
+        <Link className="navbar-brand" to="/"><img  style={{width:50+'px', height: 50+'px'}} src={seoilLogo} alt="seoilLogo"/></Link>
         <button
           className="navbar-toggler"
           type="button"
