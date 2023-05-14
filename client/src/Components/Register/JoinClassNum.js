@@ -1,4 +1,4 @@
-function JoinCompClassNum(userClassNum) {
+function JoinClassNum(userClassNum) {
     if (!userClassNum) {
         return "학번을 입력하세요.";
     }
@@ -9,4 +9,4 @@ function JoinCompClassNum(userClassNum) {
     
     return null;
 }
-export default JoinCompClassNum;
+export default JoinClassNum;

@@ -1,0 +1,62 @@
+.qna-write-form__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.qna-write-form__label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.qna-write-form__label > label {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.qna-form__input
+ {
+  width: 500px;
+  border: none;
+  border-bottom: 2px solid #c4c4c4;
+  padding: 0.5rem 0;
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  resize: none;
+}
+.qna-write-form__textarea {
+  width: 800px;
+  height: 300px;
+  padding: 0.5rem 0;
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  resize: none;
+}
+
+.qna-form__input:focus,
+.qna-write-form__textarea:focus {
+  outline: none;
+  border-bottom: 2px solid #2c3e50;
+}
+
+
+
+.qna-write-form__button {
+  width: 40%;
+  border: none;
+  background-color: #2c3e50;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.qna-write-form__button:hover {
+  background-color: #34495e;
+ 
+}

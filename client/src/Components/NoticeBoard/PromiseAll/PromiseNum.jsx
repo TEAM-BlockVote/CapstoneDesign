@@ -1,13 +1,20 @@
 import React from 'react';
+import "./PromiseNum.css";
 
-function PromiseNum() {
-return (
-<div className="card" style={{width: "70%", margin: "auto"}}>
-<div className="card-body">
-1번 공약: 더 좋은 대학교를 만들겠습니다.
-</div>
-</div>
-);
+function PromiseNum({ promise }) {
+  return (
+    <div className="promise-num">
+      {promise.map((p, index) => (
+        <div className="promise-card"  key={index}>
+          <div className="promise-card-body">
+            {p}
+          </div>
+        </div>
+      ))}
+      <br />
+      <br />
+    </div>
+  );
 }
 
 export default PromiseNum;

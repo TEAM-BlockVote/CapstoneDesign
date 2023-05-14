@@ -1,4 +1,4 @@
-function JoinCompName (userName) {
+function JoinName (userName) {
     if (!userName) {
         return "이름을 입력하세요.";
     }
@@ -10,4 +10,4 @@ function JoinCompName (userName) {
 
     return null;
 }
-export default JoinCompName;
+export default JoinName;
