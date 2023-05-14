@@ -1,12 +1,12 @@
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.css';
-
-import SignIn from "./Components/Register/SignIn";
+import router from "./Router/RoutePath";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
 
   return (
-    <SignIn/>
+    <RouterProvider router={router}/>
   );
   
 }

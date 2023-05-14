@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "./SignIn.css";
-import "./JoinNormalWeb.css"
-import JoinPage from './JoinCompPage';
+import JoinPage from './JoinPage';
 
 export default function SignIn() {
 

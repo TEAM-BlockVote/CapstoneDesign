@@ -1,4 +1,4 @@
-function JoinCompTel (userTelNum) {
+function JoinTel (userTelNum) {
     if (!userTelNum) {
         return "전화번호를 입력하세요.";
     }
@@ -14,4 +14,4 @@ function JoinCompTel (userTelNum) {
 
     return null;
 }
-export default JoinCompTel;
+export default JoinTel;

@@ -1,4 +1,4 @@
-function JoinCompPassword(userPass, userPassChk) {
+function JoinPassword(userPass, userPassChk) {
     if (userPass !== userPassChk) {
         return "비밀번호가 일치하지 않습니다.";
     }
@@ -14,4 +14,4 @@ function JoinCompPassword(userPass, userPassChk) {
 
     return null;
 }
-export default JoinCompPassword; 
+export default JoinPassword; 

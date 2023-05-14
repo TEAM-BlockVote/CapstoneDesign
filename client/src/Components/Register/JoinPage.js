@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import JoinCompClassNum from './JoinCompClassNum';
-import JoinCompName from './JoinCompName';
-import JoinCompDep from './JoinCompDep';
-import JoinCompPassword from './JoinCompPassword';
-import JoinCompTel from './JoinCompTel';
+import JoinClassNum from './JoinClassNum';
+import JoinName from './JoinName';
+import JoinDep from './JoinDep';
+import JoinPassword from './JoinPassword';
+import JoinTel from './JoinTel';
+import "./JoinPage.css";
 
 function JoinPage() {
     const [userClassNum, setClassNum] = useState("");
@@ -18,37 +19,38 @@ function JoinPage() {
     const [userTelNum, setTelNum] = useState("");
     const [userTelNumError, setTelNumError] = useState("");
 
-    const NormalJoinSubmit = (event) => {
+    const JoinSubmit = (event) => {
         event.preventDefault();
-        const error1 = JoinCompClassNum(userClassNum);
+        
+        const error1 = JoinClassNum(userClassNum);
         if (error1) {
             setClassNumError(error1);
         } else {
             setClassNumError("");
         }
 
-        const error2 = JoinCompName(userName);
+        const error2 = JoinName(userName);
         if (error2) {
             setNameError(error2);
         } else {
             setNameError("")
         }
 
-        const error3 = JoinCompDep(userDep);
+        const error3 = JoinDep(userDep);
         if (error3) {
             setDepError(error3);
         } else {
             setDepError("");
         }
 
-        const error4 = JoinCompPassword(userPass, userPassChk)
+        const error4 = JoinPassword(userPass, userPassChk)
         if (error4) {
             setPasswordError(error4);
         } else {
             setPasswordError("");
         }
 
-        const error5 = JoinCompTel(userTelNum)
+        const error5 = JoinTel(userTelNum)
         if (error5) {
             setTelNumError(error5);
         } else {
@@ -58,7 +60,7 @@ function JoinPage() {
         return alert("회원가입이 완료되었습니다.");
     }
     return (
-        <form className='login_formbottom' onSubmit={NormalJoinSubmit} action='get' method='/test'>
+        <form className='login_formbottom' onSubmit={JoinSubmit} action='get' method='/test'>
             <div className='join_nlabel1'>
                 학번
             </div>

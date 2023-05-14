@@ -4,8 +4,7 @@ import Main from '../Components/Main/Main';
 import NoticeHome from "../Components/NoticeBoard/HomePage/NoticeHome";
 import RootLayout from "../Components/Main/RootLayout";
 
-import LogJoinWeb from "../Components/Register/LogJoinWeb";
-import JoinManageWeb from "../Components/Register/JoinManageWeb";
+import SignIn from "../Components/Register/SignIn";
 import Post1 from "../Components/NoticeBoard/Posted/Post1"
 import Post2 from "../Components/NoticeBoard/Posted/Post2"
 import Post3 from "../Components/NoticeBoard/Posted/Post3"
@@ -19,8 +18,7 @@ const router = createBrowserRouter([
     children: [
       {path: '/', element: <Main/>},
       {path: '/notice', element: <NoticeHome/>},
-      {path: '/signUp', element: <LogJoinWeb/>},
-      {path: '/test2', element: <JoinManageWeb/>},
+      {path: '/signIn', element: <SignIn/>},
       {path: '/post1', element: <Post1/>},
       {path: '/post2', element: <Post2/>},
       {path: '/post3', element: <Post3/>},
