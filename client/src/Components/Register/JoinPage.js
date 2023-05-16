@@ -21,46 +21,46 @@ function JoinPage() {
 
     const JoinSubmit = (event) => {
         event.preventDefault();
-        
+
         const error1 = JoinClassNum(userClassNum);
         if (error1) {
-            setClassNumError(error1);
+            return setClassNumError(error1);
         } else {
             setClassNumError("");
         }
 
         const error2 = JoinName(userName);
         if (error2) {
-            setNameError(error2);
+            return setNameError(error2);
         } else {
             setNameError("")
         }
 
         const error3 = JoinDep(userDep);
         if (error3) {
-            setDepError(error3);
+            return setDepError(error3);
         } else {
             setDepError("");
         }
 
         const error4 = JoinPassword(userPass, userPassChk)
         if (error4) {
-            setPasswordError(error4);
+            return setPasswordError(error4);
         } else {
             setPasswordError("");
         }
 
         const error5 = JoinTel(userTelNum)
         if (error5) {
-            setTelNumError(error5);
+            return setTelNumError(error5);
         } else {
             setTelNumError("");
         }
 
-        return alert("회원가입이 완료되었습니다.");
+        event.target.submit('join');
     }
     return (
-        <form className='login_formbottom' onSubmit={JoinSubmit} action='get' method='/test'>
+        <form id='join' className='login_formbottom' onSubmit={JoinSubmit} action='/SignUp' method='post'>
             <div className='join_nlabel1'>
                 학번
             </div>
