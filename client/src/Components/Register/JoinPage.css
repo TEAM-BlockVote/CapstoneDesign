@@ -180,7 +180,7 @@
     margin: auto;
     background: #f4f4f4;
     font-weight: 600;
-    color:black;
+    color: black;
     cursor: pointer;
     text-decoration: none;
 }
@@ -229,8 +229,8 @@
 }
 
 .join_nclassnumber::placeholder {
-    color:#d2d2d2;
-    font-weight: 600;   
+    color: #d2d2d2;
+    font-weight: 600;
 }
 
 .join_nclassnumerror {
@@ -267,8 +267,8 @@
 }
 
 .join_nname::placeholder {
-    color:#d2d2d2;
-    font-weight: 600;   
+    color: #d2d2d2;
+    font-weight: 600;
 }
 
 .join_nnameerror {
@@ -302,7 +302,7 @@
     padding: 0.5rem 2.5rem 0.5rem 0.875rem;
     border: 1px solid #d2d2d2;
     border-radius: 0.25rem;
-    color:#000000;
+    color: #000000;
     font-weight: 600;
 }
 
@@ -340,8 +340,8 @@
 }
 
 .join_npassword::placeholder {
-    color:#d2d2d2;
-    font-weight: 600;   
+    color: #d2d2d2;
+    font-weight: 600;
 }
 
 .join_ninput3_1 {
@@ -362,8 +362,8 @@
 }
 
 .join_npasswordchk::placeholder {
-    color:#d2d2d2;
-    font-weight: 600;   
+    color: #d2d2d2;
+    font-weight: 600;
 }
 
 .join_npasswordchkerror {
@@ -401,8 +401,8 @@
 }
 
 .join_nnumber::placeholder {
-    color:#d2d2d2;
-    font-weight: 600;   
+    color: #d2d2d2;
+    font-weight: 600;
 }
 
 .join_ntelnumerror {
