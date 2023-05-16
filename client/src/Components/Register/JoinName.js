@@ -1,4 +1,4 @@
-function JoinName(userName) {
+function JoinName (userName) {
     if (!userName) {
         return "이름을 입력하세요.";
     }
