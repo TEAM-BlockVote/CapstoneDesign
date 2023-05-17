@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import "./SignIn.css";
 import JoinPage from './JoinPage';
 import LoginPage from './LoginPage';
+import AuthContext from '../../Store/auth-context';
 
 export default function SignIn() {
 
-    const [selectedTab, setSelectedTab] = useState(<LoginTab/>);
+    const [selectedTab, setSelectedTab] = useState(<LoginPage/>);
     const [activeIndex, setActiveIndex] = useState(0);
+    const ctx = useContext(AuthContext);
 
     const handleTabClick = (tab, index) => {
         setSelectedTab(tab);
         setActiveIndex(index);
     };
+
     return (
         <div className='sign_site'>
             <div className='sign_header'>
@@ -34,8 +37,8 @@ export default function SignIn() {
                         <div className='sign_form'>
                             <div className='sign_contents'>
                                 <ul className='sign_formtop'>
-                                    <li className={activeIndex === 0 ? 'sign_tab active' : 'sign_tab'} onClick={() => handleTabClick(<LoginTab />, 0)}>로그인</li>
-                                    <li className={activeIndex === 1 ? 'sign_tab active' : 'sign_tab'} onClick={() => handleTabClick(<JoinTab />, 1)}>회원가입</li>
+                                    <li className={activeIndex === 0 ? 'sign_tab active' : 'sign_tab'} onClick={() => handleTabClick(<LoginPage/>, 0)}>로그인</li>
+                                    <li className={activeIndex === 1 ? 'sign_tab active' : 'sign_tab'} onClick={() => handleTabClick(<JoinPage />, 1)}>회원가입</li>
                                 </ul>
                                 {selectedTab}
                             </div>
@@ -46,16 +49,4 @@ export default function SignIn() {
             <div className='sign_footer'></div>
         </div>
     );
-}
-
-const LoginTab = () => {
-
-    return (
-        <LoginPage/>
-    );
-}
-const JoinTab = () => {
-    return (
-        <JoinPage/>
-    );
-}
+};
