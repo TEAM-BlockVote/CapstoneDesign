@@ -31,7 +31,7 @@ function LoginPage() {
   }
 
   return (
-    <form className='sign_formbottom' onSubmit={LoginSubmit} action='/login' method='post'>
+    <form className='sign_formbottom' onSubmit={LoginSubmit} action='/auth/localLogin' method='post'>
       <div className='login_labelstart'>
         학번
       </div>

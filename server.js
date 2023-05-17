@@ -2,18 +2,35 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const app = express();
+
+
 dotenv.config();
-const pool = require('./server/Router/pool');
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
 app.set('port', process.env.PORT || 5000);
 app.use(cors());
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('passport');
+const pool = require('./server/Router/pool');
+const authRouter = require('./routes/auth');
+const passportConfig = require('./passport');
 
-app.get('/', (req, res) => {
-  res.send({ test: "hi" });
-});
+passportConfig();
+app.use(express.json()); // 제아슨 요청
+app.use(express.urlencoded({ extended: true})); //폼요청
+app.use(cookieParser(process.env.COOKIE_SECRET)); //세션쿠키객체.
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  }
+}));
+app.use(passport.initialize()); //로그인에 필요한 객체 자동 생성.
+app.use(passport.session()); //connect.sid 라는 이르으로 세션 쿠기가 브라우저로 전송.
+
+app.use('/auth', authRouter);
 
 app.get("/api", (req, res) => {
   const sql = 'select * from user';
