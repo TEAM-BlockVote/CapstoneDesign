@@ -24,123 +24,124 @@ function JoinPage() {
         
         const error1 = JoinClassNum(userClassNum);
         if (error1) {
-            setClassNumError(error1);
+            return setClassNumError(error1);
         } else {
             setClassNumError("");
         }
 
         const error2 = JoinName(userName);
         if (error2) {
-            setNameError(error2);
+            return setNameError(error2);
         } else {
             setNameError("")
         }
 
         const error3 = JoinDep(userDep);
         if (error3) {
-            setDepError(error3);
+            return setDepError(error3);
         } else {
             setDepError("");
         }
 
         const error4 = JoinPassword(userPass, userPassChk)
         if (error4) {
-            setPasswordError(error4);
+            return setPasswordError(error4);
         } else {
             setPasswordError("");
         }
 
         const error5 = JoinTel(userTelNum)
         if (error5) {
-            setTelNumError(error5);
+            return setTelNumError(error5);
         } else {
             setTelNumError("");
         }
 
+        event.target.submit();
         return alert("회원가입이 완료되었습니다.");
     }
     return (
-        <form className='login_formbottom' onSubmit={JoinSubmit} action='get' method='/test'>
-            <div className='join_nlabel1'>
+        <form className='sign_formbottom' onSubmit={JoinSubmit} action='/signup' method='post'>
+            <div className='join_labelstart'>
                 학번
             </div>
-            <div className='join_ninput1'>
-                <input id='nclassnumber' name='nclassnumber' className='join_nclassnumber' type='text' maxLength={9} value={userClassNum} onChange={(e) => setClassNum(e.target.value)} placeholder='학번을 입력하세요.'></input>
+            <div className='join_div'>
+                <input id='studentNumber' name='studentNumber' className='join_input' type='text' maxLength={9} value={userClassNum} onChange={(e) => setClassNum(e.target.value)} placeholder='학번을 입력하세요.'></input>
             </div>
-            <div className='join_nclassnumerror'>
+            <div className='join_error'>
                 {userClassNumError && <div>{userClassNumError}</div>}
             </div>
-            <div className='join_nlabel2'>
+            <div className='join_label'>
                 이름
             </div>
-            <div className='join_ninput2'>
-                <input id='nname' name='nname' className='join_nname' type='text' maxLength={20} value={userName} onChange={(e) => setName(e.target.value)} placeholder='이름을 입력하세요.'></input>
+            <div className='join_div'>
+                <input id='name' name='name' className='join_input' type='text' maxLength={20} value={userName} onChange={(e) => setName(e.target.value)} placeholder='이름을 입력하세요.'></input>
             </div>
-            <div className='join_nnameerror'>
+            <div className='join_error'>
                 {userNameError && <div>{userNameError}</div>}
             </div>
-            <div className='join_nlabelst'>
+            <div className='join_label'>
                 학과
             </div>
-            <div className='join_nselect'>
-                <select name='ndep' className='join_ndep' value={userDep} onChange={(e) => setDep(e.target.value)} requir='true'>
-                    <option value="ndep0" >학과를 선택하세요.</option>
-                    <option value="ndep1">컴퓨터전자공학과</option>
-                    <option value="ndep2">전기공학과</option>
-                    <option value="ndep3">정보통신공학과</option>
-                    <option value="ndep4">소프트웨어공학과</option>
-                    <option value="ndep5">디지털트윈엘리베이터학과</option>
-                    <option value="ndep6">AI융합콘텐츠학과</option>
-                    <option value="ndep7">건축과</option>
-                    <option value="ndep8">생명화학공학과</option>
-                    <option value="ndep9">건설시스템공학과</option>
-                    <option value="ndep10">스마트자동차공학과</option>
-                    <option value="ndep11">간호학과</option>
-                    <option value="ndep12">식품영양학과</option>
-                    <option value="ndep13">사회복지학과</option>
-                    <option value="ndep14">레저스포츠학과</option>
-                    <option value="ndep15">비즈니스영어과</option>
-                    <option value="ndep16">비즈니스일본어과</option>
-                    <option value="ndep17">비즈니스중국어과</option>
-                    <option value="ndep18">스마트경영학과</option>
-                    <option value="ndep19">자산법률학과</option>
-                    <option value="ndep20">미디어출판학과</option>
-                    <option value="ndep21">세무회계학과</option>
-                    <option value="ndep22">패션산업학과</option>
-                    <option value="ndep23">생활가구디자인학과</option>
-                    <option value="ndep24">실내디자인학과</option>
-                    <option value="ndep25">VMD&전시디자인학과</option>
-                    <option value="ndep26">영화방송공연예술학과</option>
-                    <option value="ndep27">웹툰스토리텔링학과</option>
-                    <option value="ndep28">유아교육학과</option>
-                    <option value="ndep29">커뮤니케이션디자인학과</option>
+            <div className='join_div'>
+                <select id='dep' name='dep' className='join_select' value={userDep} onChange={(e) => setDep(e.target.value)} requir='true'>
+                    <option value="join_dep0" >학과를 선택하세요.</option>
+                    <option value="컴퓨터전자공학과">컴퓨터전자공학과</option>
+                    <option value="전기공학과">전기공학과</option>
+                    <option value="정보통신공학과">정보통신공학과</option>
+                    <option value="소프트웨어공학과">소프트웨어공학과</option>
+                    <option value="디지털트윈엘리베이터학과">디지털트윈엘리베이터학과</option>
+                    <option value="AI융합콘텐츠학과">AI융합콘텐츠학과</option>
+                    <option value="건축과">건축과</option>
+                    <option value="생명화학공학과">생명화학공학과</option>
+                    <option value="건설시스템공학과">건설시스템공학과</option>
+                    <option value="스마트자동차공학과">스마트자동차공학과</option>
+                    <option value="간호학과">간호학과</option>
+                    <option value="식품영양학과">식품영양학과</option>
+                    <option value="사회복지학과">사회복지학과</option>
+                    <option value="레저스포츠학과">레저스포츠학과</option>
+                    <option value="비즈니스영어과">비즈니스영어과</option>
+                    <option value="비즈니스일본어과">비즈니스일본어과</option>
+                    <option value="비즈니스중국어과">비즈니스중국어과</option>
+                    <option value="스마트경영학과">스마트경영학과</option>
+                    <option value="자산법률학과">자산법률학과</option>
+                    <option value="미디어출판학과">미디어출판학과</option>
+                    <option value="세무회계학과">세무회계학과</option>
+                    <option value="패션산업학과">패션산업학과</option>
+                    <option value="생활가구디자인학과">생활가구디자인학과</option>
+                    <option value="실내디자인학과">실내디자인학과</option>
+                    <option value="VMD&전시디자인학과">VMD&전시디자인학과</option>
+                    <option value="영화방송공연예술학과">영화방송공연예술학과</option>
+                    <option value="웹툰스토리텔링학과">웹툰스토리텔링학과</option>
+                    <option value="유아교육학과">유아교육학과</option>
+                    <option value="커뮤니케이션디자인학과">커뮤니케이션디자인학과</option>
                 </select>
             </div>
-            <div className='join_ndeperror'>
+            <div className='join_error'>
                 {userDepError && <div>{userDepError}</div>}
             </div>
-            <div className='join_nlabel3'>
+            <div className='join_label'>
                 비밀번호
             </div>
-            <div className='join_ninput3'>
-                <input id='npassword' name='npassword' className='join_npassword' type='password' maxLength={20} value={userPass} onChange={(e) => setPass(e.target.value)} placeholder='비밀번호를 입력하세요.'></input>
+            <div className='join_div'>
+                <input id='password' name='password' className='join_input' type='password' maxLength={20} value={userPass} onChange={(e) => setPass(e.target.value)} placeholder='비밀번호를 입력하세요.'></input>
             </div>
-            <div className='join_ninput3_1'>
-                <input id='npasswordchk' name='npasswordchk' className='join_npasswordchk' type='password' maxLength={20} value={userPassChk} onChange={(e) => setPassChk(e.target.value)} placeholder='비밀번호를 확인하세요.'></input>
+            <div className='join_div'>
+                <input id='passwordchk' name='passwordchk' className='join_passchk' type='password' maxLength={20} value={userPassChk} onChange={(e) => setPassChk(e.target.value)} placeholder='비밀번호를 확인하세요.'></input>
             </div>
-            <div className='join_npasswordchkerror'>
+            <div className='join_error'>
                 {userPasswordError && <div>{userPasswordError}</div>}
             </div>
-            <div className='join_nlabel4'>
+            <div className='join_label'>
                 전화번호
             </div>
-            <div className='join_ninput4'>
-                <input name='nnumber' className='join_nnumber' type='tel' maxLength={11} value={userTelNum} onChange={(e) => setTelNum(e.target.value)} placeholder='전화번호를 입력하세요.'></input>
+            <div className='join_div'>
+                <input id='telNumber' name='telNumber' className='join_input' type='tel' maxLength={11} value={userTelNum} onChange={(e) => setTelNum(e.target.value)} placeholder='전화번호를 입력하세요.'></input>
             </div>
-            <div className='join_ntelnumerror'>
+            <div className='join_error'>
                 {userTelNumError && <div>{userTelNumError}</div>}
             </div>
-            <button type='submit' className='join_nbutton'>회원가입</button>
+            <button type='submit' className='join_button'>회원가입</button>
         </form>
     )
 }
