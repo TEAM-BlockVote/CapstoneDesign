@@ -26,20 +26,7 @@ function Qnatable() {
       date: "2023.5.8",
       view: 80,
     },
-    {
-      no: 4,
-      title: "안녕하세여",
-      name: "전주노",
-      date: "2023.5.8",
-      view: 80,
-    },
-    {
-      no: 5,
-      title: "제목5",
-      name: "이름5",
-      date: "2023.5.12",
-      view: 120,
-    }
+
   ];
 
   const [activePage, setActivePage] = useState(1);
@@ -62,19 +49,19 @@ function Qnatable() {
         </thead>
         <tbody className="table-body qnatable-table">
           {writer.map((item) => (
-            <tr key={item.no}>
-              <td>{item.no}</td>
-              <td>
+             <tr key={item.no}>
+               <td>{item.no}</td>
+               <td>
                 <Link to={`/post/${item.no}`}>
-                  {item.title}
-                </Link>
-              </td>
-              <td>{item.name}</td>
-              <td>{item.date}</td>
-              <td>{item.view}</td>
-            </tr>
-          ))}
-        </tbody>
+              {item.title}
+               </Link>
+                 </td>
+                  <td>{item.name}</td>
+                  <td>{item.date}</td>
+                  <td>{item.view}</td>
+                  </tr>
+       ))}
+          </tbody>
         <tr>
           <td colSpan="5">
             <hr />
