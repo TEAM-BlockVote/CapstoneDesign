@@ -61,7 +61,7 @@ function JoinPage() {
         return alert("회원가입이 완료되었습니다.");
     }
     return (
-        <form className='sign_formbottom' onSubmit={JoinSubmit} action='/signup' method='post'>
+        <form className='sign_formbottom' onSubmit={JoinSubmit} action='/auth/signup' method='post'>
             <div className='join_labelstart'>
                 학번
             </div>

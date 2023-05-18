@@ -63,13 +63,3 @@ app.get("/api22", (req, res) => {
 app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기 중 ');
 });
-
-app.post('/signup', (req, res) => {
-  const param = [req.body.studentNumber, req.body.name, req.body.dep, req.body.password, req.body.telNumber];
-
-  console.log(req.body);
-  pool.query('INSERT INTO users(`studentNumber`, `name`, `dep`, `password`, `telNumber`) VALUES (?, ?, ?, ?, ?)', param, (err, row) =>{
-    if(err) console.log(err);
-  });
-  res.redirect('/');
-});

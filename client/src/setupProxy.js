@@ -16,12 +16,6 @@ module.exports = function (app) {
   );
 
   app.use(
-    createProxyMiddleware('/signup', {
-      target: 'http://localhost:5000/',
-      changeOrigin: true,
-    })
-  )
-  app.use(
     createProxyMiddleware('/auth', {
       target: 'http://localhost:5000/',
       changeOrigin: true,
