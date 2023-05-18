@@ -6,35 +6,35 @@ import "./Qnatable.css";
 function Qnatable() {
   const writer = [
     {
-      no: 2221,
+      no: 1,
       title: "안녕하세여",
       name: "전주노",
       date: "2023.5.8",
       view: 80,
     },
     {
-      no: 2222,
+      no: 2,
       title: "안녕하세여",
       name: "전주노",
       date: "2023.5.8",
       view: 80,
     },
     {
-      no: 2223,
+      no: 3,
       title: "안녕하세여",
       name: "전주노",
       date: "2023.5.8",
       view: 80,
     },
     {
-      no: 2224,
+      no: 4,
       title: "안녕하세여",
       name: "전주노",
       date: "2023.5.8",
       view: 80,
     },
     {
-      no: 2225,
+      no: 5,
       title: "제목5",
       name: "이름5",
       date: "2023.5.12",
@@ -50,7 +50,7 @@ function Qnatable() {
 
   return (
     <>
-      <table className="qnatable-table">
+         <table className="qnatable-table">
         <thead>
           <tr>
             <th>번호</th>
@@ -82,6 +82,13 @@ function Qnatable() {
         </tr>
       </table>
 
+
+      <div >
+      <Link to="/WritingForm" className="btn btn-default btn-write" >글 작성하기</Link>
+    </div>
+
+
+
       <div className="qna-pageCh">
         <nav aria-label="qna-pageChange">
           <ul className="qna-pagination">
@@ -102,3 +109,5 @@ function Qnatable() {
 }
 
 export default Qnatable;
+
+

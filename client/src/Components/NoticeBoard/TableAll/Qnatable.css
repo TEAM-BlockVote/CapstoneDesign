@@ -64,4 +64,18 @@
     border-color: #007bff;
     color: #fff;
   }
+  .qna-pageCh {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  
+
+
+  
+  .btn.btn-default.btn-write {
+    border: 1px solid #ccc;
+    width: 150px;
+    float:right;
+  }
   

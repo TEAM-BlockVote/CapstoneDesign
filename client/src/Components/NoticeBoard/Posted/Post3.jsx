@@ -2,8 +2,6 @@ import React from "react";
 import "./Post3.css"; 
 
 import PromiseTabs from "../PromiseAll/PromiseTabs.jsx";
-import WriteButton from "../WriteAll/WriteButton.jsx";
-
 
 function Post3() {
   return (

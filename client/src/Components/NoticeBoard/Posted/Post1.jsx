@@ -2,7 +2,7 @@ import React from "react";
 import "./Post1.css"; 
 
 import PromiseTabs from "../PromiseAll/PromiseTabs.jsx";
-import WriteButton from "../WriteAll/WriteButton.jsx";
+
 
 
 function Post1() {
