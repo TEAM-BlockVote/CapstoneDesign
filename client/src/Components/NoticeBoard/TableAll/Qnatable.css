@@ -19,7 +19,8 @@
   .qna-pagination {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 40px;
+    margin-bottom: 70px;
   }
   
   .qna-page-item {
@@ -64,12 +65,7 @@
     border-color: #007bff;
     color: #fff;
   }
-  .qna-pageCh {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-  }
-  
+
 
 
   
@@ -77,5 +73,6 @@
     border: 1px solid #ccc;
     width: 150px;
     float:right;
+    margin-right: 230px;
   }
   
