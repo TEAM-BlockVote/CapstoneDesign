@@ -9,7 +9,8 @@ import Post1 from "../Components/NoticeBoard/Posted/Post1"
 import Post2 from "../Components/NoticeBoard/Posted/Post2"
 import Post3 from "../Components/NoticeBoard/Posted/Post3"
 import WritingForm from "../Components/NoticeBoard/WriteAll/WritingForm";
-import AdmainMain from "../Components/AdminPage/AdminMain";
+import AdminMain from "../Components/AdminPage/AdminMain";
+import SetVote from "../Components/AdminPage/SetVote";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
       {path: '/post/2', element: <Post2/>},
       {path: '/post/3', element: <Post3/>},
       {path: '/WritingForm', element: <WritingForm/>},
-      {path: '/AdmainMain', element: <AdmainMain/>},
+      {path: '/AdminMain', element: <AdminMain/>},
+      {path: '/AdminMain/view/:id', element: <SetVote/>},
     ],
   },
 ]);

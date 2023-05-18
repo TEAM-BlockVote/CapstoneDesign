@@ -1,6 +1,12 @@
 .board_wrap {
-    width: 1000px;
-    margin: 100px auto;
+    /* width: 500px; */
+    background-color: #e5e7eb;
+    /* border: 16px solid #e5e7eb; */
+}
+
+
+.board_view_wrap {
+    background-color: white;
 }
 
 .board_title {
@@ -181,7 +187,6 @@
     font-size: 1.4rem;
 }
 
-
 .board_view .info dl dd {
     margin-left: 10px;
     color: #777;
@@ -261,3 +266,43 @@
     border: 0;
     resize: vertical;
 }
+
+.custom-title {
+    font-weight: bold;
+    text-align: center;
+    color: #444;
+    font-family: 'Rix고딕', 'Spoqa Han Sans Neo', sans-serif;
+  }
+
+  .rounded-form {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    position: relative;
+  }
+
+  .rounded-form::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background-color: #FFDB58;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .space-between {
+    margin-top: 20px;
+  }
+
+  .form-floating2 {
+    border: 1px solid;
+    padding: 5px;
+  }
+
+  .dummy_photo {
+    width: 120px;
+    height: 120px;
+  }

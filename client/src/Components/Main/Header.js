@@ -23,7 +23,7 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav m-auto">
             <li className="nav-item me-5">
-              <Link className="nav-link" to="/AdmainMain"> 투표 만들기 </Link>
+              <Link className="nav-link" to="/AdminMain"> 투표 만들기 </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/notice">  QnA </Link>
