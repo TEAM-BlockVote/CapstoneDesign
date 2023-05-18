@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
 import seoilLogo from '../Main/images/seoilBlue.png';
+import AuthContext from '../../Store/auth-context';
 
 const Header = () => {
+  const ctx = useContext(AuthContext);
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-md">
@@ -28,7 +31,7 @@ const Header = () => {
           </ul>
           <ul className="navbar-nav account">
             <li className="nav-item">
-              <Link className="nav-link" to="/signIn"> 로그인 </Link>
+              { ctx.isLoggedIn ?  <div className="nav-link" onClick={ctx.logout}> 로그아웃 </div> : <Link className="nav-link" to="/signIn"> 로그인 </Link> }
             </li>
           </ul>
         </div>
