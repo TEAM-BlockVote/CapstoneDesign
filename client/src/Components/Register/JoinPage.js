@@ -4,6 +4,8 @@ import JoinName from './JoinName';
 import JoinDep from './JoinDep';
 import JoinPassword from './JoinPassword';
 import JoinTel from './JoinTel';
+import axios from 'axios';
+import { useRef } from 'react';
 import "./JoinPage.css";
 
 function JoinPage() {
@@ -18,6 +20,9 @@ function JoinPage() {
     const [userPasswordError, setPasswordError] = useState("");
     const [userTelNum, setTelNum] = useState("");
     const [userTelNumError, setTelNumError] = useState("");
+
+    const [hasStudentNumber, setHasStudentNumber] = useState(null);
+    const studentNumberRef = useRef(null);
 
     const JoinSubmit = (event) => {
         event.preventDefault();
@@ -58,7 +63,21 @@ function JoinPage() {
         }
 
         event.target.submit();
-        return alert("회원가입이 완료되었습니다.");
+    }
+
+    const getStudentNumber = () => {
+      const element = studentNumberRef.current;      
+      axios.get(`/auth/hasStudentNumber?studentNumber=${element.value}`)
+      .then((res) => {
+        if(res.data) { //학생이 존재하면 true
+          setHasStudentNumber(res.data);
+        } else {
+          setHasStudentNumber(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     }
     return (
         <form className='sign_formbottom' onSubmit={JoinSubmit} action='/auth/signup' method='post'>
@@ -66,8 +85,10 @@ function JoinPage() {
                 학번
             </div>
             <div className='join_div'>
-                <input id='studentNumber' name='studentNumber' className='join_input' type='text' maxLength={9} value={userClassNum} onChange={(e) => setClassNum(e.target.value)} placeholder='학번을 입력하세요.'></input>
+                <input ref={studentNumberRef} onBlur={getStudentNumber} id='studentNumber' name='studentNumber' className='join_input' type='text' maxLength={9} value={userClassNum} onChange={(e) => setClassNum(e.target.value)} placeholder='학번을 입력하세요.'></input>
             </div>
+            {hasStudentNumber && <span style={{color: 'red'}} > 이미 존재하는 학번입니다. </span>}
+              
             <div className='join_error'>
                 {userClassNumError && <div>{userClassNumError}</div>}
             </div>
@@ -141,7 +162,7 @@ function JoinPage() {
             <div className='join_error'>
                 {userTelNumError && <div>{userTelNumError}</div>}
             </div>
-            <button type='submit' className='join_button'>회원가입</button>
+            <button type='submit' className={hasStudentNumber ? 'join_button_disabled' : 'join_button'} disabled={hasStudentNumber}>회원가입</button>
         </form>
     )
 }

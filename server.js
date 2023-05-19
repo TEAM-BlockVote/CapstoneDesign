@@ -2,14 +2,21 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const app = express();
-
-
-dotenv.config();
-app.set('port', process.env.PORT || 5000);
-app.use(cors());
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
 const passport = require('passport');
+const session = require('express-session');
+const redis = require('redis');
+const RedisStore = require('connect-redis')(session);
+
+app.use(cors());
+dotenv.config();
+
+const redisClient = redis.createClient({
+  url: `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/0`,
+  legacyMode: true,
+});
+redisClient.connect().then();
+
 const pool = require('./server/Router/pool');
 const authRouter = require('./routes/auth');
 const passportConfig = require('./passport');
@@ -25,8 +32,11 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: false,
-  }
+  },
+  store: new RedisStore({ client: redisClient }),
 }));
+
+app.set('port', process.env.PORT || 5000);
 app.use(passport.initialize()); //로그인에 필요한 객체 자동 생성.
 app.use(passport.session()); //connect.sid 라는 이르으로 세션 쿠기가 브라우저로 전송.
 
