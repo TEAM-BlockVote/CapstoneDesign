@@ -22,12 +22,17 @@ module.exports = () => {
       });
 
       if(exUser) {
-        done(null, exUser); //성공유저 
+        const result = await bcrypt.compare(password, exUser.password);
+        if(result) {
+          done(null, exUser); //성공유저 
+        } else {
+          done(null, false, {message: '비밀번호가 일치하지 않습니다.'}); //로직실패
+        }
       } else {
-        done(null, false, {message: '비밀번호가 일치하지 않습니다'}); //로작실패
+        done(null, false, {message: '가입되지않은 학생입니다.'});
       }
     } catch (error) {
-      console.log(error);
+      done(error); //서버실패
     }
   }))
 }

@@ -26,8 +26,7 @@ function LoginPage() {
       setPasswordError("");
     }
 
-    event.target.submit();
-    return alert("로그인이 되었습니다.");
+    return event.target.submit();
   }
 
   return (

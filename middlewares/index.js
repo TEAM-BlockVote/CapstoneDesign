@@ -1,5 +1,4 @@
 exports.isLogin = (req, res, next) => {
-  console.log("test");
   if(!req.isAuthenticated()) {
     next();
   } else {
