@@ -31,7 +31,9 @@ const Header = () => {
           </ul>
           <ul className="navbar-nav account">
             <li className="nav-item">
-              { ctx.isLoggedIn ?  <div className="nav-link" onClick={ctx.logout}> 로그아웃 </div> : <Link className="nav-link" to="/signIn"> 로그인 </Link> }
+              { ctx.isLoggedIn === null && " " }
+              { ctx.isLoggedIn === true && <div className="nav-link" onClick={ctx.logout}> 로그아웃 </div> }
+              { ctx.isLoggedIn === false && <Link className="nav-link" to="/signIn"> 로그인 </Link> }
             </li>
           </ul>
         </div>
