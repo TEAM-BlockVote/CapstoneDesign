@@ -6,8 +6,8 @@ import AuthContext from '../../Store/auth-context';
 const Header = () => {
   const ctx = useContext(AuthContext);
   return (
-    <nav className="navbar navbar-expand-lg">
-      <div className="container-md">
+    <nav className="navbar navbar-expand-lg" style={{margin: '0 5%'}}>
+      <div className="container-fluid">
         <Link className="navbar-brand" to="/"><img  style={{width:50+'px', height: 50+'px'}} src={seoilLogo} alt="seoilLogo"/></Link>
         <button
           className="navbar-toggler"
