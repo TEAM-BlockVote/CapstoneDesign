@@ -30,7 +30,6 @@ router.get('/hasStudentNumber', async (req, res, next)=>{
   isUser.length ? res.send('true') : res.send('false');
 });
 
-
 router.post('/signup', async (req, res, next) => {
   const {studentNumber, name, dep, password, telNumber} = req.body;
   const hasUserSql = 'select * from users where studentNumber = ?';
@@ -55,8 +54,7 @@ router.post('/signup', async (req, res, next) => {
       if(err) console.log(err);
     });
   } catch (error) {
-    console.log(error);
-    return next(error);
+    next(error);
   };
   return res.send("<script>alert('회원가입 완료!');location.href='/';</script>");
 });
