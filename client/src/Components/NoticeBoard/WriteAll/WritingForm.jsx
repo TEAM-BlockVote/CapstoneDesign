@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+
+import React, { useState } from "react";
 import "./WritingForm.css";
 
-function WritingForm() {
+function WritingForm({ addPostToTable, postCount }) {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [candidateIndex, setCandidateIndex] = useState(0);
   const [promiseIndex, setPromiseIndex] = useState(0);
-  
+
   const candidates = [
     "후보자 1",
     "후보자 2",
@@ -31,50 +34,62 @@ function WritingForm() {
 
   const handleCandidateChange = (e) => {
     setCandidateIndex(e.target.value);
-  }
+  };
 
   const handlePromiseChange = (e) => {
     setPromiseIndex(e.target.value);
-  }
+  };
+
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    
-  }
-
+  
+    if (title === "") {
+      alert("제목을 입력해주세요."); // 제목이 비어 있는 경우 알림 창 표시
+      return;
+    }
+    if (content === "") {
+      alert("내용을 입력해주세요."); // 내용이 비어 있는 경우 알림 창 표시
+      return;
+    }
+  
+    const newPost = {
+      no: postCount + 1,
+      title: title,
+      name: "작성자",
+      date: new Date().toLocaleDateString(),
+      view: 0,
+    };
+  
+    addPostToTable(newPost);
+  
+    setTitle("");
+    setContent("");
+  };
   return (
-   <> 
-    <form className="qna-write-form__container" onSubmit={handleFormSubmit}>
+    <>
+      <form className="qna-write-form__container" onSubmit={handleFormSubmit}>
         <div className="qna-write-form__label">
-        <label htmlFor="candidate-select">후보자:</label>
-        <select id="candidate-select" value={candidateIndex} onChange={handleCandidateChange}>
-          {candidates.map((candidate, index) => (
-            <option key={index} value={index}>{candidate}</option>
-          ))}
-        </select>
-      </div>
-      <div className="qna-write-form__label">
-        <label htmlFor="promise-select">공약:</label>
-        <select id="promise-select" value={promiseIndex} onChange={handlePromiseChange}>
-          {promises[candidateIndex].map((promise, index) => (
-            <option key={index} value={index}>{promise}</option>
-          ))}
-        </select>
-      </div>
-   
-      <div className="qna-write-form__label">
-        <label htmlFor="title">제목:</label>
-        <input id="title" type="text" className="qna-form__input" />
-      </div>
-      <br />
-      <div className="qna-write-form__label">
-        <label htmlFor="content">내용:</label>
-        <textarea id="content" className="qna-write-form__textarea" />
+          <label htmlFor="title">제목:</label>
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="qna-form__input"
+          />
         </div>
-      
-      <button type="submit" className="qna-write-form__button">작성 완료</button>
-    </form>
- 
+        <div className="qna-write-form__label">
+          <label htmlFor="content">내용:</label>
+          <textarea
+            id="content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="qna-write-form__textarea"
+          />
+        </div>
+        <button type="submit" className="qna-write-form__button">작성 완료</button>
+      </form>
     </>
   );
 }
