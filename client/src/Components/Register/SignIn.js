@@ -19,7 +19,6 @@ export default function SignIn() {
 
   useEffect(() => {
     if(ctx.isLoggedIn) {
-      console.log("접근 불가능");
       navigate("/");
     }
   }, [ctx.isLoggedIn, navigate]);

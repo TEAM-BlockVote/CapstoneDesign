@@ -17,7 +17,3 @@ exports.localLogin = (req, res, next) => {
     });
   })(req, res, next);//미들웨어 확장 패턴임.
 }
-
-exports.kakaoLogin = () => {
-
-}

@@ -30,6 +30,7 @@ function LoginPage() {
   }
 
   return (
+    <>
     <form className='sign_formbottom' onSubmit={LoginSubmit} action='/auth/localLogin' method='post'>
       <div className='login_labelstart'>
         학번
@@ -51,6 +52,11 @@ function LoginPage() {
       </div>
       <button type='submit' className='login_button'>로그인</button>
     </form>
+
+    <form action='/auth/kakaoLogin' method='post'>
+    <button type='submit' className='login_button'>카카오로그인</button>
+    </form>
+    </>
   )
 }
 export default LoginPage;

@@ -1,5 +1,6 @@
 const passport = require('passport');
 const local = require('./localStrategy');
+const kakao = require('./kakaoStrategy');
 const pool = require('../server/Router/pool');
 
 module.exports = () => {
@@ -9,7 +10,7 @@ module.exports = () => {
   });
 
   passport.deserializeUser( async (studentNumber, done) => {
-    const sql = "select * from users where studentNumber = ?;";
+    const sql = "select * from users where studentNumber = ?";
 
     pool.query(sql, [studentNumber], (error, results, fields) => {
       if(!error) {
@@ -20,4 +21,5 @@ module.exports = () => {
     });
   });
   local();
+  kakao();
 }

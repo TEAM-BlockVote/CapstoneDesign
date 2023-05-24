@@ -99,6 +99,39 @@
   color: rgb(46, 46, 161);
 }
 
+.testt2222 {
+  display: none;  
+}
+
+.testt2222-active{
+  position: absolute;
+  max-height: 400px;
+  padding: 10px;
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid#b3bbcc;
+  border-radius: 18px;
+}
+
+.update-user-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.update-user-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  border: 1px solid blue;
+  border-radius: 1rem;
+  padding: 5%;
+}
+
 @media (max-width:575px) {
     .login_button {
         font-size: 1rem;

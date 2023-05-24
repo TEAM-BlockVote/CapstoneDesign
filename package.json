@@ -19,6 +19,7 @@
     "mysql2": "^3.3.0",
     "nodemon": "^2.0.22",
     "passport": "^0.6.0",
+    "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
     "react-bootstrap": "^2.7.4",
     "react-router-dom": "^6.11.1",

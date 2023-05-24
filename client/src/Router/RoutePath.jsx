@@ -11,6 +11,7 @@ import Post3 from "../Components/NoticeBoard/Posted/Post3"
 import WritingForm from "../Components/NoticeBoard/WriteAll/WritingForm";
 import AdminMain from "../Components/AdminPage/AdminMain";
 import SetVote from "../Components/AdminPage/SetVote";
+import AdditionalInfo from "../Components/Register/AdditionalInfo";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       {path: '/AdminMain/view/:id', element: <SetVote/>},
     ],
   },
+  {path: '/additionalInfo', element: <AdditionalInfo/>},
 ]);
 
 

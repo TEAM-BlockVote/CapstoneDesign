@@ -1,4 +1,13 @@
-exports.isLogin = (req, res, next) => {
+exports.isLoggedIn = (req, res, next) => {
+  if(req.isAuthenticated()) {
+    next();
+  } else {
+    const message = encodeURIComponent('로그인 해주세요.');
+    res.redirect(`/?error=${message}`);
+  }
+};
+
+exports.isNotLoggedIn = (req, res, next) => {
   if(!req.isAuthenticated()) {
     next();
   } else {
