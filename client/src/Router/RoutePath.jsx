@@ -12,6 +12,7 @@ import WritingForm from "../Components/NoticeBoard/WriteAll/WritingForm";
 import AdminMain from "../Components/AdminPage/AdminMain";
 import SetVote from "../Components/AdminPage/SetVote";
 import AdditionalInfo from "../Components/Register/AdditionalInfo";
+import NawooPage from "../Components/Nawoo/NawooPage";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       {path: '/WritingForm', element: <WritingForm/>},
       {path: '/AdminMain', element: <AdminMain/>},
       {path: '/AdminMain/view/:id', element: <SetVote/>},
+      {path: '/nawoopage', element: <NawooPage/>},
     ],
   },
   {path: '/additionalInfo', element: <AdditionalInfo/>},
