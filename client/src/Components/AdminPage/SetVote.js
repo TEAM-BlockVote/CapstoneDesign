@@ -1,9 +1,5 @@
 import React from 'react';
 import './css.css';
-import man1 from '../AdminPage/images/man1.png'
-import man2 from '../AdminPage/images/man2.png'
-import man3 from '../AdminPage/images/man3.png'
-import man4 from '../AdminPage/images/man4.png'
 import { useParams, useLocation } from 'react-router-dom';
 
 function SetVote() {

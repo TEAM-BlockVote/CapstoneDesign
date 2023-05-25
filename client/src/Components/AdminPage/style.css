@@ -274,6 +274,13 @@
     font-family: 'Rix고딕', 'Spoqa Han Sans Neo', sans-serif;
   }
 
+  .set_title {
+    font-weight: bold;
+    text-align: center;
+    color: #444;
+    font-family: 'Rix고딕', 'Spoqa Han Sans Neo', sans-serif;
+  }
+
   .rounded-form {
     border-radius: 10px;
     border: 1px solid #ddd;
