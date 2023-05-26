@@ -1,0 +1,60 @@
+.nawoo_form {
+  display: flex;
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border: 2px solid rgb(176, 160, 160);
+  border-radius: 1rem;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.nawoo_top {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+}
+
+.nawoo_logo {
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  font-size: 2rem;
+  font-weight: bolder;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin: auto;
+}
+
+.nawoo_middle {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+}
+
+.nawoo_img {
+  display: flex;
+  position: relative;
+  width: 300px;
+  height: auto;
+  flex-direction: column;
+  margin: auto;
+}
+
+.nawoo_bottom {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+}

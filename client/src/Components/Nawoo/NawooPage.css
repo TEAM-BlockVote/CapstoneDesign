@@ -11,15 +11,3 @@
   display: flex;
   height: 100vh;
 }
-
-.nawoo_form {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-  height: auto;
-  border: 2px solid rgb(176, 160, 160);
-  border-radius: 1rem;
-  margin: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
