@@ -12,7 +12,14 @@ router.get('/kakaoLogin/callback', passport.authenticate('kakao', {
   successRedirect: '/auth/additionalInfo',
   failureRedirect: '/?loginErr=카카오로그인에러',
 }), (req, res) => {
-  
+  res.send('/');
+});
+
+router.post('/googleLogin', passport.authenticate('google', { scope: ['profile', 'email'] })) ;
+router.get('/googleLogin/callback', passport.authenticate('google', {
+  successRedirect: '/auth/additionalInfo',
+  failureRedirect: '/?loginErr=구글로그인에러',
+}), (req, res) => {
   res.send('/');
 });
 
