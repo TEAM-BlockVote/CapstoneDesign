@@ -40,17 +40,22 @@ router.post('/update', isLoggedIn, async (req, res, next)=>{
   const {studentNumber, dep, telNumber} = req.body;
   const sql = "update users set studentNumber = ?, dep = ?, telNumber = ?, verificationStatus = ? where snsId = ?";
   if(req.user.verificationStatus === "false") {
-    await new Promise( (resolve, reject) => {
-      pool.query(sql, [studentNumber, dep, telNumber, 'true', req.user.snsId], (err, results, fields) => {
-        if(err) 
-          console.log(reject(err));
-        else 
-          console.log(resolve(results));
-      });
-      req.logOut(() => {
-        res.redirect('/');
-      })
-    });  
+    try {
+      await new Promise( (resolve, reject) => {
+        pool.query(sql, [studentNumber, dep, telNumber, 'true', req.user.snsId], (err, results, fields) => {
+          if(err) 
+            console.log(reject(err));
+          else 
+            console.log(resolve(results));
+        });
+        req.logOut(() => {
+          console.log("로그아웃");
+          res.redirect('/');
+        })
+      });  
+    } catch (error) {
+      console.log(error);
+    }
   } else {
     res.redirect('/');
   }

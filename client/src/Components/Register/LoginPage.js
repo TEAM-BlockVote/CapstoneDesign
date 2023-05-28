@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import './LoginPage.css';
 import LoginClassNum from './LoginClassnum';
 import LoginPassword from './LoginPassword';
+import kakaoImg from './images/kakaoImg.png';
+import googleImg from './images/googleImg.png';
+import naverImg from './images/naverImg.png';
+import instaImg from './images/instaImg.png';
 
 function LoginPage() {
   const [userClassNum, setClassNum] = useState("");
@@ -53,9 +57,33 @@ function LoginPage() {
       <button type='submit' className='login_button'>로그인</button>
     </form>
 
+    <div style={{fontSize: '13px', marginBottom: '5%'}}>다른 계정으로 로그인 하기</div>    
+    <div style={{display: 'flex', padding: '0 5%', marginBottom: '5%'}}>
     <form action='/auth/kakaoLogin' method='post'>
-    <button type='submit' className='login_button'>카카오로그인</button>
+      <button type="submit" className='' style={{border: 0, background: 'none', cursor: 'pointer'}}>
+        <img src={kakaoImg} alt='kakaoimg' style={{width: '50%'}}/>
+        <div className='providerName'>kakao</div>
+      </button>
     </form>
+    <form action='/auth/googleLogin' method='post'>
+      <button type="submit" className='' style={{border: 0, background: 'none', cursor: 'pointer'}}>
+        <img src={googleImg} alt='googleimg' style={{width: '50%'}}/>
+        <div className='providerName'>google</div>
+      </button>
+    </form>
+    <form action='/auth/naverLogin' method='post'>
+      <button type="submit" className='' style={{border: 0, background: 'none', cursor: 'pointer'}}>
+        <img src={naverImg} alt='naverImg' style={{width: '50%'}}/>
+        <div className='providerName'>naver</div>
+      </button>
+    </form>
+    <form action='/auth/instaLogin' method='post'>
+      <button type="submit" className='' style={{border: 0, background: 'none', cursor: 'pointer'}}>
+        <img src={instaImg} alt='instaImg' style={{width: '50%'}}/>
+        <div className='providerName'>instagram</div>
+      </button>
+    </form>
+    </div>
     </>
   )
 }
