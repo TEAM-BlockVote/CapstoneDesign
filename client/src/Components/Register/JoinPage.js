@@ -82,7 +82,7 @@ function JoinPage() {
       });
     }
     return (
-      <>
+        <>
         <form className='sign_formbottom' onSubmit={JoinSubmit} action='/auth/signup' method='post'>
             <div className='join_labelstart'>
                 학번

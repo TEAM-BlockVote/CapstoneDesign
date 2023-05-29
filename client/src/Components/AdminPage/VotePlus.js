@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 export function VotePlus() {
 
+	const [voteText, setVoteText] = useState("");
+	const [voteName, setVoteName] = useState("");
+
 	return (
 		<div>
 			<table className="table">
@@ -10,7 +13,7 @@ export function VotePlus() {
 						<td>후보</td>
 						<td colSpan="2" rowSpan="3">
 							<div className="form-floating">
-								<textarea className="form-floating col-12" id="text" placeholder="후보자 공략을 입력하세요." required></textarea>
+								<textarea className="form-floating col-12" value={voteText} onChange={(e) => setVoteText(e.target.value)} placeholder="후보자 공략을 입력하세요."></textarea>
 							</div>
 						</td>
 					</tr>
@@ -20,7 +23,7 @@ export function VotePlus() {
 						</td>
 					</tr> */}
 					<tr align="center" className="text_wid">
-						<td><input className="form-control w-75" id="name" type="text" placeholder="후보자 이름 입력" required /></td>
+						<td><input className="form-control w-75" type="text" value={voteName} onChange={(e) => setVoteName(e.target.value)} placeholder="후보자 이름 입력"/></td>
 					</tr>
 				</tbody>
 			</table>
