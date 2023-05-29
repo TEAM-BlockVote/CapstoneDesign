@@ -23,6 +23,22 @@ router.get('/googleLogin/callback', passport.authenticate('google', {
   res.send('/');
 });
 
+// router.post('/naverLogin', passport.authenticate('naver')) ;
+// router.get('/naverLogin/callback', passport.authenticate('naver', {
+//   successRedirect: '/auth/additionalInfo',
+//   failureRedirect: '/?loginErr=네이버로그인에러',
+// }), (req, res) => {
+//   res.send('/');
+// });
+
+// router.post('/facebookLogin', passport.authenticate('facebook')) ;
+// router.get('/facebookLogin/callback', passport.authenticate('facebook', {
+//   successRedirect: '/auth/additionalInfo',
+//   failureRedirect: '/?loginErr=페이스북로그인에러',
+// }), (req, res) => {
+//   res.send('/');
+// });
+
 router.get('/additionalInfo', isLoggedIn, (req, res, next) => {
   console.log(req.user.verificationStatus);
   

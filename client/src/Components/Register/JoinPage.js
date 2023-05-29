@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useRef } from 'react';
 import "./JoinPage.css";
 import kakaoImg from './images/kakaoImg.png';
+import googleImg from './images/googleImg.png';
 
 function JoinPage() {
     const [userClassNum, setClassNum] = useState("");
@@ -154,7 +155,7 @@ function JoinPage() {
             </div>
             <div className='join_error'>
                 {userPasswordError && <div>{userPasswordError}</div>}
-            </div>
+            </div>n
             <div className='join_label'>
                 전화번호
             </div>
@@ -166,13 +167,21 @@ function JoinPage() {
             </div>
             <button type='submit' className={hasStudentNumber ? 'join_button_disabled' : 'join_button'} disabled={hasStudentNumber}>회원가입</button>
         </form>
-        <div style={{fontSize: '13px', marginBottom: '5%'}}>다른 계정으로 로그인 하기</div>
-        <form action='/auth/kakaoLogin' method='post'>
-          <button type="submit" className='' style={{border: 0, background: 'none', cursor: 'pointer'}}>
-          <img src={kakaoImg} alt='kakaoimg' style={{width: '50%'}}/>
-          </button>
-        </form>
-        <div>kakao</div>
+        <div style={{fontSize: '13px', marginBottom: '5%'}}>다른 계정으로 로그인 하기</div>    
+        <div style={{display: 'flex', padding: '0 5%', marginBottom: '5%'}}>
+          <form action='/auth/kakaoLogin' method='post'>
+            <button type="submit" className='' style={{border: 0, background: 'none', cursor: 'pointer'}}>
+              <img src={kakaoImg} alt='kakaoimg' style={{width: '50%'}}/>
+              <div className='providerName'>kakao</div>
+            </button>
+          </form>
+          <form action='/auth/googleLogin' method='post'>
+            <button type="submit" className='' style={{border: 0, background: 'none', cursor: 'pointer'}}>
+              <img src={googleImg} alt='googleimg' style={{width: '50%'}}/>
+              <div className='providerName'>google</div>
+            </button>
+          </form>
+        </div>
       </>
     )
 }

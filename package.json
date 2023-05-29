@@ -19,9 +19,12 @@
     "mysql2": "^3.3.0",
     "nodemon": "^2.0.22",
     "passport": "^0.6.0",
+    "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
+    "passport-naver": "^1.0.6",
+    "passport-twitter": "^1.0.4",
     "react-bootstrap": "^2.7.4",
     "react-router-dom": "^6.11.1",
     "redis": "^4.6.6"
