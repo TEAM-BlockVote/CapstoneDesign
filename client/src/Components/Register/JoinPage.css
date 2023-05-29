@@ -105,12 +105,13 @@
 
 .testt2222-active{
   position: absolute;
-  max-height: 400px;
+  max-height: 200px;
   padding: 10px;
   overflow-x: auto;
   background: #fff;
   border: 1px solid#b3bbcc;
   border-radius: 18px;
+  list-style: none;
 }
 
 .update-user-data {
@@ -126,7 +127,6 @@
   justify-content: center;
   align-items: center;
   width: 50%;
-  height: 50%;
   border: 1px solid blue;
   border-radius: 1rem;
   padding: 5%;

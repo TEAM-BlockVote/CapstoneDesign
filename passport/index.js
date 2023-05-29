@@ -1,6 +1,7 @@
 const passport = require('passport');
 const local = require('./localStrategy');
 const kakao = require('./kakaoStrategy');
+const google = require('./googleStrategy');
 const pool = require('../server/Router/pool');
 
 module.exports = () => {
@@ -22,4 +23,5 @@ module.exports = () => {
   });
   local();
   kakao();
+  google();
 }

@@ -3,38 +3,8 @@ import JoinClassNum from './JoinClassNum';
 import JoinDep from './JoinDep';
 import JoinTel from './JoinTel';
 import axios from 'axios';
+import { depDataArray } from './depDataArray';
 import "./JoinPage.css";
-
-const dataArray = [
-  "컴퓨터전자공학과",
-  "전기공학과",
-  "정보통신공학과",
-  "소프트웨어공학과",
-  "디지털트윈엘리베이터학과",
-  "ai융합콘텐츠학과",
-  "건축과",
-  "생명화학공학과",
-  "건설시스템공학과",
-  "스마트자동차공학과",
-  "간호학과",
-  "식품영양학과",
-  "사회복지학과",
-  "레저스포츠학과",
-  "비즈니스영어과",
-  "비즈니스일본어과",
-  "비즈니스중국어과",
-  "스마트경영학과",
-  "자산법률학과",
-  "미디어출판학과",
-  "세무회계학과",
-  "패션산업학과",
-  "생활가구디자인학과",
-  "실내디자인학과",
-  "vmd&전시디자인학과",
-  "영화방송공연예술학과",
-  "웹툰스토리텔링학과",
-  "유아교육학과",
-  "커뮤니케이션디자인학과"];
 
 const AdditionalInfo = () => {
   const [userStudentNum, setUserStudentNum] = useState("");
@@ -71,7 +41,7 @@ const AdditionalInfo = () => {
     const inputValue = event.target.value.toLowerCase();
     setSearchValue(inputValue);
 
-    const filtered = dataArray.filter(item => item.includes(inputValue));
+    const filtered = depDataArray.filter(item => item.includes(inputValue));
     if(filtered.length > 0) {
       
       setFilteredData(filtered);
@@ -161,7 +131,7 @@ const AdditionalInfo = () => {
         {userTelNumError && <div>{userTelNumError}</div>}
       </div>
       <button type="submit" className="login_button">
-        로그인
+        정보수정
       </button>
     </form>
     </div>

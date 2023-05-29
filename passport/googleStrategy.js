@@ -1,22 +1,25 @@
 const passport = require("passport");
-const { Strategy: kakaoStrategy} = require('passport-kakao');
+const { Strategy: googleStrategy} = require('passport-google-oauth20');
 const pool = require('../server/Router/pool');
 const bcrypt = require('bcrypt');
 
 module.exports = () => {
-  passport.use(new kakaoStrategy({
-    clientID: process.env.KAKAO_ID,
-    callbackURL: '/auth/kakaoLogin/callback',
+  passport.use(new googleStrategy({
+    clientID: process.env.GOOGLE_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
+    callbackURL: '/auth/googleLogin/callback',
   }, async (accessToken, refreshToken, profile, done) => {
+    console.log(profile);
     const sql = 'select * from users where snsId = ? and provider = ?;';
     const isUser = await new Promise( (resolve, reject) => {
-      pool.query(sql, [profile.id, 'kakao'], (err, results, fields) => {
+      pool.query(sql, [profile.id, 'google'], (err, results, fields) => {
         if(err) 
           reject(err);
         else 
           resolve(results[0]);
       });
     });
+
     if(isUser) {
       done(null, isUser);
     } else {
@@ -27,15 +30,13 @@ module.exports = () => {
         studentNumber: profile.id,
         name: profile.displayName,
         dep: "고르지 않음.",
-        provider: "kakao",
+        provider: "google",
         password: await bcrypt.hash(randomPassword.toString(), 12),
         telNumber: '',
         snsId: profile.id,
         verificationStatus: "false"
       };
 
-      console.log(CreateUserData);
-      
       const insertUserSql = 'INSERT INTO users (studentNumber, name, dep, provider, password, telNumber, snsId, verificationStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
       const crateUser = await new Promise( (resolve, reject) => {
         pool.query(insertUserSql, 
@@ -56,7 +57,7 @@ module.exports = () => {
         });
       })
       const isUser2 = await new Promise( (resolve, reject) => {
-        pool.query(sql, [profile.id, 'kakao'], (err, results, fields) => {
+        pool.query(sql, [profile.id, 'google'], (err, results, fields) => {
           if(err) 
             reject(err);
           else 

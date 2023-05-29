@@ -7,6 +7,7 @@ import JoinTel from './JoinTel';
 import axios from 'axios';
 import { useRef } from 'react';
 import "./JoinPage.css";
+import kakaoImg from './images/kakaoImg.png';
 
 function JoinPage() {
     const [userClassNum, setClassNum] = useState("");
@@ -80,6 +81,7 @@ function JoinPage() {
       });
     }
     return (
+      <>
         <form className='sign_formbottom' onSubmit={JoinSubmit} action='/auth/signup' method='post'>
             <div className='join_labelstart'>
                 학번
@@ -164,6 +166,14 @@ function JoinPage() {
             </div>
             <button type='submit' className={hasStudentNumber ? 'join_button_disabled' : 'join_button'} disabled={hasStudentNumber}>회원가입</button>
         </form>
+        <div style={{fontSize: '13px', marginBottom: '5%'}}>다른 계정으로 로그인 하기</div>
+        <form action='/auth/kakaoLogin' method='post'>
+          <button type="submit" className='' style={{border: 0, background: 'none', cursor: 'pointer'}}>
+          <img src={kakaoImg} alt='kakaoimg' style={{width: '50%'}}/>
+          </button>
+        </form>
+        <div>kakao</div>
+      </>
     )
 }
 export default JoinPage;
