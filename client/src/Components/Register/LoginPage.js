@@ -4,8 +4,8 @@ import LoginClassNum from './LoginClassnum';
 import LoginPassword from './LoginPassword';
 import kakaoImg from './images/kakaoImg.png';
 import googleImg from './images/googleImg.png';
-import naverImg from './images/naverImg.png';
-import instaImg from './images/instaImg.png';
+// import naverImg from './images/naverImg.png';
+// import instaImg from './images/instaImg.png';
 
 function LoginPage() {
   const [userClassNum, setClassNum] = useState("");
@@ -71,18 +71,18 @@ function LoginPage() {
         <div className='providerName'>google</div>
       </button>
     </form>
-    <form action='/auth/naverLogin' method='post'>
+    {/* <form action='/auth/naverLogin' method='post'>
       <button type="submit" className='' style={{border: 0, background: 'none', cursor: 'pointer'}}>
         <img src={naverImg} alt='naverImg' style={{width: '50%'}}/>
         <div className='providerName'>naver</div>
       </button>
     </form>
-    <form action='/auth/instaLogin' method='post'>
+    <form action='/auth/facebookLogin' method='post'>
       <button type="submit" className='' style={{border: 0, background: 'none', cursor: 'pointer'}}>
         <img src={instaImg} alt='instaImg' style={{width: '50%'}}/>
         <div className='providerName'>instagram</div>
       </button>
-    </form>
+    </form> */}
     </div>
     </>
   )
