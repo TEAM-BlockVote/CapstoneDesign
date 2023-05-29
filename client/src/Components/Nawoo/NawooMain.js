@@ -1,9 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 import "./NawooMain.css";
 
-function NawooMain() {
+function NawooMain({onFormClick}) {
+  
   return (
-    <div className='nawoo_form'>
+    <div className='nawoo_form' onClick={onFormClick}>
       <div className='nawoo_top'>
         <div className='nawoo_logo'>
           내가 원하는 후보상은?<br />
