@@ -1,13 +1,12 @@
+import React, { useState } from 'react';
+import './WritingForm.css';
 
-import React, { useState } from "react";
-import "./WritingForm.css";
-
-function WritingForm({ addPostToTable, postCount }) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+function WritingForm({ addPostToTable, postCount, onCancel }) {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [candidateIndex, setCandidateIndex] = useState(0);
   const [promiseIndex, setPromiseIndex] = useState(0);
-
+  
   const candidates = [
     "후보자 1",
     "후보자 2",
@@ -43,29 +42,37 @@ function WritingForm({ addPostToTable, postCount }) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-  
-    if (title === "") {
-      alert("제목을 입력해주세요."); // 제목이 비어 있는 경우 알림 창 표시
+
+    if (title === '') {
+      alert('제목을 입력해주세요.'); // 제목이 비어 있는 경우 알림 창 표시
       return;
     }
-    if (content === "") {
-      alert("내용을 입력해주세요."); // 내용이 비어 있는 경우 알림 창 표시
+    if (content === '') {
+      alert('내용을 입력해주세요.'); // 내용이 비어 있는 경우 알림 창 표시
       return;
     }
-  
+
     const newPost = {
       no: postCount + 1,
       title: title,
-      name: "작성자",
+      name: '작성자',
       date: new Date().toLocaleDateString(),
       view: 0,
+      content: content,
     };
-  
+
     addPostToTable(newPost);
-  
-    setTitle("");
-    setContent("");
+
+    setTitle('');
+    setContent('');
   };
+
+  const handleFormCancel = () => {
+    setTitle('');
+    setContent('');
+    onCancel();
+  };
+
   return (
     <>
       <form className="qna-write-form__container" onSubmit={handleFormSubmit}>
@@ -88,7 +95,9 @@ function WritingForm({ addPostToTable, postCount }) {
             className="qna-write-form__textarea"
           />
         </div>
-        <button type="submit" className="qna-write-form__button">작성 완료</button>
+        <button type="submit" className="qna-write-form__button">
+          작성완료
+        </button>
       </form>
     </>
   );

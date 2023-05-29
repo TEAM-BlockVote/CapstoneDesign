@@ -1,17 +1,49 @@
-import React, { useState} from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "./Qnatable.css";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './Qnatable.css';
 import WritingForm from '../WriteAll/WritingForm';
 
 function Qnatable() {
-  const [writer, setWriter] = useState([]);
   const [showWritingForm, setShowWritingForm] = useState(false);
   const [activePage, setActivePage] = useState(1);
-  const navigate = useNavigate(); // useNavigate import 추가
-  
+  const navigate = useNavigate();
+
+  const qnaDataDummy = [
+
+    {
+      no: 1,
+      name: '작성자',
+      title: '질문 2',
+      date: '2023-4-8',
+      content:
+        '백년전쟁(1337-1453)은 영국과 프랑스의 100년간의 전쟁이었다. 이전의 영국 왕들이 프랑스 왕좌에 대한 공격을 계속 시도하면서 시작되었다.',
+      view: 6,
+    },
+    {
+      no: 2,
+      name: '작성자',
+      title: '질문 3',
+      date: '2023-4-8',
+      content:
+        '백년전쟁(1337-1453)은 영국과 프랑스의 100년간의 전쟁이었다. ',
+      view: 44,
+    },
+    {
+      no: 3,
+      name: '작성자',
+      title: '질문 4',
+      date: '2023-4-8',
+      content:
+        '백년전쟁(1337-1453)은 영국과 프랑스의 100년간의 전쟁이었다. 이전의 영국 왕들이 프랑스 왕좌에 대한 공격을 계속 시도하면서 시작되었다.',
+      view: 223,
+    },
+  ];
+
+  const [writer, setWriter] = useState(qnaDataDummy);
+  const [content, setContent] = useState('');
+
   const addPostToTable = (newPost) => {
-    setWriter([...writer, newPost]);
-    setShowWritingForm(false); // 글 작성 완료 후 폼 숨기기
+    setWriter((prevPosts) => [...prevPosts, newPost]);
   };
 
   const handleWriteClick = () => {
@@ -21,9 +53,8 @@ function Qnatable() {
   const handleFormCancel = () => {
     setShowWritingForm(false);
   };
-  
+
   const handlePostClick = (postId) => {
-    // 게시물 상세 페이지로 이동하는 로직 작성
     navigate(`/post/${postId}`);
   };
 
@@ -63,7 +94,7 @@ function Qnatable() {
         </table>
       )}
       {showWritingForm ? (
-        <WritingForm addPostToTable={addPostToTable} />
+        <WritingForm addPostToTable={addPostToTable} postCount={writer.length} />
       ) : (
         <>
           <div>
@@ -102,6 +133,7 @@ function Qnatable() {
               </ul>
             </nav>
           </div>
+          {content}
         </>
       )}
     </>
@@ -109,5 +141,10 @@ function Qnatable() {
 }
 
 export default Qnatable;
+
+
+
+
+
 
 
