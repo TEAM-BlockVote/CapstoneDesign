@@ -33,6 +33,7 @@
 }
 
 .category_btn {
+  width:30%;
   margin: 5px;
   background: lightcyan;
   border: 1px solid rgb(211, 119, 119);
@@ -52,9 +53,11 @@
 }
 
 .category_next {
+  width: 50%;
   background: lightcyan;
   border: 1px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
+  margin: auto;
 }

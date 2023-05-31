@@ -3,19 +3,17 @@ import "./NawooCategory.css";
 
 function NawooCategory({ onButtonClick }) {
   const [count, setCount] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
-  const handleButtonClick = () => {
-    setCount(count + 10);
-  };
-
-  const handleCategoryButtonClick = (event) => {
-    const { name } = event.target;
-    if (name === 'category') {
-      handleButtonClick();
+  const handleButtonClick = (category) => {
+    if (selectedCategory === category) {
+      setCount(count - 10);
+      setSelectedCategory('');
+    } else {
+      setCount(count + 10);
+      setSelectedCategory(category);
     }
   };
-
-  const categories = ['시설', '복지', '교육', '소통', '행사', '진로'];
 
   return (
     <div className='nawoo_form'>
@@ -27,11 +25,42 @@ function NawooCategory({ onButtonClick }) {
         </div>
       </div>
       <div className='category_middle'>
-        {categories.map((category, index) => (
-          <button key={index} name='category' className='category_btn' onClick={handleCategoryButtonClick}>
-            {category}
-          </button>
-        ))}
+        <button
+          className={`category_btn ${selectedCategory === '시설' ? 'selected' : ''}`}
+          onClick={() => handleButtonClick('시설')}
+        >
+          시설
+        </button>
+        <button
+          className={`category_btn ${selectedCategory === '복지' ? 'selected' : ''}`}
+          onClick={() => handleButtonClick('복지')}
+        >
+          복지
+        </button>
+        <button
+          className={`category_btn ${selectedCategory === '교육' ? 'selected' : ''}`}
+          onClick={() => handleButtonClick('교육')}
+        >
+          교육
+        </button>
+        <button
+          className={`category_btn ${selectedCategory === '소통' ? 'selected' : ''}`}
+          onClick={() => handleButtonClick('소통')}
+        >
+          소통
+        </button>
+        <button
+          className={`category_btn ${selectedCategory === '행사' ? 'selected' : ''}`}
+          onClick={() => handleButtonClick('행사')}
+        >
+          행사
+        </button>
+        <button
+          className={`category_btn ${selectedCategory === '진로' ? 'selected' : ''}`}
+          onClick={() => handleButtonClick('진로')}
+        >
+          진로
+        </button>
       </div>
       <div className='category_bottom'>
         <button className='category_next' onClick={onButtonClick}>테스트 하기</button>
