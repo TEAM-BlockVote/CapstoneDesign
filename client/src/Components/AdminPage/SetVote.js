@@ -4,70 +4,6 @@ import { useParams, useLocation } from 'react-router-dom';
 
 function SetVote() {
 
-	// const data = [
-	// 	{
-	// 		id: 0,
-	// 		writer: "김철수",
-	// 		title: "투표 1",
-	// 		name: "전준호",
-	// 		type: " 찬반 투표 ",
-	// 		startDate: "2023-03-05",
-	// 		endDate: "2023-07-25",
-	// 		photo: man1,
-	// 		text: "학교 화장실 시설 개선",
-	// 		// text2: "카톡 플러스 친구 개설",
-	// 		// text3: "도서관 야간 개방",
-	// 		// text4: "학생회비 사용 영수증 공개",
-	// 		// text5: "무인 프린터기 개선"
-	// 	},
-	// 	{
-	// 		id: 1,
-	// 		writer: "김영희",
-	// 		title: "투표 2",
-	// 		name: "이서진",
-	// 		type: "선택 투표 ",
-	// 		startDate: "2023-03-07",
-	// 		endDate: "2023-06-28",
-	// 		photo: man2,
-	// 		text: "학교 축제에 최예나 섭외",
-	// 		// text2: "카톡 플러스 친구 개설",
-	// 		// text3: "도서관 야간 개방",
-	// 		// text4: "학생회비 사용 영수증 공개",
-	// 		// text5: "무인 프린터기 개선"
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		writer: "김민수",
-	// 		title: "투표 3",
-	// 		name: "유승민",
-	// 		type: "선택 투표 ",
-	// 		startDate: "2023-10-07",
-	// 		endDate: "2023-12-28",
-	// 		photo: man3,
-	// 		text: "학교 도셔관 책 다양화",
-	// 		// text2: "카톡 플러스 친구 개설",
-	// 		// text3: "도서관 야간 개방",
-	// 		// text4: "학생회비 사용 영수증 공개",
-	// 		// text5: "무인 프린터기 개선"
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		writer: "김정은",
-	// 		title: "투표 4",
-	// 		name: "나윤성",
-	// 		type: "찬반 투표 ",
-	// 		startDate: "2023-01-07",
-	// 		endDate: "2023-11-30",
-	// 		photo: man4,
-	// 		text: "학교 운동장 잔디 설치",
-	// 		// text2: "카톡 플러스 친구 개설",
-	// 		// text3: "도서관 야간 개방",
-	// 		// text4: "학생회비 사용 영수증 공개",
-	// 		// text5: "무인 프린터기 개선"
-	// 	}
-	// ];
-
-
 	const { id } = useParams();
 	const {state} = useLocation();
 	console.log(state.data[id]);
@@ -104,10 +40,6 @@ function SetVote() {
 														<div className="form-floating2">
 															<ul>
 															<li>{state.data[id].text}</li>
-															{/* <li>{data[id].text2}</li>
-															<li>{data[id].text3}</li>
-															<li>{data[id].text4}</li>
-															<li>{data[id].text5}</li> */}
 															</ul>
 														</div>
 													</td>
