@@ -3,11 +3,12 @@
   position: relative;
   width: 100%;
   max-width: 500px;
-  height: auto;
+  height: 100%;
   border: 2px solid rgb(176, 160, 160);
   border-radius: 1rem;
   flex-direction: column;
   margin: auto;
+
 }
 
 .nawoo_top {

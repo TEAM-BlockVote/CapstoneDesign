@@ -13,6 +13,16 @@
   color: darkslategrey;
 }
 
+.category_count {
+  margin: 10px;
+  width: 50px;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 0.3rem;
+  position: relative;
+  left: 80%;
+}
+
 .category_middle {
   display: flow-root;
   width: 100%;
@@ -26,7 +36,7 @@
   margin: 5px;
   background: lightcyan;
   border: 1px solid rgb(211, 119, 119);
-  border-radius: 1cqb;
+  border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
 }
@@ -44,7 +54,7 @@
 .category_next {
   background: lightcyan;
   border: 1px solid rgb(211, 119, 119);
-  border-radius: 1cqb;
+  border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
 }

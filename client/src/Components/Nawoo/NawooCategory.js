@@ -5,7 +5,7 @@ function NawooCategory({ onButtonClick }) {
   const [count, setCount] = useState(0);
 
   const handleButtonClick = () => {
-    setCount(count + 1);
+    setCount(count + 10);
   };
 
   const handleCategoryButtonClick = (event) => {
@@ -22,6 +22,9 @@ function NawooCategory({ onButtonClick }) {
       <div className='category_top'>
         <label className='category_label1'>누가 당신과 적합한 후보입니까?</label>
         <label className='category_label2'>선택하시오.</label>
+        <div className='category_count'>
+          {count}
+        </div>
       </div>
       <div className='category_middle'>
         {categories.map((category, index) => (
@@ -32,9 +35,6 @@ function NawooCategory({ onButtonClick }) {
       </div>
       <div className='category_bottom'>
         <button className='category_next' onClick={onButtonClick}>테스트 하기</button>
-      </div>
-      <div className='count_box'>
-        {count}
       </div>
     </div>
   );
