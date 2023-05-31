@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from "react-router-dom";
 import HorizonLine from './HorizonLine';
 import './Main.css';
 import bannerLogo from './images/seoilLogo.png';
@@ -50,7 +51,7 @@ const Main = () => {
                   <div className="voting_day_detail">20-02-18(화) 00:01 ~ 20-03-14(토) 23:59</div>
                 </div>
                 <div className="vote_action">
-                  <button className="main-btn"> 투표하기 </button>
+                <Link to="/voting"> <button className="main-btn"> 투표하기 </button></Link>
                   <button className="main-btn"> 결과보기 </button>
                 </div>
               </div>
