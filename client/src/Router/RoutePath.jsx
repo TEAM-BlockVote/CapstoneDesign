@@ -13,6 +13,7 @@ import AdminMain from "../Components/AdminPage/AdminMain";
 import SetVote from "../Components/AdminPage/SetVote";
 import AdditionalInfo from "../Components/Register/AdditionalInfo";
 import NawooPage from "../Components/Nawoo/NawooPage";
+import VotingMain from "../Components/Vote/VotingMain";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       {path: '/AdminMain', element: <AdminMain/>},
       {path: '/AdminMain/view/:id', element: <SetVote/>},
       {path: '/nawoopage', element: <NawooPage/>},
+      {path: '/voting', element: <VotingMain/>},
     ],
   },
   {path: '/additionalInfo', element: <AdditionalInfo/>},

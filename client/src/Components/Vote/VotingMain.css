@@ -1,0 +1,67 @@
+@font-face {
+  font-family: 'KCC-Ganpan';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCC-Ganpan.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+.candidates {
+  margin: 0% 10%;
+}
+
+.candidate_start {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  justify-content: center;
+}
+
+.candidate_title {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.party_name {
+  font-size: 25px;
+}
+
+.candidates_name {
+  font-size: 12px;
+}
+
+.vote_percent {
+  color: #a9a8bb;
+  font-size: 25px;
+}
+
+.vote_graph {
+  background: #fff;
+}
+
+.list_img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.candidate_info {
+  margin: 10%;
+}
+
+.candidate_num {
+  position: absolute;
+  color: #767edb;
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.list_text {
+  font-size: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.vote-candidate-list {
+  margin-left: 5%;
+}
