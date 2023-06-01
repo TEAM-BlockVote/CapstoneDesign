@@ -88,7 +88,15 @@ const Main = () => {
                 </div>
               </div>
             </div>
-            <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+            <Swiper navigation={true} modules={[Navigation]} className="mySwiper"
+              onClick={(swiper, e) => {
+                if(e.target.className === "swiper-button-prev") {
+                  swiper.slidePrev();
+                } else if(e.target.className === "swiper-button-next") {
+                  swiper.slideNext();
+                }
+              }}
+            >
               <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg"/></SwiperSlide>
               <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg"/></SwiperSlide>
               <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg"/></SwiperSlide>
