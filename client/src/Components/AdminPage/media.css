@@ -51,7 +51,7 @@
 
     .board_view .info dl dt,
     .board_view .info dl dd {
-        font-size: 1.2rem;
+        font-size: 20px;
     }
 
     .board_write .info dl {
