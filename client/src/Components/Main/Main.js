@@ -88,7 +88,7 @@ const Main = () => {
                 </div>
               </div>
             </div>
-            <Swiper navigation={true} modules={[Navigation]} className="mySwiper"
+            <Swiper navigation={true} modules={[Navigation]} className="mySwiper" style={{cursor: 'pointer'}}
               onClick={(swiper, e) => {
                 if(e.target.className === "swiper-button-prev") {
                   swiper.slidePrev();
