@@ -25,8 +25,11 @@ const Header = () => {
             <li className="nav-item me-5">
               <Link className="nav-link" to="/AdminMain"> 투표 만들기 </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item me-5">
               <Link className="nav-link" to="/notice">  QnA </Link>
+            </li>
+            <li className="nav-item me-5">
+              <Link className="nav-link" to="/NawooPage"> 나만의 후보찾기 </Link>
             </li>
           </ul>
           <ul className="navbar-nav account">
