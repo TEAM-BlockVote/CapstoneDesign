@@ -1,49 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Qnatable.css';
+import axios from 'axios';
 import WritingForm from '../WriteAll/WritingForm';
 
 function Qnatable() {
   const [showWritingForm, setShowWritingForm] = useState(false);
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
+  const [posts, setPosts] = useState([]);
 
-  const qnaDataDummy = [
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
-    {
-      no: 1,
-      name: '작성자',
-      title: '질문 2',
-      date: '2023-4-8',
-      content:
-        '백년전쟁(1337-1453)은 영국과 프랑스의 100년간의 전쟁이었다. 이전의 영국 왕들이 프랑스 왕좌에 대한 공격을 계속 시도하면서 시작되었다.',
-      view: 6,
-    },
-    {
-      no: 2,
-      name: '작성자',
-      title: '질문 3',
-      date: '2023-4-8',
-      content:
-        '백년전쟁(1337-1453)은 영국과 프랑스의 100년간의 전쟁이었다. ',
-      view: 44,
-    },
-    {
-      no: 3,
-      name: '작성자',
-      title: '질문 4',
-      date: '2023-4-8',
-      content:
-        '백년전쟁(1337-1453)은 영국과 프랑스의 100년간의 전쟁이었다. 이전의 영국 왕들이 프랑스 왕좌에 대한 공격을 계속 시도하면서 시작되었다.',
-      view: 223,
-    },
-  ];
-
-  const [writer, setWriter] = useState(qnaDataDummy);
-  const [content, setContent] = useState('');
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get('/auth/qnaposts');
+      if (response.status === 200) {
+        setPosts(response.data.posts);
+      } else {
+        console.error('게시물을 불러오는 데 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('게시물을 불러오는 데 실패했습니다.', error);
+    }
+  };
 
   const addPostToTable = (newPost) => {
-    setWriter((prevPosts) => [...prevPosts, newPost]);
+    setPosts((prevPosts) => [...prevPosts, newPost]);
   };
 
   const handleWriteClick = () => {
@@ -77,24 +62,24 @@ function Qnatable() {
             </tr>
           </thead>
           <tbody className="table-body qnatable-table">
-            {writer.map((item, index) => (
-              <tr key={index + 1}>
+            {posts.map((post, index) => (
+              <tr key={post.id}>
                 <td>{index + 1}</td>
                 <td>
-                  <Link to={`/post/${item.no}`} onClick={() => handlePostClick(item.no)}>
-                    {item.title}
+                  <Link to={`/post/${post.id}`} onClick={() => handlePostClick(post.id)}>
+                    {post.title}
                   </Link>
                 </td>
-                <td>{item.name}</td>
-                <td>{item.date}</td>
-                <td>{item.view}</td>
+                <td>{post.author}</td>
+                <td>{post.date}</td>
+                <td>{post.views}</td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
       {showWritingForm ? (
-        <WritingForm addPostToTable={addPostToTable} postCount={writer.length} />
+        <WritingForm addPostToTable={addPostToTable} />
       ) : (
         <>
           <div>
@@ -133,7 +118,6 @@ function Qnatable() {
               </ul>
             </nav>
           </div>
-          {content}
         </>
       )}
     </>
@@ -141,7 +125,6 @@ function Qnatable() {
 }
 
 export default Qnatable;
-
 
 
 

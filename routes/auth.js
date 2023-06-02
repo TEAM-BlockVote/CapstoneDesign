@@ -127,4 +127,40 @@ router.post('/signup', async (req, res, next) => {
   return res.send("<script>alert('회원가입 완료!');location.href='/';</script>");
 });
 
+
+router.post('/qnaposts', async (req, res, next) => {
+  const { title, content } = req.body;
+
+  if (!title || !content) {
+    res.status(400).json({ error: '제목과 내용을 모두 입력해주세요.' });
+    return;
+  }
+
+  const name = '익명'; // 작성자 이름을 기본값인 '익명'으로 설정
+  const date = new Date().toISOString(); // 현재 시간을 날짜로 설정
+  const view = 0; // 조회수를 0으로 초기화
+
+  const insertQuery = 'INSERT INTO qna (title, name, date, view, content) VALUES (?, ?, ?, ?, ?)';
+
+  try {
+    await new Promise((resolve, reject) => {
+      pool.query(insertQuery, [title, name, date, view, content], (err, results, fields) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+
+    res.status(200).json({ message: '글 작성이 완료되었습니다.' });
+  } catch (error) {
+    console.error('글 작성 중 오류가 발생했습니다.', error);
+    res.status(500).json({ error: '글 작성 중 오류가 발생했습니다.' });
+  }
+});
+
+
+
+
 module.exports = router;

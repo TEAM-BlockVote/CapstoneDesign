@@ -9,3 +9,12 @@ CREATE TABLE `blockvote`.`users` (
   `verificationStatus` VARCHAR(30) DEFAULT 'true',
   PRIMARY KEY (`studentNumber`)
 );
+CREATE TABLE `blockvote`.`qna` (
+  `title` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `date` VARCHAR(45) NOT NULL,
+  `view` int DEFAULT 'local',
+  `content` VARCHAR(500) NOT NULL,
+
+  PRIMARY KEY (`title`)
+);
