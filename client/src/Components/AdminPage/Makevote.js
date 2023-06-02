@@ -12,13 +12,12 @@ function Makevote({ data, setData }) {
   const [formData, setFormData] = useState({
     writer: '', //투표를 만든 사람인가요?
     title: '', //투표 이름입니다.
-    type: '',
+    type: 'notSelc',
     startDate: '',
     endDate: '',
     name: '홍길동', //후보자 이름이 들어옵니다.
     text: '학교 운동장 잔디 설치', //후보자의 공약이 들어옵니다.
   });
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,19 +28,14 @@ function Makevote({ data, setData }) {
     }));
   };
 
-  const handleDataInsert = (formData) => {
-    setData([...data, formData]);
-  }
 
   const addVoteComponent = () => {
     setVoteComponents([...voteComponents, <VotePlus />])
   };
 
   const handleFormSubmit = (event) => {
-
     event.preventDefault();
-    validateMakeVoteForm(formData, setTitleError, setTypeError, setDateError, handleDataInsert);
-    event.target.submit();
+    validateMakeVoteForm(formData, setTitleError, setTypeError, setDateError, event);
   }
 
   return (
