@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './WritingForm.css';
+import axios from 'axios';
 
-function WritingForm({ addPostToTable, postCount, onCancel }) {
+function WritingForm({ addPostToTable, handleFormCancel }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const navigate = useNavigate();
   const [candidateIndex, setCandidateIndex] = useState(0);
   const [promiseIndex, setPromiseIndex] = useState(0);
-  
+  const [isPostSubmitted, setIsPostSubmitted] = useState(false); 
+
   const candidates = [
     "후보자 1",
     "후보자 2",
@@ -31,76 +35,78 @@ function WritingForm({ addPostToTable, postCount, onCancel }) {
     ]
   ];
 
-  const handleCandidateChange = (e) => {
-    setCandidateIndex(e.target.value);
-  };
-
-  const handlePromiseChange = (e) => {
-    setPromiseIndex(e.target.value);
-  };
-
-
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     if (title === '') {
-      alert('제목을 입력해주세요.'); // 제목이 비어 있는 경우 알림 창 표시
+      alert('제목을 입력해주세요.');
       return;
     }
     if (content === '') {
-      alert('내용을 입력해주세요.'); // 내용이 비어 있는 경우 알림 창 표시
+      alert('내용을 입력해주세요.');
       return;
     }
 
     const newPost = {
-      no: postCount + 1,
       title: title,
-      name: '작성자',
-      date: new Date().toLocaleDateString(),
-      view: 0,
       content: content,
     };
 
-    addPostToTable(newPost);
+    try {
+      const response = await axios.post('/auth/qnaposts', newPost);
 
-    setTitle('');
-    setContent('');
+      if (response.status === 200) {
+        alert('글 작성이 완료되었습니다.');
+        setTitle('');
+        setContent('');
+        setIsPostSubmitted(true);
+        addPostToTable(newPost); 
+        showTableComponent();
+      
+      } else {
+        alert('글 작성 중 오류가 발생했습니다.');
+      }
+    } catch (error) {
+      console.error('글 작성 중 오류가 발생했습니다.', error);
+      alert('글 작성 중 오류가 발생했습니다.');
+    }
   };
 
-  const handleFormCancel = () => {
-    setTitle('');
-    setContent('');
-    onCancel();
+  const showTableComponent = () => {
+    setIsPostSubmitted(false);
+    addPostToTable(); 
   };
-
   return (
     <>
-      <form className="qna-write-form__container" onSubmit={handleFormSubmit}>
-        <div className="qna-write-form__label">
-          <label htmlFor="title">제목:</label>
-          <input
-            id="title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="qna-form__input"
-          />
-        </div>
-        <div className="qna-write-form__label">
-          <label htmlFor="content">내용:</label>
-          <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="qna-write-form__textarea"
-          />
-        </div>
-        <button type="submit" className="qna-write-form__button">
-          작성완료
-        </button>
-      </form>
+      {isPostSubmitted ? null : (
+        <form className="qna-write-form__container" onSubmit={handleFormSubmit} >
+          <div className="qna-write-form__label">
+            <label htmlFor="qna-form__title">제목:</label>
+            <input
+              id="qna-form__title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="qna-form__input"
+            />
+          </div>
+          <div className="qna-write-form__label">
+            <label htmlFor="qna-form__content">내용:</label>
+            <textarea
+              id="qna-form__content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="qna-write-form__textarea"
+            />
+          </div>
+          <button type="submit" className="qna-write-form__button">작성완료</button>
+        </form>
+      )}
+  
+      {isPostSubmitted && showTableComponent()}
     </>
   );
+  
 }
 
 export default WritingForm;

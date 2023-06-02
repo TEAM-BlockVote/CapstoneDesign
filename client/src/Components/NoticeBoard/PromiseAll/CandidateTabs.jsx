@@ -9,19 +9,20 @@ function CandidateTabs(props) {
   };
 
   return (
-    <>
+    <div className="candidate_tab">
       <ul className="nav candi-nav-tabs">
         {props.candidates && props.candidates.map((candidate, index) => (
           <li className="candi-nav-item" key={index}>
-            <a className={`candi-nav-link ${activeTab === index ? 'active' : ''}`} href="javascript:void(0)" onClick={() => handleTabClick(index)}>
+            <button
+              className={`candi-nav-link ${activeTab === index ? 'active' : ''}`}
+              onClick={() => handleTabClick(index)}
+            >
               {candidate.name}
-            </a>
+            </button>
           </li>
         ))}
-      </ul>
-      <br />
-      <br />
-    </>
+      </ul> 
+    </div>
   );
 }
 
