@@ -8,7 +8,7 @@ function Qnatable() {
   const [showWritingForm, setShowWritingForm] = useState(false);
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
-  const [posts, setPosts] = useState([]);
+  const [tableposts, setPosts] = useState([]);
 
   useEffect(() => {
     fetchPosts();
@@ -18,7 +18,7 @@ function Qnatable() {
     try {
       const response = await axios.get('/auth/qnaposts');
       if (response.status === 200) {
-        setPosts(response.data.posts);
+        setPosts(response.data.tableposts);
       } else {
         console.error('게시물을 불러오는 데 실패했습니다.');
       }
@@ -62,19 +62,19 @@ function Qnatable() {
             </tr>
           </thead>
           <tbody className="table-body qnatable-table">
-            {posts.map((post, index) => (
-              <tr key={post.id}>
-                <td>{index + 1}</td>
-                <td>
-                  <Link to={`/post/${post.id}`} onClick={() => handlePostClick(post.id)}>
-                    {post.title}
-                  </Link>
-                </td>
-                <td>{post.author}</td>
-                <td>{post.date}</td>
-                <td>{post.views}</td>
-              </tr>
-            ))}
+          {tableposts.map((post, index) => (
+            <tr key={post.id}>
+              <td>{index + 1}</td>
+              <td>
+                <Link to={`/post/${post.content}`} onClick={() => handlePostClick(post.content)}>
+                  {post.title}
+                </Link>
+              </td>
+              <td>{post.author}</td>
+              <td>{post.date}</td>
+              <td>{post.views}</td>
+            </tr>
+          ))}
           </tbody>
         </table>
       )}

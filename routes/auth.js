@@ -160,6 +160,28 @@ router.post('/qnaposts', async (req, res, next) => {
   }
 });
 
+router.get('/qnaposts', async (req, res, next) => {   
+  const selectQuery = 'SELECT * FROM qna';
+
+  try {
+    const tableposts = await new Promise((resolve, reject) => {
+      pool.query(selectQuery, (err, results, fields) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        } 
+      });
+    });
+
+    res.status(200).json({ tableposts });
+  } catch (error) {
+    console.error('게시물을 불러오는 중 오류가 발생했습니다.', error);
+    res.status(500).json({ error: '게시물을 불러오는 중 오류가 발생했습니다.' });
+  }
+});
+
+
 
 
 
