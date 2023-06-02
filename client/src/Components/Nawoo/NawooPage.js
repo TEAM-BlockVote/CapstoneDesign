@@ -5,6 +5,7 @@ import NawooQna from './NawooQna';
 
 function NawooPage() {
   const [currentPage, setCurrentPage] = useState('main');
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
   useEffect(() => {
     if (currentPage === 'category') {
@@ -16,7 +17,8 @@ function NawooPage() {
     setCurrentPage('category');
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (categories) => {
+    setSelectedCategories(categories);
     setCurrentPage('qna');
   };
 
@@ -25,7 +27,7 @@ function NawooPage() {
       <div className='nawoo_main'>
         {currentPage === 'main' && <NawooMain onFormClick={handleFormClick} />}
         {currentPage === 'category' && <NawooCategory onButtonClick={handleButtonClick} />}
-        {currentPage === 'qna' && <NawooQna />}
+        {currentPage === 'qna' && <NawooQna selectedCategories={selectedCategories} />}
       </div>
     </div>
   );

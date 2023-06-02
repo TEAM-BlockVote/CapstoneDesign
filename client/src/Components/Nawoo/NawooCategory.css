@@ -42,6 +42,7 @@
 
 .category_count {
   margin: 10px;
+  font-weight: bold;
   width: 50px;
   text-align: center;
   background: lightcyan;

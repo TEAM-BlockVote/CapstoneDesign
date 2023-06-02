@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import "./NawooCategory.css";
 
 function NawooCategory({ onButtonClick }) {
-  const [count, setCount] = useState(0);
   const [selectedCategories, setSelectedCategories] = useState([]);
 
   const handleButtonClick = (category) => {
     if (selectedCategories.includes(category)) {
-      setCount(count - 10);
       setSelectedCategories(selectedCategories.filter((selectedCategory) => selectedCategory !== category));
     } else {
-      setCount(count + 10);
       setSelectedCategories([...selectedCategories, category]);
     }
   };
@@ -25,7 +22,7 @@ function NawooCategory({ onButtonClick }) {
         <div className='count_margin'>
           <label className='category_label3'>문항 : </label>
           <div className='category_count'>
-            {count}
+            {selectedCategories.length * 10}
           </div>
         </div>
       </div>
@@ -41,7 +38,7 @@ function NawooCategory({ onButtonClick }) {
         ))}
       </div>
       <div className='category_bottom'>
-        <button className='category_next' onClick={onButtonClick} disabled={isNextButtonDisabled}>
+        <button className='category_next' onClick={() => onButtonClick(selectedCategories)} disabled={isNextButtonDisabled}>
           테스트 하기
         </button>
       </div>
