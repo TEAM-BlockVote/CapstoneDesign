@@ -9,6 +9,7 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
   const navigate = useNavigate();
   const [candidateIndex, setCandidateIndex] = useState(0);
   const [promiseIndex, setPromiseIndex] = useState(0);
+  const [isPostSubmitted, setIsPostSubmitted] = useState(false); 
 
   const candidates = [
     "후보자 1",
@@ -58,7 +59,10 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
         alert('글 작성이 완료되었습니다.');
         setTitle('');
         setContent('');
-        navigate('/table');
+        setIsPostSubmitted(true);
+        addPostToTable(newPost); 
+        showTableComponent();
+      
       } else {
         alert('글 작성 중 오류가 발생했습니다.');
       }
@@ -68,32 +72,41 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
     }
   };
 
+  const showTableComponent = () => {
+    setIsPostSubmitted(false);
+    addPostToTable(); 
+  };
   return (
     <>
-      <form className="qna-write-form__container" onSubmit={handleFormSubmit} >
-        <div className="qna-write-form__label">
-          <label htmlFor="qna-form__title">제목:</label>
-          <input
-            id="qna-form__title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="qna-form__input"
-          />
-        </div>
-        <div className="qna-write-form__label">
-          <label htmlFor="qna-form__content">내용:</label>
-          <textarea
-            id="qna-form__content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="qna-write-form__textarea"
-          />
-        </div>
-        <button type="submit" className="qna-write-form__button">작성완료</button>
-      </form>
+      {isPostSubmitted ? null : (
+        <form className="qna-write-form__container" onSubmit={handleFormSubmit} >
+          <div className="qna-write-form__label">
+            <label htmlFor="qna-form__title">제목:</label>
+            <input
+              id="qna-form__title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="qna-form__input"
+            />
+          </div>
+          <div className="qna-write-form__label">
+            <label htmlFor="qna-form__content">내용:</label>
+            <textarea
+              id="qna-form__content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="qna-write-form__textarea"
+            />
+          </div>
+          <button type="submit" className="qna-write-form__button">작성완료</button>
+        </form>
+      )}
+  
+      {isPostSubmitted && showTableComponent()}
     </>
   );
+  
 }
 
 export default WritingForm;
