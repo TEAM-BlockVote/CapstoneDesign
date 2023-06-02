@@ -31,10 +31,11 @@
 }
 
 .category_label3 {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 11px;
+  margin-bottom: 11px;
   height: 100%;
   font-size: 1rem;
+  font-weight: bold;
   text-align: center;
   color: black;
 }
@@ -44,7 +45,7 @@
   width: 50px;
   text-align: center;
   background: lightcyan;
-  border: 1px solid;
+  border: 3px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
 }
 
@@ -61,20 +62,24 @@
   width:30%;
   margin: 5px;
   background: lightcyan;
-  border: 1px solid rgb(211, 119, 119);
+  border: 3px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
+  font-weight: bold;
+  color: darkslategrey;
 }
 
 .category_btn.selected {
   width:30%;
   margin: 5px;
   background: lightyellow;
-  border: 1px solid rgb(211, 119, 119);
+  border: 3px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
+  font-weight: bold;
+  color: darkslategrey;
 }
 
 .category_bottom {
@@ -91,11 +96,11 @@
   width: 50%;
   height: auto;
   background: lightcyan;
-  border: 1px solid rgb(211, 119, 119);
+  border: 3px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
   margin: auto;
   font-size: 1.3rem;
-  font-weight: lighter;
+  font-weight: bold;
 }

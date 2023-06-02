@@ -15,11 +15,13 @@ function NawooCategory({ onButtonClick }) {
     }
   };
 
+  const isNextButtonDisabled = selectedCategories.length === 0;
+
   return (
     <div className='nawoo_form'>
       <div className='category_top'>
-        <label className='category_label1'>누가 당신과 적합한 후보입니까?</label>
-        <label className='category_label2'>선택하시오.</label>
+        <label className='category_label1'>어떤 것들이 바뀌길 바랍니까?</label>
+        <label className='category_label2'>카테고리를 선택하시오.</label>
         <div className='count_margin'>
           <label className='category_label3'>문항 : </label>
           <div className='category_count'>
@@ -28,63 +30,20 @@ function NawooCategory({ onButtonClick }) {
         </div>
       </div>
       <div className='category_middle'>
-        <button
-          className={`category_btn ${selectedCategories.includes('시설') ? 'selected' : ''}`}
-          onClick={() => handleButtonClick('시설')}
-        >
-          시설
-        </button>
-        <button
-          className={`category_btn ${selectedCategories.includes('복지') ? 'selected' : ''}`}
-          onClick={() => handleButtonClick('복지')}
-        >
-          복지
-        </button>
-        <button
-          className={`category_btn ${selectedCategories.includes('교육') ? 'selected' : ''}`}
-          onClick={() => handleButtonClick('교육')}
-        >
-          교육
-        </button>
-        <button
-          className={`category_btn ${selectedCategories.includes('소통') ? 'selected' : ''}`}
-          onClick={() => handleButtonClick('소통')}
-        >
-          소통
-        </button>
-        <button
-          className={`category_btn ${selectedCategories.includes('행사') ? 'selected' : ''}`}
-          onClick={() => handleButtonClick('행사')}
-        >
-          행사
-        </button>
-        <button
-          className={`category_btn ${selectedCategories.includes('진로') ? 'selected' : ''}`}
-          onClick={() => handleButtonClick('진로')}
-        >
-          진로
-        </button>
-        <button
-          className={`category_btn ${selectedCategories.includes('생활') ? 'selected' : ''}`}
-          onClick={() => handleButtonClick('생활')}
-        >
-          생활
-        </button>
-        <button
-          className={`category_btn ${selectedCategories.includes('의료') ? 'selected' : ''}`}
-          onClick={() => handleButtonClick('의료')}
-        >
-          의료
-        </button>
-        <button
-          className={`category_btn ${selectedCategories.includes('상담') ? 'selected' : ''}`}
-          onClick={() => handleButtonClick('상담')}
-        >
-          상담
-        </button>
+        {['시설', '복지', '교육', '소통', '행사', '진로', '생활', '의료', '상담'].map((category) => (
+          <button
+            key={category}
+            className={`category_btn ${selectedCategories.includes(category) ? 'selected' : ''}`}
+            onClick={() => handleButtonClick(category)}
+          >
+            {category}
+          </button>
+        ))}
       </div>
       <div className='category_bottom'>
-        <button className='category_next' onClick={onButtonClick}>테스트 하기</button>
+        <button className='category_next' onClick={onButtonClick} disabled={isNextButtonDisabled}>
+          테스트 하기
+        </button>
       </div>
     </div>
   );
