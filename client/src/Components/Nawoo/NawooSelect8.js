@@ -2,7 +2,9 @@ import React from "react";
 
 function NawooSelect8() {
   return (
-    <div></div>
+    <div>
+      의료 질의문
+    </div>
   )
 }
 export default NawooSelect8;
