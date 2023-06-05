@@ -3,8 +3,9 @@
   position: relative;
   width: 100%;
   max-width: 500px;
-  height: 100vh; /* 화면 전체 높이에 맞게 설정 */
-  border: 2px solid rgb(176, 160, 160);
+  min-width: 300px;
+  height: 100vh;
+  border: 6px double rgb(176, 160, 160);
   border-radius: 1rem;
   flex-direction: column;
   margin: auto;
@@ -15,6 +16,24 @@
 @media (max-height: 600px) {
   .nawoo_form {
     overflow-y: hidden;
+  }
+}
+
+@media (min-width: 375px) {
+  .nawoo_form {
+    max-width: 350px;
+  }
+}
+
+@media (min-width: 575px) {
+  .nawoo_form {
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 575px) {
+  .nawoo_form {
+    max-width: 500px;
   }
 }
 
@@ -35,8 +54,27 @@
   font-size: 2rem;
   font-weight: bolder;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  min-width: 1.5rem;
   margin: auto;
   padding: 10%;
+}
+
+@media (min-width: 275px) {
+  .nawoo_logo {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 575px) {
+  .nawoo_logo {
+    font-size: 1.8rem;
+  }
+}
+
+@media (min-width: 767px) {
+  .nawoo_logo {
+    font-size: 2rem;
+  }
 }
 
 .nawoo_middle {
@@ -46,6 +84,7 @@
   flex-direction: column;
   margin: auto;
   text-align: center;
+  cursor: crosshair;
 }
 
 .nawoo_img {

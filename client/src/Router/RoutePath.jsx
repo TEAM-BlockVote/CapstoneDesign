@@ -18,20 +18,21 @@ const router = createBrowserRouter([
     path: '/',
     element: <RootLayout/>,
     children: [
-      { path: '/', element: <Main/> },
-      { path: '/notice', element: <NoticeHome/> },
-      { path: '/signIn', element: <SignIn/> },
-      { path: '/post/1', element: <Post1/> },
-      { path: '/post/2', element: <Post2/> },
-      { path: '/post/3', element: <Post3/> },
-      { path: '/', element: <WritingForm/> },
-      { path: '/AdminMain', element: <AdminMain/> },
-      { path: '/AdminMain/view/:id', element: <SetVote/> },
-      { path: '/nawoopage', element: <NawooPage/> },
-      { path: '/voting', element: <VotingMain/> },
+      {path: '/', element: <Main/>},
+      {path: '/notice', element: <NoticeHome/>},
+      {path: '/signIn', element: <SignIn/>},
+      {path: '/post/1', element: <Post1/>},
+      {path: '/post/2', element: <Post2/>},
+      {path: '/post/3', element: <Post3/>},
+      {path: '/WritingForm', element: <WritingForm/>},
+      {path: '/AdminMain', element: <AdminMain/>},
+      {path: '/AdminMain/view/:id', element: <SetVote/>},
+     
+      {path: '/voting', element: <VotingMain/>},
     ],
   },
-  { path: '/additionalInfo', element: <AdditionalInfo/> },
+  {path: '/additionalInfo', element: <AdditionalInfo/>},
+  {path: '/nawoopage', element: <NawooPage/>},
 ]);
 
 export default router;
