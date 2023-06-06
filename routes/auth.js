@@ -43,9 +43,9 @@ router.get('/additionalInfo', isLoggedIn, (req, res, next) => {
   console.log(req.user.verificationStatus);
   
   if(req.user.verificationStatus === "true") {
-    res.redirect('http://localhost:3000/');
+    res.redirect('http://52.78.93.185/');
   } else {
-    res.redirect('http://localhost:3000/additionalInfo');
+    res.redirect('http://52.78.93.185/additionalInfo');
   }
 });
 
