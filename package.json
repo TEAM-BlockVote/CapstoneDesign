@@ -2,7 +2,8 @@
   "scripts": {
     "server": "nodemon server",
     "client": "cd client && npm start",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "start": "NODE_ENV=development concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "production": "NODE_ENV=production npm run server"
   },
   "dependencies": {
     "axios": "^1.4.0",

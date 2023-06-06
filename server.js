@@ -46,34 +46,6 @@ app.use(passport.session()); //connect.sid 라는 이르으로 세션 쿠기가 
 app.use('/auth', authRouter);
 app.use('/vote', voteRouter);
 
-app.get("/api", (req, res) => {
-  const sql = 'select * from user';
-  pool.query(sql, (err, results, fields) => {
-    if (err) {
-      console.error('Error while fetching data from MySQL database: ' + err.stack);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
-    res.json(results);
-  })
-});
-
-app.get('/test', (req, res, next) => {
-  console.log(req.body);
-})
-
-app.get("/api22", (req, res) => {
-  const sql = 'select id from user';
-  pool.query(sql, (err, results, fields) => {
-    if (err) {
-      console.error('Error while fetching data from MySQL database: ' + err.stack);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
-    res.json(results);
-  })
-});
-
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build/index.html"));
 });
