@@ -14,6 +14,10 @@ function NawooCategory({ onButtonClick }) {
 
   const isNextButtonDisabled = selectedCategories.length === 0;
 
+  const handleNextClick = () => {
+    onButtonClick(selectedCategories);
+  };
+
   return (
     <div className='nawoo_form'>
       <div className='category_top'>
@@ -22,7 +26,7 @@ function NawooCategory({ onButtonClick }) {
         <div className='count_margin'>
           <label className='category_label3'>문항 : </label>
           <div className='category_count'>
-            {selectedCategories.length * 10}
+            {selectedCategories.length * 3}
           </div>
         </div>
       </div>
@@ -38,7 +42,7 @@ function NawooCategory({ onButtonClick }) {
         ))}
       </div>
       <div className='category_bottom'>
-        <button className='category_next' onClick={() => onButtonClick(selectedCategories)} disabled={isNextButtonDisabled}>
+        <button className='category_next' onClick={handleNextClick} disabled={isNextButtonDisabled}>
           테스트 하기
         </button>
       </div>
