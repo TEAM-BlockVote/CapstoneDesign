@@ -10,9 +10,6 @@ router.post('/write', async (req, res, next) => {
   const text = '학교 운동장 잔디 설치'
   const insertVoteSql = 'INSERT INTO vote (title, writer, type, startDate, endDate, name, text) VALUES (?, ?, ?, ?, ?, ?, ?)';
 
-  console.log(req.body);
-  console.log(req.user.name);
-
   try {
     const voteUser = await new Promise((resolve, reject) => {
       pool.query(insertVoteSql, [title, writer, type, startDate, endDate, name, text] , (err, results, fields) => {
@@ -43,7 +40,6 @@ router.get('/view', async (req, res, next) => {
           resolve(results);
       });
     });
-    console.log(voteUser);
 
     if(voteUser.length > 0) {
       res.send(voteUser);
