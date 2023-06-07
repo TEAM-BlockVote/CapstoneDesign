@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./Makevote.css";
 import VotePlus from './VotePlus';
 import { validateMakeVoteForm } from './errCheck/validateMakeForm';
 
-function Makevote({ data, setData }) {
+function Makevote() {
   const [voteComponents, setVoteComponents] = useState([<VotePlus />]);
   const [titleError, setTitleError] = useState('');
   const [typeError, setTypeError] = useState('');
   const [dateError, setDateError] = useState('');
 
   const [formData, setFormData] = useState({
-    writer: '', //투표를 만든 사람인가요?
-    title: '', //투표 이름입니다.
+    writer: '', 
+    title: '', 
     type: 'notSelc',
     startDate: '',
     endDate: '',
-    name: '홍길동', //후보자 이름이 들어옵니다.
-    text: '학교 운동장 잔디 설치', //후보자의 공약이 들어옵니다.
+    name: '홍길동', 
+    text: '학교 운동장 잔디 설치', 
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -38,14 +38,16 @@ function Makevote({ data, setData }) {
     validateMakeVoteForm(formData, setTitleError, setTypeError, setDateError, event);
   }
 
+ 
+
   return (
     <>
       <h1 className="custom-title mt-5" >투표 만들기</h1>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <form className='make_vote' onSubmit={handleFormSubmit} action='/vote/write' method='post'>
-          <div className="rounded-form mt-3" style={{ width: '200%', margin: '5% 2.5%', marginLeft: '-50%', marginRight: '-50%' }}>
+          <div className="rounded-form" style={{width: '800px', margin: '5% 2.5%', marginRight: '-50%' }}>
             <div className="mb-3">
-              <label htmlFor="title" className="form-label">투표 제목</label>
+              <div htmlFor="title" className="form-div">투표 제목</div>
               <input
                 type="text"
                 className="form-control"
@@ -53,27 +55,27 @@ function Makevote({ data, setData }) {
                 name="title"
                 onChange={handleChange}
               />
-              {titleError && <span style={{ color: 'red' }} >{titleError}</span>}
+              {titleError && <div style={{  color: 'red' }} >{titleError}</div>}
             </div>
             <div className="mb-3">
-              <label htmlFor="vote-type" className="form-label">투표 종류</label>
+              <div htmlFor="vote-type" className="form-div">투표 종류</div>
               <select className="form-select" id="type" name="type" onChange={handleChange}>
                 <option value="notSelc">투표 종류를 선택하세요</option>
                 <option value="찬반투표">찬반 투표</option>
                 <option value="선택투표">선택 투표</option>
               </select>
-              {typeError && <span style={{ color: 'red' }} >{typeError}</span>}
+              {typeError && <div style={{ color: 'red' }} >{typeError}</div>}
             </div>
             <div className="row mb-3">
               <div className="col-6">
-                <label htmlFor="start-date" className="form-label">투표 시작일</label>
+                <div htmlFor="start-date" className="form-div">투표 시작일</div>
                 <input type="date" className="form-control" name="startDate" onChange={handleChange} />
               </div>
               <div className="col-6">
-                <label htmlFor="end-date" className="form-label">투표 종료일</label>
+                <div htmlFor="end-date" className="form-div">투표 종료일</div>
                 <input type="date" className="form-control" name="endDate" onChange={handleChange} />
               </div>
-              {dateError && <span style={{ color: 'red' }} >{dateError}</span>}
+              {dateError && <div style={{ color: 'red' }} >{dateError}</div>}
             </div>
             {/* <div className="mb-3">
               {voteComponents.map((component, index) => (
@@ -82,14 +84,14 @@ function Makevote({ data, setData }) {
                   {component}
                 </div>
               ))}
-            </div> */}
+            </div>
             <button type="button" className="btn btn-secondary btn-lg float-right" onClick={addVoteComponent}>
               후보자 추가
-            </button>
+            </button> */}
             <br />
             <br />
             <div style={{ textAlign: 'center' }}>
-              <button type="submit" className="btn btn-dark rounded-pill w-50">등록</button>
+              <button type="submit" className="btn btn-dark rounded-pill w-25">등록</button>
             </div>
           </div>
         </form>

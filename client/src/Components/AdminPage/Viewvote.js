@@ -5,8 +5,6 @@ import './css.css';
 
 function Viewvote({ data }) {
 
-	console.log(data);
-
 	return (
 		<div>
 			<div className="container">
@@ -25,13 +23,12 @@ function Viewvote({ data }) {
 								</tr>
 							</thead>
 							<tbody className="table_body">
-								{data.map((item) => (
+								{data.length > 1 && data.map((item) => (
 									<tr key={item.id}>
 										<td>{item.id}</td>
 										<td>
 											<Link to={{ pathname: `/AdminMain/view/${item.id}` }}
 												state={{ data: item }} style={{ textDecoration: 'none', color: 'inherit' }}
-												className=""
 											>
 												{item.title}
 											</Link>
