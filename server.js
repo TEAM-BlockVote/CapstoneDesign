@@ -7,6 +7,7 @@ const passport = require('passport');
 const session = require('express-session');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
+const path = require('path');
 
 app.use(cors());
 dotenv.config();
@@ -37,6 +38,7 @@ app.use(session({
   store: new RedisStore({ client: redisClient }),
 }));
 
+app.use(express.static(path.join(__dirname, "/client/build")));
 app.set('port', process.env.PORT || 5000);
 app.use(passport.initialize()); //로그인에 필요한 객체 자동 생성.
 app.use(passport.session()); //connect.sid 라는 이르으로 세션 쿠기가 브라우저로 전송.
@@ -44,32 +46,8 @@ app.use(passport.session()); //connect.sid 라는 이르으로 세션 쿠기가 
 app.use('/auth', authRouter);
 app.use('/vote', voteRouter);
 
-app.get("/api", (req, res) => {
-  const sql = 'select * from user';
-  pool.query(sql, (err, results, fields) => {
-    if (err) {
-      console.error('Error while fetching data from MySQL database: ' + err.stack);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
-    res.json(results);
-  })
-});
-
-app.get('/test', (req, res, next) => {
-  console.log(req.body);
-})
-
-app.get("/api22", (req, res) => {
-  const sql = 'select id from user';
-  pool.query(sql, (err, results, fields) => {
-    if (err) {
-      console.error('Error while fetching data from MySQL database: ' + err.stack);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
-    res.json(results);
-  })
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
 });
 
 app.listen(app.get('port'), () => {

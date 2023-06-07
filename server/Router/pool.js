@@ -1,11 +1,6 @@
 const mysql = require('mysql2');
+const config = require('./config');
 
-const pool = mysql.createPool({
-  connectionLimit: 50,
-  host: process.env.HOST,
-  user: process.env.ROOT,
-  password: process.env.PASSWORD,
-  database: 'BlockVote'
-});
+const pool = mysql.createPool(config);
 
 module.exports = pool;

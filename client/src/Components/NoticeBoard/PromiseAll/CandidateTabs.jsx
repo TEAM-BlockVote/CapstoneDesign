@@ -13,10 +13,7 @@ function CandidateTabs(props) {
       <ul className="nav candi-nav-tabs">
         {props.candidates && props.candidates.map((candidate, index) => (
           <li className="candi-nav-item" key={index}>
-            <button
-              className={`candi-nav-link ${activeTab === index ? 'active' : ''}`}
-              onClick={() => handleTabClick(index)}
-            >
+            <button className={`candi-nav-link ${activeTab === index ? 'active' : ''}`} onClick={() => handleTabClick(index)}>
               {candidate.name}
             </button>
           </li>

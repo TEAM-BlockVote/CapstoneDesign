@@ -28,9 +28,6 @@ function PromiseTabs() {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
       <ul className="nav nav-pills justify-content-center">
         <li className="nav-item">
           <a className={`nav-link ${activeIndex === 0 ? 'active' : ''}`} href="#" onClick={() => handleTabClick(0)}>후보자 1</a>
