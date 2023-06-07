@@ -1,4 +1,34 @@
+.qna_top {
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
 .qna_label1 {
-  font-size: 1.2rem;
+  margin-top: 5%;
+  font-size: 1.3rem;
   font-weight: bold;
+  color: darkslategrey;
+}
+
+.qna_middle {
+  display: flex;
+  width: 100%;
+  height: 30%;
+  flex-direction: column;
+  margin-top: 1.8rem;
+  text-align: center;
+}
+
+.qna_bottom {
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+  padding: 5%;
 }
