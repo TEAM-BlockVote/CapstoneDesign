@@ -65,6 +65,7 @@ function Qnatable() {
             <tr key={item.no}>
               <td>{item.no}</td>
               <td>
+<<<<<<< Updated upstream
                 <Link to={`/post/${item.no}`}>
                   {item.title}
                 </Link>
@@ -72,6 +73,16 @@ function Qnatable() {
               <td>{item.name}</td>
               <td>{item.date}</td>
               <td>{item.view}</td>
+=======
+              <Link to={`/post/${post.id}`} onClick={() => handlePostClick(post.id)}>
+                {post.title}
+              </Link>
+
+              </td>
+              <td>{post.name}</td>
+              <td>{post.date}</td>
+              <td>{post.view}</td>
+>>>>>>> Stashed changes
             </tr>
           ))}
         </tbody>

@@ -5,13 +5,18 @@
   vertical-align: middle;
   border-collapse: collapse;
 }
+.qnatable-table thead th{
+  text-align: center;
+}
 .parent-element {
   width: 70%; 
 }
 
   .table-body.qnatable-table {
     text-decoration: none;
+    text-align: center;
   }
+ 
   
   .table-body.qnatable-table > tr {
     border-top: 1px solid #ccc;
