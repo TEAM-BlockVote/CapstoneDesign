@@ -69,11 +69,11 @@ function Qnatable() {
               <Link to={`/post/${post.id}`} onClick={() => handlePostClick(post.id)}>
                 {post.title}
               </Link>
-
               </td>
               <td>{post.name}</td>
               <td>{post.date}</td>
               <td>{post.view}</td>
+
             </tr>
           ))}
           </tbody>
@@ -116,9 +116,3 @@ function Qnatable() {
 }
 
 export default Qnatable;
-
-
-
-
-
-
