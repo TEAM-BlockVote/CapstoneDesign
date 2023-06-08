@@ -73,7 +73,6 @@ function Qnatable() {
               <td>{post.name}</td>
               <td>{post.date}</td>
               <td>{post.view}</td>
-
             </tr>
           ))}
           </tbody>
