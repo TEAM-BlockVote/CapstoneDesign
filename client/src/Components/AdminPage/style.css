@@ -1,6 +1,15 @@
 .board_wrap {
-    width: 1000px;
-    margin: 100px auto;
+    /* width: 500px; */
+    background-color: #e5e7eb;
+    /* border: 16px solid #e5e7eb; */
+}
+
+
+.board_view_wrap {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .board_title {
@@ -46,27 +55,27 @@
     border-top: 2px solid #000;
 }
 
-.board_list > div {
+.board_list>div {
     border-bottom: 1px solid #ddd;
     font-size: 0;
 }
 
-.board_list > div.top {
+.board_list>div.top {
     border-bottom: 1px solid #999;
 }
 
-.board_list > div:last-child {
+.board_list>div:last-child {
     border-bottom: 1px solid #000;
 }
 
-.board_list > div > div {
+.board_list>div>div {
     display: inline-block;
     padding: 15px 0;
     text-align: center;
     font-size: 1.4rem;
 }
 
-.board_list > div.top > div {
+.board_list>div.top>div {
     font-weight: 600;
 }
 
@@ -134,20 +143,25 @@
 }
 
 .board_view {
-    width: 100%;
-    border-top: 2px solid #000;
+    width: 90%;
+    border-top: 1px solid #000;
+    border-radius: 10px;
+
 }
 
 .board_view .title {
-    padding: 20px 15px;
+    padding: 10px 10px;
     border-bottom: 1px dashed #ddd;
     font-size: 2rem;
+    text-align: center;
+    background-color: #EEEEEE;
 }
 
 .board_view .info {
-    padding: 15px;
+    padding: 3px;
     border-bottom: 1px solid #999;
-    font-size: 0;
+    font-size: 2px;
+    align-content: center;
 }
 
 .board_view .info dl {
@@ -180,7 +194,6 @@
     display: inline-block;
     font-size: 1.4rem;
 }
-
 
 .board_view .info dl dd {
     margin-left: 10px;
@@ -260,4 +273,98 @@
     box-sizing: border-box;
     border: 0;
     resize: vertical;
+}
+
+.custom-title {
+    font-weight: bold;
+    text-align: center;
+    color: #444;
+    font-family: 'Rix고딕', 'Spoqa Han Sans Neo', sans-serif;
+}
+
+.set_title {
+    font-weight: bold;
+    text-align: center;
+    color: #444;
+    font-family: 'Rix고딕', 'Spoqa Han Sans Neo', sans-serif;
+}
+
+.rounded-form {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    position: relative;
+}
+
+.rounded-form2 {
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.rounded-form::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background-color: #FFDB58;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.space-between {
+    margin-top: 20px;
+}
+
+.form-floating2 {
+    border: 1px solid;
+    padding: 5px;
+}
+
+.dummy_photo {
+    width: 120px;
+    height: 120px;
+}
+
+.table_thread {
+    background-color: #6C7AE0;
+    color: whitesmoke;
+}
+
+.table_body {
+    background-color: #F8F6FF;
+    color: #8090B5;
+}
+
+.tab2 {
+    width: 50%;
+    background-color: #f1f1f1;
+    border: 1px white solid;
+    margin: 0 auto;
+    color: #333333;
+    line-height: 4rem;
+}
+
+.tab.active2 {
+    width: 50%;
+    background-color: #AAC4FF;
+    color: #fff;
+    line-height: 4rem;
+}
+
+.set_table {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.man_top {
+    border-bottom: 1px solid #444444;
+}
+
+.man_text {
+    border: 1px solid #444444;
 }

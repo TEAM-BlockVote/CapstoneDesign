@@ -1,36 +1,48 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import './css.css';
 
 
-function Viewvote({notices}) {
+function Viewvote({ data }) {
 
-    console.log(notices);
-
-    return (
-        <div>
-            {notices && notices.map((notice, index) => (
-                <div className="board_wrap" key={index}>
-                    <div className="board_view_wrap">
-                        <div className="board_view">
-                            <div className="title">
-                                <h2>{notice.title}</h2>
-                            </div>
-                            <div className="info">
-                                <dl>
-                                    <dt>투표 기간</dt>
-                                    <dd>{notice.start_date} - {notice.end_date}</dd>
-                                </dl>
-                                <dl>
-                                    <dt>투표 유형</dt>
-                                    <dd>{notice.vote_type}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ))}
-        </div>
-    )
+	return (
+		<div>
+			<div className="container">
+				<div className="row col-12 mt-5">
+					<h1 className="set_title">투표 관리하기</h1>
+					<div className="space-between"></div>
+				</div>
+				<div className="table-responsive rounded-top text-center">
+						<table className="table table-hover table-bordered shadow rounded">
+							<thead className="table_thread">
+								<tr className="shadow rounded">
+									<th>#</th>
+									<th>제목</th>
+									<th>투표 유형</th>
+									<th>작성일</th>
+								</tr>
+							</thead>
+							<tbody className="table_body">
+								{data.length > 1 && data.map((item) => (
+									<tr key={item.id}>
+										<td>{item.id}</td>
+										<td>
+											<Link to={{ pathname: `/AdminMain/view/${item.id}` }}
+												state={{ data: item }} style={{ textDecoration: 'none', color: 'inherit' }}
+											>
+												{item.title}
+											</Link>
+										</td>
+										<td>{item.type}</td>
+										<td>{item.startDate} - {item.endDate}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				</div>
+		</div>
+	)
 }
 
 export default Viewvote;

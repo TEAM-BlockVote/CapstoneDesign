@@ -1,0 +1,52 @@
+.qna_category {
+  display: flex;
+  flex-direction: column;
+}
+
+.select_label1 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+.qna_select {
+  margin-top: 5%;
+  display: flow-root;
+  flex-direction: column;
+}
+
+.select_label2 {
+  width: auto;
+  margin: 5px;
+  background: lightcyan;
+  border: 3px solid rgb(211, 119, 119);
+  border-radius: 0.3rem;
+  cursor: pointer;
+  align-items: center;
+  font-weight: bold;
+  color: darkslategrey;
+}
+
+.select_label2.selected {
+  width: auto;
+  margin: 5px;
+  background: lightyellow;
+  border: 3px solid rgb(211, 119, 119);
+  border-radius: 0.3rem;
+  cursor: pointer;
+  align-items: center;
+  font-weight: bold;
+  color: darkslategrey;
+}
+
+.result_next {
+  width: 50%;
+  height: auto;
+  background: lightcyan;
+  border: 3px solid rgb(211, 119, 119);
+  border-radius: 0.3rem;
+  cursor: pointer;
+  align-items: center;
+  margin: auto;
+  font-size: 1.3rem;
+  font-weight: bold;
+}

@@ -1,63 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Makevote from './Makevote';
 import Viewvote from './Viewvote';
-import make from './make-vote.png';
-import set from './set-vote.png';
+import axios from 'axios';
+import Tab from '../Main/Tab';
+import AuthContext from '../../Store/auth-context';
 
-const AdmainMain = (props) => {
+const AdminMain = (props) => {
+  const [data, setData] = useState('');
+  useEffect(() => {
+    axios.get('/vote/view')
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
 
-    const dataDummy = [{
-        title: "투표 1",
-        name: "전준호",
-        vote_type: " 찬반 투표 ",
-        start_date: "2023-03-05",
-        end_date: "2023-07-25",    
-      }]
-    
-    const [data, setData] = useState(props.data);
-    const [content, setContent] = useState('');
 
-    const [notices, setNotices] = useState([]);
+  const [content, setContent] = useState(<Makevote />);
+  const [selectedTab, setSelectedTab] = useState(<Tab index={0} />);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const ctx = useContext(AuthContext);
+  console.log(ctx.isLoggedIn);
+  const navigate = useNavigate();
 
-    function addData(vote) {
-        setNotices([...notices, vote]);
+  useEffect(() => {
+    if (ctx.isLoggedIn === false) {
+      navigate("/");
+      alert("로그인 후 이용해 주세요");
     }
+  }, [ctx.isLoggedIn, navigate]);
 
-    function MakevoteClick() {
-        setContent(<Makevote notices={notices} setNotices={setNotices} />);
-    }
+  function MakevoteClick(tab, index) {
+    setContent(<Makevote data={data} setData={setData} />);
+    setSelectedTab(tab);
+    setActiveIndex(index);
+  }
 
-    function SetVoteClick() {
-        setContent(<Viewvote notices={notices} />);
-    }
-    console.log(notices)
-    return (
-        <div>
-            <section className="vote-images bg-light text-center mt-5">
-                <div className="container2">
-                    <div className="row">
-                        <div className="col-6">
-                            <div className="vote-images-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                                <div className="vote-images-icon d-flex" onClick={MakevoteClick}>
-                                    <img src={make} id='make_vote' className="w-25 h-50 mx-auto d-block" alt="make-vote" />
-                                </div>
-                                <h3>투표 만들기</h3>
-                            </div>
-                        </div>
-                        <div className="col-6">
-                            <div className="vote-images-item mx-auto mb-0 mb-lg-3">
-                                <div className="vote-images-icon d-flex" onClick={SetVoteClick}>
-                                    <img src={set} className="w-25 h-50 mx-auto d-block" alt="set-vote" />
-                                </div>
-                                <h3>투표 관리하기</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {content}
+  function setViewClick(tab, index) {
+    setContent(<Viewvote data={data} />);
+    setSelectedTab(tab);
+    setActiveIndex(index);
+  }
+
+  return ctx.isLoggedIn === false || ctx.isLoggedIn === null ? null : (
+    <div>
+      <div className="container mt-5">
+        <div className="row">
+          <div className="tab-wrapper">
+            <ul className="tabs-list col-12">
+              <li className={activeIndex === 0 ? 'tab active2' : 'tab2'} onClick={() => MakevoteClick(<Tab index={0} />, 0)}>투표 만들기</li>
+              <li className={activeIndex === 1 ? 'tab active2' : 'tab2'} onClick={() => setViewClick(<Tab index={1} />, 1)}>투표 관리하기</li>
+            </ul>
+          </div>
         </div>
-    )
+      </div>
+      {content}
+    </div>
+  )
 }
 
-export default AdmainMain;
+export default AdminMain;

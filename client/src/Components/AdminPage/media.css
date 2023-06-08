@@ -2,7 +2,6 @@
     .board_wrap {
         width: 100%;
         min-width: 320px;
-        padding: 0 30px;
         box-sizing: border-box;
     }
 
@@ -52,7 +51,7 @@
 
     .board_view .info dl dt,
     .board_view .info dl dd {
-        font-size: 1.2rem;
+        font-size: 20px;
     }
 
     .board_write .info dl {

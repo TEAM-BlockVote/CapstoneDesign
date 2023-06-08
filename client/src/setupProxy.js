@@ -14,4 +14,18 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+
+  app.use(
+    createProxyMiddleware('/auth', {
+      target: 'http://localhost:5000/',
+      changeOrigin: true,
+    })
+  );
+
+  app.use(
+    createProxyMiddleware('/vote', {
+      target: 'http://localhost:5000/',
+      changeOrigin: true,
+    })
+  );
 };

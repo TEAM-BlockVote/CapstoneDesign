@@ -1,69 +1,70 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "./Qnatable.css";
-
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './Qnatable.css';
+import axios from 'axios';
+import WritingForm from '../WriteAll/WritingForm';
 
 function Qnatable() {
-  const writer = [
-    {
-      no: 2221,
-      title: "안녕하세여",
-      name: "전주노",
-      date: "2023.5.8",
-      view: 80,
-    },
-    {
-      no: 2222,
-      title: "안녕하세여",
-      name: "전주노",
-      date: "2023.5.8",
-      view: 80,
-    },
-    {
-      no: 2223,
-      title: "안녕하세여",
-      name: "전주노",
-      date: "2023.5.8",
-      view: 80,
-    },
-    {
-      no: 2224,
-      title: "안녕하세여",
-      name: "전주노",
-      date: "2023.5.8",
-      view: 80,
-    },
-    {
-      no: 2225,
-      title: "제목5",
-      name: "이름5",
-      date: "2023.5.12",
-      view: 120,
-    }
-  ];
-
+  const [showWritingForm, setShowWritingForm] = useState(false);
   const [activePage, setActivePage] = useState(1);
+  const navigate = useNavigate();
+  const [tableposts, setPosts] = useState([]);
 
-  const handleClick = (pageNumber) => {
-    setActivePage(pageNumber);
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get('/auth/qnaposts');
+      if (response.status === 200) {
+        setPosts(response.data.tableposts);
+      } else {
+        console.error('게시물을 불러오는 데 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('게시물을 불러오는 데 실패했습니다.', error);
+    }
+  };
+
+  const addPostToTable = (newPost) => {
+    setPosts((prevPosts) => [...prevPosts, newPost]);
+  };
+
+  const handleWriteClick = () => {
+    setShowWritingForm(true);
+  };
+
+  const handleFormCancel = () => {
+    setShowWritingForm(false);
+  };
+
+  const handlePostClick = (postId) => {
+    navigate(`/post/${postId}`);
+  };
+
+  const handleClick = (page) => {
+    setActivePage(page);
+    // 페이지 변경에 대한 로직 추가
   };
 
   return (
     <>
-      <table className="qnatable-table">
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>날짜</th>
-            <th>조회수</th>
-          </tr>
-        </thead>
-        <tbody className="table-body qnatable-table">
-          {writer.map((item) => (
-            <tr key={item.no}>
-              <td>{item.no}</td>
+      {!showWritingForm && (
+        <table className="qnatable-table">
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>날짜</th>
+              <th>조회수</th>
+            </tr>
+          </thead>
+          <tbody className="table-body qnatable-table">
+          {tableposts.map((post, index) => (
+            <tr key={post.id}>
+              <td>{index + 1}</td>
               <td>
               <Link to={`/post/${post.id}`} onClick={() => handlePostClick(post.id)}>
                 {post.title}
@@ -74,31 +75,59 @@ function Qnatable() {
               <td>{post.view}</td>
             </tr>
           ))}
-        </tbody>
-        <tr>
-          <td colSpan="5">
-            <hr />
-          </td>
-        </tr>
-      </table>
-
-      <div className="qna-pageCh">
-        <nav aria-label="qna-pageChange">
-          <ul className="qna-pagination">
-            <li className={`qna-page-item ${activePage === 1 ? 'disabled' : ''}`}>
-              <a className="qna-page-link" href="javascript:void(0)" onClick={() => handleClick(activePage - 1)}>Previous</a>
-            </li>
-            <li className={`qna-page-item ${activePage === 1 ? 'active' : ''}`}><a className="page-link" href="javascript:void(0)" onClick={() => handleClick(1)}>1</a></li>
-            <li className={`qna-page-item ${activePage === 2 ? 'active' : ''}`}><a className="page-link" href="javascript:void(0)" onClick={() => handleClick(2)}>2</a></li>
-            <li className={`qna-page-item ${activePage === 3 ? 'active' : ''}`}><a className="page-link" href="javascript:void(0)" onClick={() => handleClick(3)}>3</a></li>
-            <li className={`qna-page-item ${activePage === 3 ? 'disabled' : ''}`}>
-              <a className="qna-page-link" href="javascript:void(0)" onClick={() => handleClick(activePage + 1)}>Next</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+          </tbody>
+        </table>
+      )}
+      {showWritingForm ? (
+        <WritingForm addPostToTable={addPostToTable} />
+      ) : (
+        <>
+          <div>
+            <button onClick={handleWriteClick} className="btn btn-default btn-write">
+              글 작성하기
+            </button>
+          </div>
+          <div className="qna-pageCh">
+            <nav aria-label="qna-pageChange">
+              <ul className="qna-pagination">
+                <li className={`qna-page-item ${activePage === 1 ? "disabled" : ""}`}>
+                  <a className="qna-page-link" href="javascript:void(0)" onClick={() => handleClick(activePage - 1)}>
+                    Previous
+                  </a>
+                </li>
+                <li className={`qna-page-item ${activePage === 1 ? "active" : ""}`}>
+                  <a className="page-link" href="javascript:void(0)" onClick={() => handleClick(1)}>
+                    1
+                  </a>
+                </li>
+                <li className={`qna-page-item ${activePage === 2 ? "active" : ""}`}>
+                  <a className="page-link" href="javascript:void(0)" onClick={() => handleClick(2)}>
+                    2
+                  </a>
+                </li>
+                <li className={`qna-page-item ${activePage === 3 ? "active" : ""}`}>
+                  <a className="page-link" href="javascript:void(0)" onClick={() => handleClick(3)}>
+                    3
+                  </a>
+                </li>
+                <li className={`qna-page-item ${activePage === 3 ? "disabled" : ""}`}>
+                  <a className="qna-page-link" href="javascript:void(0)" onClick={() => handleClick(activePage + 1)}>
+                    Next
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </>
+      )}
     </>
   );
 }
 
 export default Qnatable;
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+.tab_content_container {
+  padding: 3rem;
+}
+
+.tab_contnet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.tab_contnet_img {
+  width: 15%;
+}
+
+.tab_contnet_title {
+  text-align: center;
+  margin-top: 1rem;
+}

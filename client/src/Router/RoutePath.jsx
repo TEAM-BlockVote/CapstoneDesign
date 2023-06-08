@@ -27,6 +27,8 @@ const router = createBrowserRouter([
       {path: '/voting', element: <VotingMain/>},
     ],
   },
+  {path: '/additionalInfo', element: <AdditionalInfo/>},
+  {path: '/nawoopage', element: <NawooPage/>},
 ]);
 
 export default router;

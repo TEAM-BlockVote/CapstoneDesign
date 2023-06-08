@@ -24,7 +24,8 @@
   .qna-pagination {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 40px;
+    margin-bottom: 70px;
   }
   
   .qna-page-item {
@@ -68,5 +69,15 @@
     background-color: #007bff;
     border-color: #007bff;
     color: #fff;
+  }
+
+
+
+  
+  .btn.btn-default.btn-write {
+    border: 1px solid #ccc;
+    width: 150px;
+    float:right;
+    margin-right: 230px;
   }
   

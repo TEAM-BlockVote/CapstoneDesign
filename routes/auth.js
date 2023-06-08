@@ -145,7 +145,6 @@ router.post('/qnaposts', async (req, res, next) => {
   const minutes = String(currentDate.getMinutes()).padStart(2, '0');
   const date = `${year}-${month}-${day} ${hours}:${minutes}`;
   const view = 128; // 조회수를 0으로 초기화
-  
   const insertQuery = 'INSERT INTO qna (title, name, date, view, content) VALUES (?, ?, ?, ?, ?)';
 
   try {
@@ -167,6 +166,7 @@ router.post('/qnaposts', async (req, res, next) => {
 });
 // 게시물 목록을 가져오는 API
 router.get('/qnaposts', async (req, res, next) => {
+
   const selectQuery = 'SELECT * FROM qna';
 
   try {
@@ -186,6 +186,7 @@ router.get('/qnaposts', async (req, res, next) => {
     res.status(500).json({ error: '게시물을 불러오는 중 오류가 발생했습니다.' });
   }
 });
+
 
 // 게시물을 가져오는 API
 router.get('/qnaposts/:id', async (req, res, next) => {
@@ -213,10 +214,6 @@ router.get('/qnaposts/:id', async (req, res, next) => {
     res.status(500).json({ error: '게시물을 불러오는 중 오류가 발생했습니다.' });
   }
 });
-
-
-
-
 
 
 module.exports = router;
