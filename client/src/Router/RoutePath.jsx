@@ -10,7 +10,6 @@ import AdditionalInfo from "../Components/Register/AdditionalInfo";
 import NawooPage from "../Components/Nawoo/NawooPage";
 import VotingMain from "../Components/Vote/VotingMain";
 import QnaPosted from "../Components/NoticeBoard/TableAll/QnaPosted";
-
 const router = createBrowserRouter([
   {
     path: '/',

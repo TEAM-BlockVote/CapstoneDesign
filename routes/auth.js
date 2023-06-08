@@ -135,7 +135,6 @@ router.post('/qnaposts', async (req, res, next) => {
     res.status(400).json({ error: '제목과 내용을 모두 입력해주세요.' });
     return;
   }
-
   const name = '2019*****'; // 작성자 이름 일단 설정 
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -145,7 +144,6 @@ router.post('/qnaposts', async (req, res, next) => {
   const minutes = String(currentDate.getMinutes()).padStart(2, '0');
   const date = `${year}-${month}-${day} ${hours}:${minutes}`;
   const view = 128; // 조회수를 128으로 초기화
-  
   const insertQuery = 'INSERT INTO qna (title, name, date, view, content) VALUES (?, ?, ?, ?, ?)';
 
   try {
@@ -213,10 +211,5 @@ router.get('/qnaposts/:id', async (req, res, next) => {
     res.status(500).json({ error: '게시물을 불러오는 중 오류가 발생했습니다.' });
   }
 });
-
-
-
-
-
 
 module.exports = router;
