@@ -1,7 +1,7 @@
 import React from "react";
 import "./NawooSelect.css";
 
-function NawooSelect8({ selectedOption, handleSelectOption }) {
+function NawooSelect9({ selectedOption, handleSelectOption }) {
   return (
     <div className="qna_category">
       <label className="select_label1">상담 질의문</label>
@@ -29,4 +29,4 @@ function NawooSelect8({ selectedOption, handleSelectOption }) {
   );
 }
 
-export default NawooSelect8;
+export default NawooSelect9;
