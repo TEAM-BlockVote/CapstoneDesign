@@ -66,13 +66,14 @@ function Qnatable() {
             <tr key={post.id}>
               <td>{index + 1}</td>
               <td>
-                <Link to={`/post/${post.content}`} onClick={() => handlePostClick(post.content)}>
-                  {post.title}
-                </Link>
+              <Link to={`/post/${post.id}`} onClick={() => handlePostClick(post.id)}>
+                {post.title}
+              </Link>
+
               </td>
-              <td>{post.author}</td>
+              <td>{post.name}</td>
               <td>{post.date}</td>
-              <td>{post.views}</td>
+              <td>{post.view}</td>
             </tr>
           ))}
           </tbody>
@@ -98,16 +99,6 @@ function Qnatable() {
                 <li className={`qna-page-item ${activePage === 1 ? "active" : ""}`}>
                   <a className="page-link" href="javascript:void(0)" onClick={() => handleClick(1)}>
                     1
-                  </a>
-                </li>
-                <li className={`qna-page-item ${activePage === 2 ? "active" : ""}`}>
-                  <a className="page-link" href="javascript:void(0)" onClick={() => handleClick(2)}>
-                    2
-                  </a>
-                </li>
-                <li className={`qna-page-item ${activePage === 3 ? "active" : ""}`}>
-                  <a className="page-link" href="javascript:void(0)" onClick={() => handleClick(3)}>
-                    3
                   </a>
                 </li>
                 <li className={`qna-page-item ${activePage === 3 ? "disabled" : ""}`}>
