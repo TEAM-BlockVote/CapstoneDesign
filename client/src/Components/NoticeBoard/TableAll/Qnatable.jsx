@@ -66,13 +66,13 @@ function Qnatable() {
             <tr key={post.id}>
               <td>{index + 1}</td>
               <td>
-                <Link to={`/post/${post.content}`} onClick={() => handlePostClick(post.content)}>
-                  {post.title}
-                </Link>
+              <Link to={`/post/${post.id}`} onClick={() => handlePostClick(post.id)}>
+                {post.title}
+              </Link>
               </td>
-              <td>{post.author}</td>
+              <td>{post.name}</td>
               <td>{post.date}</td>
-              <td>{post.views}</td>
+              <td>{post.view}</td>
             </tr>
           ))}
           </tbody>

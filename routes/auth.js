@@ -136,10 +136,15 @@ router.post('/qnaposts', async (req, res, next) => {
     return;
   }
 
-  const name = '익명'; // 작성자 이름을 기본값인 '익명'으로 설정
-  const date = new Date().toISOString(); // 현재 시간을 날짜로 설정
-  const view = 0; // 조회수를 0으로 초기화
-
+  const name = '2019*****'; // 작성자 이름을 기본값인 '익명'으로 설정
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  const hours = String(currentDate.getHours()).padStart(2, '0');
+  const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+  const date = `${year}-${month}-${day} ${hours}:${minutes}`;
+  const view = 128; // 조회수를 0으로 초기화
   const insertQuery = 'INSERT INTO qna (title, name, date, view, content) VALUES (?, ?, ?, ?, ?)';
 
   try {
@@ -159,8 +164,9 @@ router.post('/qnaposts', async (req, res, next) => {
     res.status(500).json({ error: '글 작성 중 오류가 발생했습니다.' });
   }
 });
+// 게시물 목록을 가져오는 API
+router.get('/qnaposts', async (req, res, next) => {
 
-router.get('/qnaposts', async (req, res, next) => {   
   const selectQuery = 'SELECT * FROM qna';
 
   try {
@@ -170,7 +176,7 @@ router.get('/qnaposts', async (req, res, next) => {
           reject(err);
         } else {
           resolve(results);
-        } 
+        }
       });
     });
 
@@ -182,7 +188,32 @@ router.get('/qnaposts', async (req, res, next) => {
 });
 
 
+// 게시물을 가져오는 API
+router.get('/qnaposts/:id', async (req, res, next) => {
+  const { id } = req.params;
+  const selectQuery = 'SELECT * FROM qna WHERE id = ?';
 
+  try {
+    const tablepost = await new Promise((resolve, reject) => {
+      pool.query(selectQuery, [id], (err, results, fields) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results[0]);
+        }
+      });
+    });
+
+    if (tablepost) {
+      res.status(200).json({ post: tablepost });
+    } else {
+      res.status(404).json({ error: '게시물을 찾을 수 없습니다.' });
+    }
+  } catch (error) {
+    console.error('게시물을 불러오는 중 오류가 발생했습니다.', error);
+    res.status(500).json({ error: '게시물을 불러오는 중 오류가 발생했습니다.' });
+  }
+});
 
 
 module.exports = router;
