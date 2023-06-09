@@ -4,6 +4,6 @@ CREATE TABLE `blockvote`.`qna` (
   `date` VARCHAR(45) NOT NULL,
   `view` int DEFAULT '0' NOT NULL,
   `content` VARCHAR(500) NOT NULL,
-  'id' int NOT NULL,
+  `id` int NOT NULL,
   PRIMARY KEY (`id`)
 );

@@ -53,7 +53,7 @@ function QnaPosted() {
           <h2 className="qna-posted-title">{post.title}</h2>
           <p className="qna-posted-info">작성자: {post.name}</p>
           <p className="qna-posted-info">날짜: {post.date}</p>
-          <p className="qna-posted-info">조회수: {post.views}</p>
+          <p className="qna-posted-info">조회수: {post.view}</p>
           <p className="qna-posted-content">{post.content}</p>
           <button className="qna-posted-comment-button" onClick={handleCommentButtonClick}>
             댓글 작성

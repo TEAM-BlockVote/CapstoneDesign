@@ -1,7 +1,7 @@
-/* QnaPosted.css */
 
 .qna-posted-container {
-  margin: 20px;
+  margin: 0 auto;
+  width: 60%;
 }
 
 .qna-posted {
@@ -26,7 +26,7 @@
 }
 
 .qna-posted-comment-button {
-  background-color: #4CAF50;
+  background-color: #202942;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -52,7 +52,7 @@
 }
 
 .qna-posted-comment-submit-button {
-  background-color: #4CAF50;
+  background-color: #202942;
   color: white;
   border: none;
   padding: 10px 20px;

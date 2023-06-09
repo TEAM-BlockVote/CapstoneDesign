@@ -155,7 +155,7 @@ function JoinPage() {
             </div>
             <div className='join_error'>
                 {userPasswordError && <div>{userPasswordError}</div>}
-            </div>n
+            </div>
             <div className='join_label'>
                 전화번호
             </div>
