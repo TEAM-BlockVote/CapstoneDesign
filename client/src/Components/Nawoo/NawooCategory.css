@@ -45,8 +45,8 @@
   font-weight: bold;
   width: 50px;
   text-align: center;
-  background: lightcyan;
-  border: 3px solid rgb(211, 119, 119);
+  background: white;
+  border: 2px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
 }
 
@@ -62,8 +62,8 @@
 .category_btn {
   width:30%;
   margin: 5px;
-  background: lightcyan;
-  border: 3px solid rgb(211, 119, 119);
+  background: white;
+  border: 2px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
@@ -71,11 +71,15 @@
   color: darkslategrey;
 }
 
+.category_btn:hover {
+  background-color: lightcyan;
+}
+
 .category_btn.selected {
   width:30%;
   margin: 5px;
-  background: lightyellow;
-  border: 3px solid rgb(211, 119, 119);
+  background: lightcyan;
+  border: 2px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
@@ -96,12 +100,16 @@
 .category_next {
   width: 50%;
   height: auto;
-  background: lightcyan;
-  border: 3px solid rgb(211, 119, 119);
+  background: white;
+  border: 2px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
   margin: auto;
   font-size: 1.3rem;
   font-weight: bold;
+}
+
+.category_next:hover {
+  background-color: lightcyan;
 }
