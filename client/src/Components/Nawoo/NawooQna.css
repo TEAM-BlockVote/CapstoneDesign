@@ -11,13 +11,13 @@
   margin-top: 5%;
   font-size: 1.3rem;
   font-weight: bold;
-  color: darkslategrey;
+  color: rgb(201, 94, 94);
 }
 
 .qna_middle {
   display: flex;
   width: 100%;
-  height: 30%;
+  height: auto;
   flex-direction: column;
   margin-top: 1.8rem;
   text-align: center;
@@ -31,4 +31,36 @@
   margin: auto;
   text-align: center;
   padding: 5%;
+}
+
+.qna_next {
+  width: 50%;
+  height: auto;
+  background: white;
+  border: 2px solid rgb(211, 119, 119);
+  border-radius: 0.3rem;
+  cursor: pointer;
+  align-items: center;
+  margin: auto;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: rgb(211, 119, 119);
+  transition: 0.5s ease-out;
+}
+
+.qna_next:hover {
+  background-color: rgb(211, 119, 119);
+  color: white;
+  transition: 0.5s ease-out;
+}
+
+.qna_next:disabled {
+  color: lightgray;
+  cursor: not-allowed;
+}
+
+.qna_next:disabled:hover {
+  background-color: white;
+  cursor: not-allowed;
+  transition: none;
 }

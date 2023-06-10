@@ -12,14 +12,14 @@
   margin-top: 10px;
   font-size: 1.5rem;
   font-weight: bold;
-  color: darkslategrey;
+  color: rgb(201, 94, 94);
 }
 
 .category_label2 {
   margin-top: 10px;
   font-size: 2.5rem;
   font-weight: bold;
-  color: black;
+  color: rgb(150, 39, 56);
 }
 
 .count_margin {
@@ -37,7 +37,7 @@
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
-  color: black;
+  color: rgb(211, 119, 119);
 }
 
 .category_count {
@@ -45,9 +45,10 @@
   font-weight: bold;
   width: 50px;
   text-align: center;
-  background: lightcyan;
-  border: 3px solid rgb(211, 119, 119);
+  background: white;
+  border: 2px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
+  color: rgb(211, 119, 119);
 }
 
 .category_middle {
@@ -62,25 +63,32 @@
 .category_btn {
   width:30%;
   margin: 5px;
-  background: lightcyan;
-  border: 3px solid rgb(211, 119, 119);
+  background: white;
+  border: 2px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
   font-weight: bold;
-  color: darkslategrey;
+  color: rgb(211, 119, 119);
+  transition: 0.5s ease-out;
+}
+
+.category_btn:hover {
+  background-color: rgb(211, 119, 119);
+  color: white;
+  transition: 0.5s ease-out;
 }
 
 .category_btn.selected {
   width:30%;
   margin: 5px;
-  background: lightyellow;
-  border: 3px solid rgb(211, 119, 119);
+  background: rgb(211, 119, 119);
+  border: 2px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
   font-weight: bold;
-  color: darkslategrey;
+  color: white;
 }
 
 .category_bottom {
@@ -96,12 +104,31 @@
 .category_next {
   width: 50%;
   height: auto;
-  background: lightcyan;
-  border: 3px solid rgb(211, 119, 119);
+  background: white;
+  border: 2px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
   margin: auto;
   font-size: 1.3rem;
   font-weight: bold;
+  color: rgb(211, 119, 119);
+  transition: 0.5s ease-out;
+}
+
+.category_next:hover {
+  background-color: rgb(211, 119, 119);
+  color: white;
+  transition: 0.5s ease-out;
+}
+
+.category_next:disabled {
+  color: lightgray;
+  cursor: not-allowed;
+}
+
+.category_next:disabled:hover {
+  background-color: white;
+  cursor: not-allowed;
+  transition: none;
 }

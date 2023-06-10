@@ -6,6 +6,17 @@
 .select_label1 {
   font-size: 1.5rem;
   font-weight: bolder;
+  color: rgb(150, 39, 56);
+}
+
+.qna_imgmargin {
+  padding: 10%;
+  margin: 5% 15% 5% 15%;
+  border: 3px solid rgb(211, 119, 119);
+}
+
+.qna_img {
+  width: 150px;
 }
 
 .qna_select {
@@ -17,36 +28,32 @@
 .select_label2 {
   width: auto;
   margin: 5px;
-  background: lightcyan;
-  border: 3px solid rgb(211, 119, 119);
+  padding: 3px;
+  background: white;
+  border: 2px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
   font-weight: bold;
-  color: darkslategrey;
+  color: rgb(211, 119, 119);
+  transition: 0.5s ease-out;
+}
+
+.select_label2:hover {
+  background-color: rgb(211, 119, 119);
+  color: white;
+  transition: 0.5s ease-out;
 }
 
 .select_label2.selected {
   width: auto;
   margin: 5px;
-  background: lightyellow;
-  border: 3px solid rgb(211, 119, 119);
+  padding: 3px;
+  background: rgb(211, 119, 119);
+  border: 2px solid rgb(211, 119, 119);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
   font-weight: bold;
-  color: darkslategrey;
-}
-
-.result_next {
-  width: 50%;
-  height: auto;
-  background: lightcyan;
-  border: 3px solid rgb(211, 119, 119);
-  border-radius: 0.3rem;
-  cursor: pointer;
-  align-items: center;
-  margin: auto;
-  font-size: 1.3rem;
-  font-weight: bold;
+  color: white;
 }
