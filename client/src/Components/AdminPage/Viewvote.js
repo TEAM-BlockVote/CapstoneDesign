@@ -16,14 +16,14 @@ function Viewvote({ data }) {
 						<table className="table table-hover table-bordered shadow rounded">
 							<thead className="table_thread">
 								<tr className="shadow rounded">
-									<th>#</th>
+									<th>번호</th>
 									<th>제목</th>
 									<th>투표 유형</th>
 									<th>작성일</th>
 								</tr>
 							</thead>
 							<tbody className="table_body">
-								{data.length > 1 && data.map((item) => (
+								{data.length > 0 && data.map((item) => (
 									<tr key={item.id}>
 										<td>{item.id}</td>
 										<td>
