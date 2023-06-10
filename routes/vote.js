@@ -22,7 +22,7 @@ router.post('/write', async (req, res, next) => {
   } catch (error) {
     next(error);
   };
-  return res.redirect('http://localhost:3000/AdminMain');
+  return res.redirect('/AdminMain');
 });
 
 
