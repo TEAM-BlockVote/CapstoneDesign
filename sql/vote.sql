@@ -6,5 +6,6 @@ CREATE TABLE `blockvote`.`vote` (
   `startDate` VARCHAR(100) NOT NULL,
   `endDate` VARCHAR(100) NOT NULL,
   `name` VARCHAR(100) NOT NULL,
-  `text` VARCHAR(100) NOT NULL
+  `text` VARCHAR(100) NOT NULL,
+  `makeDate` VARCHAR(100) NOT NULL
 );

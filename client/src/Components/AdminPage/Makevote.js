@@ -1,11 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import "./Makevote.css";
-import VotePlus from './VotePlus';
+// import VotePlus from './VotePlus';
 import { validateMakeVoteForm } from './errCheck/validateMakeForm';
 
 function Makevote() {
-  const [voteComponents, setVoteComponents] = useState([<VotePlus />]);
+  // const [voteComponents, setVoteComponents] = useState([<VotePlus />]);
   const [titleError, setTitleError] = useState('');
   const [typeError, setTypeError] = useState('');
   const [dateError, setDateError] = useState('');
@@ -20,6 +19,7 @@ function Makevote() {
     text: '학교 운동장 잔디 설치', 
   });
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -28,10 +28,9 @@ function Makevote() {
     }));
   };
 
-
-  const addVoteComponent = () => {
-    setVoteComponents([...voteComponents, <VotePlus />])
-  };
+  // const addVoteComponent = () => {
+  //   setVoteComponents([...voteComponents, <VotePlus />])
+  // };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
