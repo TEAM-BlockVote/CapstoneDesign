@@ -1,9 +1,8 @@
 import React from 'react';
 import './css.css';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function SetVote() {
-	const { id } = useParams();
 	const { state } = useLocation();
 
 	return (

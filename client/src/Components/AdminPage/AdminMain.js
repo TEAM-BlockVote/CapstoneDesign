@@ -6,7 +6,7 @@ import axios from 'axios';
 import Tab from '../Main/Tab';
 import AuthContext from '../../Store/auth-context';
 
-const AdminMain = (props) => {
+const AdminMain = () => {
   const [data, setData] = useState('');
   useEffect(() => {
     axios.get('/vote/view')
@@ -23,7 +23,6 @@ const AdminMain = (props) => {
   const [selectedTab, setSelectedTab] = useState(<Tab index={0} />);
   const [activeIndex, setActiveIndex] = useState(0);
   const ctx = useContext(AuthContext);
-  console.log(ctx.isLoggedIn);
   const navigate = useNavigate();
 
   useEffect(() => {

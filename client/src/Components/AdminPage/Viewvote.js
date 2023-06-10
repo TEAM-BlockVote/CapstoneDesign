@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import './css.css';
 
 
 function Viewvote({ data }) {
 
+	
 	return (
 		<div>
 			<div className="container">
@@ -34,7 +35,7 @@ function Viewvote({ data }) {
 											</Link>
 										</td>
 										<td>{item.type}</td>
-										<td>{item.startDate} - {item.endDate}</td>
+										<td>{item.makeDate}</td>
 									</tr>
 								))}
 							</tbody>
