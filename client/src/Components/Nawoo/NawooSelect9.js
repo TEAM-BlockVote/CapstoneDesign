@@ -5,6 +5,9 @@ function NawooSelect9({ selectedOption, handleSelectOption }) {
   return (
     <div className="qna_category">
       <label className="select_label1">상담 질의문</label>
+      <div className="qna_imgmargin">
+        <img src='/img/consulting.png' className='qna_img' alt='nawooimg' />
+      </div>
       <div className="qna_select">
         <label
           className={`select_label2 ${selectedOption === "option1" ? "selected" : ""}`}

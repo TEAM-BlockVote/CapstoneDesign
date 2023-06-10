@@ -16,6 +16,7 @@
   font-weight: bolder;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   margin: auto;
+  color: rgb(201, 94, 94);
 }
 
 .result_middle {
@@ -33,7 +34,19 @@
   width: 300px;
   height: auto;
   flex-direction: column;
+  border: 3px solid rgb(211, 119, 119);
   margin: auto;
+  padding: 1%;
+}
+
+.candidates_img {
+  opacity: 0.4;
+  transition: 0.5s ease-out;
+  cursor: crosshair;
+}
+
+.candidates_img:hover {
+  opacity: 1.0;
 }
 
 .result_bottom {
@@ -43,4 +56,8 @@
   flex-direction: column;
   margin: auto;
   text-align: center;
+}
+
+.result_highlight {
+  color: rgb(150, 39, 56);
 }

@@ -49,6 +49,7 @@ function NawooQna({ selectedCategories, onNextButtonClick }) {
 
   const CurrentComponent = componentsMap[selectedCategories[currentCategoryIndex]];
   const isLastCategory = currentCategoryIndex === selectedCategories.length - 1;
+  const isNextButtonDisabled = !selectedOptions[selectedCategories[currentCategoryIndex]];
 
   return (
     <div className='nawoo_form'>
@@ -60,13 +61,13 @@ function NawooQna({ selectedCategories, onNextButtonClick }) {
       </div>
       {isLastCategory ? (
         <div className='qna_bottom'>
-          <button className='result_next' onClick={handleNextClick}>
+          <button className='qna_next' onClick={handleNextClick} disabled={isNextButtonDisabled}>
             결과보기
           </button>
         </div>
       ) : (
         <div className='qna_bottom'>
-          <button className='result_next' onClick={handleNextClick} disabled={!selectedOptions[selectedCategories[currentCategoryIndex]]}>
+          <button className='qna_next' onClick={handleNextClick} disabled={isNextButtonDisabled}>
             다음
           </button>
         </div>
