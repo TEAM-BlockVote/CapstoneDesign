@@ -16,30 +16,26 @@ router.post('/write', async (req, res, next) => {
       pool.query(insertVoteSql, [title, writer, type, startDate, endDate, name, text, makeDate], (err, results, fields) => {
         if (err) {
           reject(err);
-          alert("데이터 형식이 sql문에 맞지 않습니다 (insert err)");
         }
         else
           resolve(results);
       });
     });
   } catch (error) {
+    console.log(error);
     next(error);
   };
   return res.redirect('/AdminMain');
 });
 
-
 router.get('/view', async (req, res, next) => {
 
   const selectVoteSql = 'select * from vote';
-
-
   try {
     const voteUser = await new Promise((resolve, reject) => {
       pool.query(selectVoteSql, [], (err, results, fields) => {
         if (err) {
           reject(err);
-          alert("데이터에 sql문이 존재하지 않습니다.");
         }
         else
           resolve(results);
@@ -52,6 +48,7 @@ router.get('/view', async (req, res, next) => {
       res.send(false);
     }
   } catch (error) {
+    console.log(error);
     next(error);
   };
 });
