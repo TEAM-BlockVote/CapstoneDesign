@@ -61,7 +61,7 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
         setContent('');
         setIsPostSubmitted(true);
         addPostToTable(newPost); 
-        showTableComponent();
+        window.location.reload();
       
       } else {
         alert('글 작성 중 오류가 발생했습니다.');
