@@ -5,7 +5,7 @@
   max-width: 500px;
   min-width: 300px;
   height: 100vh;
-  border: 6px double rgb(176, 160, 160);
+  border: 4px solid rgb(179, 109, 109);
   border-radius: 1rem;
   flex-direction: column;
   margin: auto;
@@ -57,6 +57,7 @@
   min-width: 1.5rem;
   margin: auto;
   padding: 10%;
+  color: rgb(150, 39, 56);
 }
 
 @media (min-width: 275px) {
@@ -94,6 +95,13 @@
   height: auto;
   flex-direction: column;
   margin: auto;
+  opacity: 0.3;
+  transition: 0.5s ease-out;
+}
+
+.nawoo_img:hover {
+  opacity: 1.0;
+  transition: 0.5s ease-out;
 }
 
 .nawoo_bottom {

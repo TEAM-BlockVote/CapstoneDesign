@@ -9,6 +9,7 @@ import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Tab from './Tab';
 import Future from './Future';
+import SignInModal from './SignInModal';
 
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
@@ -26,6 +27,7 @@ const Main = () => {
 
   return (
     <>
+    {/* <SignInModal/> */}
       <div className="main_content_wrapper">
         <div className="main_content">
           <div className="banner">
