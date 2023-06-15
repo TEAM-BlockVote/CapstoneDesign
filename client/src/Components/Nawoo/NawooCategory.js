@@ -21,10 +21,9 @@ function NawooCategory({ onButtonClick }) {
   return (
     <div className='nawoo_form'>
       <div className='category_top'>
-        <label className='category_label1'>어떤 것들이 바뀌길 바랍니까?</label>
-        <label className='category_label2'>카테고리를 선택하시오.</label>
+        <label className='category_label1'>관심있는 분야를 선택해주세요.</label>
         <div className='count_margin'>
-          <label className='category_label3'>문항 : </label>
+          <label className='category_label2'>항목 : </label>
           <div className='category_count'>
             {selectedCategories.length * 3}
           </div>

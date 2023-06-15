@@ -10,16 +10,9 @@
 
 .category_label1 {
   margin-top: 10px;
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   font-weight: bold;
-  color: rgb(201, 94, 94);
-}
-
-.category_label2 {
-  margin-top: 10px;
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: rgb(150, 39, 56);
+  color: rgb(13, 13, 81);
 }
 
 .count_margin {
@@ -30,14 +23,14 @@
   justify-content:flex-end;
 }
 
-.category_label3 {
+.category_label2 {
   margin-top: 11px;
   margin-bottom: 11px;
   height: 100%;
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
-  color: rgb(211, 119, 119);
+  color: rgb(13, 13, 81);
 }
 
 .category_count {
@@ -46,9 +39,9 @@
   width: 50px;
   text-align: center;
   background: white;
-  border: 2px solid rgb(211, 119, 119);
+  border: 2px solid rgb(13, 13, 81);
   border-radius: 0.3rem;
-  color: rgb(211, 119, 119);
+  color: rgb(13, 13, 81);
 }
 
 .category_middle {
@@ -64,17 +57,17 @@
   width:30%;
   margin: 5px;
   background: white;
-  border: 2px solid rgb(211, 119, 119);
+  border: 2px solid rgb(13, 13, 81);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
   font-weight: bold;
-  color: rgb(211, 119, 119);
+  color: rgb(13, 13, 81);
   transition: 0.5s ease-out;
 }
 
 .category_btn:hover {
-  background-color: rgb(211, 119, 119);
+  background-color: rgb(13, 13, 81);
   color: white;
   transition: 0.5s ease-out;
 }
@@ -82,8 +75,8 @@
 .category_btn.selected {
   width:30%;
   margin: 5px;
-  background: rgb(211, 119, 119);
-  border: 2px solid rgb(211, 119, 119);
+  background: rgb(13, 13, 81);
+  border: 2px solid rgb(13, 13, 81);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
@@ -105,19 +98,19 @@
   width: 50%;
   height: auto;
   background: white;
-  border: 2px solid rgb(211, 119, 119);
+  border: 2px solid rgb(13, 13, 81);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
   margin: auto;
   font-size: 1.3rem;
   font-weight: bold;
-  color: rgb(211, 119, 119);
+  color: rgb(13, 13, 81);
   transition: 0.5s ease-out;
 }
 
 .category_next:hover {
-  background-color: rgb(211, 119, 119);
+  background-color: rgb(13, 13, 81);
   color: white;
   transition: 0.5s ease-out;
 }

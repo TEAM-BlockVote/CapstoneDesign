@@ -5,7 +5,7 @@ function NawooSelect2({ selectedOption, handleSelectOption }) {
   return (
     <div className="qna_category">
       <div className="qna_category">
-        <label className="select_label1">복지 질의문</label>
+        <label className="select_label1">복지</label>
         <div className="qna_imgmargin">
           <img src='/img/welfare.png' className='qna_img' alt='nawooimg' />
         </div>
