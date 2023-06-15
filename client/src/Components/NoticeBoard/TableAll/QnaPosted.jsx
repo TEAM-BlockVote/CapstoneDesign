@@ -15,7 +15,7 @@ function QnaPosted() {
 
   const fetchPost = async () => {
     try {
-      const response = await axios.get(`/auth/qnaposts/${id}`);
+      const response = await axios.get(`/board/qnaposts/${id}`);
       if (response.status === 200) {
         setPost(response.data.post);
       } else {
@@ -35,7 +35,7 @@ function QnaPosted() {
     
     // 댓글 작성 로직 추가
     try {
-      const response = await axios.post(`/auth/qnaposts/${id}/comments`, {
+      const response = await axios.post(`/board/qnaposts/${id}/comments`, {
         content: commentContent
       });
       

@@ -53,7 +53,7 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
     };
 
     try {
-      const response = await axios.post('/auth/qnaposts', newPost);
+      const response = await axios.post('/board/qnaposts', newPost);
 
       if (response.status === 200) {
         alert('글 작성이 완료되었습니다.');

@@ -21,6 +21,7 @@ redisClient.connect().then();
 const pool = require('./server/Router/pool');
 const authRouter = require('./routes/auth');
 const voteRouter = require('./routes/vote');
+const boardRouter = require('./routes/board');
 const passportConfig = require('./passport');
 
 passportConfig();
@@ -45,6 +46,7 @@ app.use(passport.session()); //connect.sid 라는 이르으로 세션 쿠기가 
 
 app.use('/auth', authRouter);
 app.use('/vote', voteRouter);
+app.use('/board', boardRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build/index.html"));

@@ -16,7 +16,7 @@ function Qnatable() {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('/auth/qnaposts');
+      const response = await axios.get('/board/qnaposts');
       if (response.status === 200) {
         setPosts(response.data.tableposts);
       } else {
