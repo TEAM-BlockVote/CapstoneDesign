@@ -94,7 +94,7 @@
   width: 100%;
   height: auto;
   margin: auto;
-  padding: 30px;
+  padding: 20px;
   background-color: aliceblue;
 }
 
@@ -107,10 +107,12 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: rgb(12, 12, 125);
+  margin-top: 1px;
 }
 
 .result_nonpick {
   font-size: 1.2rem;
   font-weight: bold;
   color: red;
+  margin-top: 1px;
 }

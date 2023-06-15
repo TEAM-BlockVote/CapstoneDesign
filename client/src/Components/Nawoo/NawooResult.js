@@ -24,7 +24,7 @@ function NawooResult() {
       <div className='result'>
         <div className='result_top'>
           <div className='result_logo'>
-            원하시던 후보자는 누구?!<br />
+            당신만을 위한 후보자는 누구?!<br />
             사진을 클릭하세요!
           </div>
         </div>
@@ -40,7 +40,7 @@ function NawooResult() {
         </div>
         <div className='result_bottom'>
           <div className='result_logo'>
-            원하시던 후보자는...<br />
+            당신만을 위한 후보자는...<br />
             <div>
               <label className='result_highlight'>{selectedCandidate}</label> 후보자입니다! <br />
             </div>
