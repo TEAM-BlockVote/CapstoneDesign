@@ -51,7 +51,7 @@ const AdminMain = () => {
           <div className="tab-wrapper">
             <ul className="tabs-list col-12">
               <li className={activeIndex === 0 ? 'tab active2' : 'tab2'} onClick={() => MakevoteClick(<Tab index={0} />, 0)}>투표 만들기</li>
-              <li className={activeIndex === 1 ? 'tab active2' : 'tab2'} onClick={() => setViewClick(<Tab index={1} />, 1)}>투표 관리하기</li>
+              <li className={activeIndex === 1 ? 'tab active2' : 'tab2'} onClick={() => setViewClick(<Tab index={1} />, 1)}>투표 목록</li>
             </ul>
           </div>
         </div>
