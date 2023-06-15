@@ -190,7 +190,7 @@
 
 .sign_formbottom {
     width: 100%;
-    height: 100%;
+    height: auto;
     padding: 1.875rem 2rem;
     border-radius: 0.9375rem;
     background: #fff;
