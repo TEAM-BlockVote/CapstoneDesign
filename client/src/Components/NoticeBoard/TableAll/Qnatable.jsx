@@ -35,10 +35,6 @@ function Qnatable() {
     setShowWritingForm(true);
   };
 
-  const handleFormCancel = () => {
-    setShowWritingForm(false);
-  };
-
   const handlePostClick = (postId) => {
     navigate(`/post/${postId}`);
   };
@@ -66,7 +62,7 @@ function Qnatable() {
             <tr key={post.id}>
               <td>{index + 1}</td>
               <td>
-              <Link to={`/post/${post.id}`} onClick={() => handlePostClick(post.id)}>
+              <Link to={`/post/${post.id}`} onClick={() => handlePostClick(post.id)}  style={{ textDecoration: 'none', color: 'inherit' }}>
                 {post.title}
               </Link>
               </td>
