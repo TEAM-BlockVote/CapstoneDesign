@@ -9,9 +9,9 @@
 
 .qna_label1 {
   margin-top: 5%;
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   font-weight: bold;
-  color: rgb(201, 94, 94);
+  color: rgb(13, 13, 81);
 }
 
 .qna_middle {
@@ -37,19 +37,19 @@
   width: 50%;
   height: auto;
   background: white;
-  border: 2px solid rgb(211, 119, 119);
+  border: 2px solid rgb(13, 13, 81);
   border-radius: 0.3rem;
   cursor: pointer;
   align-items: center;
   margin: auto;
   font-size: 1.3rem;
   font-weight: bold;
-  color: rgb(211, 119, 119);
+  color: rgb(13, 13, 81);
   transition: 0.5s ease-out;
 }
 
 .qna_next:hover {
-  background-color: rgb(211, 119, 119);
+  background-color: rgb(13, 13, 81);
   color: white;
   transition: 0.5s ease-out;
 }

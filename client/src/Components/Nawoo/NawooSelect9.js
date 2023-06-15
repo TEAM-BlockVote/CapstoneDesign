@@ -4,7 +4,7 @@ import "./NawooSelect.css";
 function NawooSelect9({ selectedOption, handleSelectOption }) {
   return (
     <div className="qna_category">
-      <label className="select_label1">상담 질의문</label>
+      <label className="select_label1">상담</label>
       <div className="qna_imgmargin">
         <img src='/img/consulting.png' className='qna_img' alt='nawooimg' />
       </div>

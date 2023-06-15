@@ -3,6 +3,7 @@ import NawooMain from './NawooMain';
 import NawooCategory from './NawooCategory';
 import NawooQna from './NawooQna';
 import NawooResult from './NawooResult';
+import "./NawooPage.css";
 
 function NawooPage() {
   const [currentPage, setCurrentPage] = useState('main');

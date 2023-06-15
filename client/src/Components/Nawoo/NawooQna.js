@@ -54,7 +54,7 @@ function NawooQna({ selectedCategories, onNextButtonClick }) {
   return (
     <div className='nawoo_form'>
       <div className='qna_top'>
-        <label className='qna_label1'>가장 실현되면 좋을 것 같은 질의문을 선택하세요.</label>
+        <label className='qna_label1'>항목을 선택해주세요.</label>
       </div>
       <div className='qna_middle'>
         <CurrentComponent selectedOption={selectedOptions[selectedCategories[currentCategoryIndex]]} handleSelectOption={handleSelectOption} />
