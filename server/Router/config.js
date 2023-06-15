@@ -2,7 +2,7 @@ let databaseConfig;
 
 if (process.env.NODE_ENV === 'production') {
   databaseConfig = {
-    connectionLimit: 50,
+    connectionLimit: 200,
     host: process.env.PRODUCTION_HOST,
     user: process.env.PRODUCTION_ROOT,
     password: process.env.PRODUCTION_PASSWORD,
@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
 };
 if(process.env.NODE_ENV === 'development') {
   databaseConfig = {
-    connectionLimit: 50,
+    connectionLimit: 200,
     host: process.env.HOST,
     user: process.env.ROOT,
     password: process.env.PASSWORD,

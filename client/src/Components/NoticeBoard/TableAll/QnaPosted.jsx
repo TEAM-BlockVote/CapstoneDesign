@@ -6,12 +6,28 @@ import './QnaPosted.css';
 function QnaPosted() {
   const { id } = useParams();
   const [post, setPost] = useState(null);
-  const [showCommentForm, setShowCommentForm] = useState(false);
   const [commentContent, setCommentContent] = useState('');
+  const [receivedComments, setReceivedComments] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     fetchPost();
   }, []);
+
+  useEffect(() => {
+    axios.get(`/board/receivedComments/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          setReceivedComments(response.data);
+        } else {
+          console.error('게시물을 불러오는 데 실패했습니다.');
+        }
+      })
+      .catch((error) => {
+        console.error('게시물을 불러오는 데 실패했습니다.', error);
+      });
+  }, [receivedComments]);
 
   const fetchPost = async () => {
     try {
@@ -26,21 +42,22 @@ function QnaPosted() {
     }
   };
 
-  const handleCommentButtonClick = () => {
-    setShowCommentForm(true);
-  };
-
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-    
-    // 댓글 작성 로직 추가
+
+    if (commentContent === '') return alert("댓글을 작성해주세요");
+    setCommentContent('');
+
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      console.log('요청이 타임아웃되었습니다.');
+    }, 2000);
+
     try {
       const response = await axios.post(`/board/qnaposts/${id}/comments`, {
         content: commentContent
       });
-      
-      // 댓글 작성 후의 처리 로직 추가
-      
     } catch (error) {
       console.error('댓글 작성에 실패했습니다.', error);
     }
@@ -49,35 +66,45 @@ function QnaPosted() {
   return (
     <div className="qna-posted-container">
       {post ? (
-        <div className="qna-posted">
-          <h2 className="qna-posted-title">{post.title}</h2>
-          <p className="qna-posted-info">작성자: {post.name}</p>
-          <p className="qna-posted-info">날짜: {post.date}</p>
-          <p className="qna-posted-info">조회수: {post.view}</p>
-          <p className="qna-posted-content">{post.content}</p>
-          <button className="qna-posted-comment-button" onClick={handleCommentButtonClick}>
-            댓글 작성
-          </button>
-        </div>
-        
+        <>
+          <div className="qna-posted">
+            <h2 className="qna-posted-title">{post.title}</h2>
+            <p className="qna-posted-info">작성자: {post.name}</p>
+            <p className="qna-posted-info">날짜: {post.date}</p>
+            <p className="qna-posted-info">조회수: {post.view}</p>
+            <p className="qna-posted-content">{post.content}</p>
+          </div>
+
+          <form className="qna-posted-comment-form" onSubmit={handleCommentSubmit}>
+            <textarea
+              className="qna-posted-comment-input"
+              placeholder="댓글을 작성해주세요."
+              value={commentContent}
+              onChange={(e) => setCommentContent(e.target.value)}
+            />
+            <button className="qna-posted-comment-submit-button" type="submit" disabled={isLoading}>
+              작성
+            </button>
+          </form>
+          <div>
+            <div>
+            </div>
+            {receivedComments && receivedComments.map((element, index) => (
+              <div className='qna-posted-comment'>
+                <div key={index}>
+                  {element.studentNumber}
+                </div>
+                <div>
+                  {element.text}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       ) : (
         <p className="qna-posted-loading">게시물을 불러오는 중입니다...</p>
       )}
-        {showCommentForm && (
-            <form className="qna-posted-comment-form" onSubmit={handleCommentSubmit}>
-              <textarea
-                className="qna-posted-comment-input"
-                placeholder="댓글을 작성해주세요."
-                value={commentContent}
-                onChange={(e) => setCommentContent(e.target.value)}
-              />
-              <button className="qna-posted-comment-submit-button" type="submit">
-                작성
-              </button>
-            </form>
-          )}
     </div>
-    
   );
 }
 

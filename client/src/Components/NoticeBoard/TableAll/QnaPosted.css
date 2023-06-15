@@ -64,3 +64,9 @@
 .qna-posted-comment-submit-button:hover {
   background-color: #45a049;
 }
+
+.qna-posted-comment {
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+}

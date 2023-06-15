@@ -6,7 +6,7 @@ router.post('/write', async (req, res, next) => {
 
   const { title, type, startDate, endDate } = req.body;
   const writer = String(req.user.name);
-
+          
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = String(currentDate.getMonth() + 1).padStart(2, '0');

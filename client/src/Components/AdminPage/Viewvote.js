@@ -10,7 +10,7 @@ function Viewvote({ data }) {
 		<div>
 			<div className="container">
 				<div className="row col-12 mt-5">
-					<h1 className="set_title">투표 관리하기</h1>
+					<h1 className="set_title">투표 목록</h1>
 					<div className="space-between"></div>
 				</div>
 				<div className="table-responsive rounded-top text-center">
