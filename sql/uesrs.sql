@@ -1,4 +1,4 @@
-CREATE TABLE `blockvote`.`users` (
+CREATE TABLE `users` (
   `studentNumber` VARCHAR(100) NOT NULL,
   `name` VARCHAR(100) NOT NULL,
   `dep` VARCHAR(100) NOT NULL,

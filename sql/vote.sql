@@ -1,4 +1,4 @@
-CREATE TABLE `blockvote`.`vote` (
+CREATE TABLE `vote` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `title` VARCHAR(100) NOT NULL,
   `writer` VARCHAR(100) NOT NULL,
@@ -7,5 +7,6 @@ CREATE TABLE `blockvote`.`vote` (
   `endDate` VARCHAR(100) NOT NULL,
   `name` VARCHAR(100) NOT NULL,
   `text` VARCHAR(100) NOT NULL,
-  `makeDate` VARCHAR(100) NOT NULL
+  `makeDate` VARCHAR(100) NOT NULL,
+  `voteCode` VARCHAR(10) NOT NULL
 );

@@ -1,4 +1,4 @@
-CREATE TABLE `blockvote`.`qna` (
+CREATE TABLE `qna` (
   `title` VARCHAR(45) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `date` VARCHAR(45) NOT NULL,

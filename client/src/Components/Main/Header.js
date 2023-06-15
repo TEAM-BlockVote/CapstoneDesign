@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useContext } from 'react';
-import seoilLogo from '../Main/images/seoilBlue.png';
+import logo from '../Main/images/logo.png';
 import AuthContext from '../../Store/auth-context';
 
 const Header = () => {
@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg" style={{margin: '0 5%'}}>
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/"><img  style={{width:50+'px', height: 50+'px'}} src={seoilLogo} alt="seoilLogo"/></Link>
+        <Link className="navbar-brand" to="/"><img  style={{width:'200px'}} src={logo} alt="seoilLogo"/></Link>
         <button
           className="navbar-toggler"
           type="button"
