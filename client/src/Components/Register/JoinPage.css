@@ -1,85 +1,112 @@
 .join_labelstart {
-    width: 100%;
-    margin-bottom: 0.5rem;
-    font-size: .9125rem;
-    font-weight: 700;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  font-size: .9125rem;
+  font-weight: 700;
 }
 
 .join_label {
-    width: 100%;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-size: .9125rem;
-    font-weight: 700;
+  width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: .9125rem;
+  font-weight: 700;
 }
 
 .join_div {
-    position: relative;
-    display: flex;
-    width: 100%;
-    align-items: center;
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
 }
 
 .join_input {
-    padding-left: 2.75rem;
-    width: 100%;
-    height: 2.875rem;
-    padding: 0.5rem 2.5rem 0.5rem 0.875rem;
-    border: 1px solid #d2d2d2;
-    border-radius: 0.25rem;
+  padding-left: 2.75rem;
+  width: 100%;
+  height: 2.875rem;
+  padding: 0.5rem 2.5rem 0.5rem 0.875rem;
+  border: 1px solid #d2d2d2;
+  border-radius: 0.25rem;
 }
 
 .join_input::placeholder {
-    color: #d2d2d2;
-    font-weight: 600;
+  color: #d2d2d2;
+  font-weight: 600;
 }
 
 .join_error {
-    margin-top: 0.55rem;
-    width: 100%;
-    margin-bottom: 0.5rem;
-    font-size: .9125rem;
-    font-weight: 700;
-    color: red;
+  margin-top: 0.55rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  font-size: .9125rem;
+  font-weight: 700;
+  color: red;
 }
 
-.join_select {
-    padding-left: 2.75rem;
-    width: 100%;
-    height: 2.875rem;
-    padding: 0.5rem 2.5rem 0.5rem 0.875rem;
-    border: 1px solid #d2d2d2;
-    border-radius: 0.25rem;
-    color: #000000;
-    font-weight: 600;
+.join_dep {
+  position: relative;
+  width: 100%;
+  z-index: 999;
+}
+
+.depcard {
+  display: none;
+}
+
+.depcard-active {
+  position: absolute;
+  max-height: 200px;
+  padding: 10px;
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid#b3bbcc;
+  border-radius: 8px;
+  list-style: none;
+  font-size: .9200rem;
+  font-weight: bold;
+}
+
+.depcard-active::-webkit-scrollbar {
+  width: 15px;
+}
+
+.depcard-active::-webkit-scrollbar-thumb {
+  height: 30px;
+  background-color: #386ad6;
+  border-radius: 10px;
+}
+
+.depcard-active::-webkit-scrollbar-track {
+  background-color: #e4eaf6;
+  border-radius: 18px;
 }
 
 .join_passchk {
-    margin-top: 0.55rem;
-    padding-left: 2.75rem;
-    width: 100%;
-    height: 2.875rem;
-    padding: 0.5rem 2.5rem 0.5rem 0.875rem;
-    border: 1px solid #d2d2d2;
-    border-radius: 0.25rem;
+  margin-top: 0.55rem;
+  padding-left: 2.75rem;
+  width: 100%;
+  height: 2.875rem;
+  padding: 0.5rem 2.5rem 0.5rem 0.875rem;
+  border: 1px solid #d2d2d2;
+  border-radius: 0.25rem;
 }
 
 .join_passchk::placeholder {
-    color: #d2d2d2;
-    font-weight: 600;
+  color: #d2d2d2;
+  font-weight: 600;
 }
 
 .join_button {
-    width: 100%;
-    height: 2.75rem;
-    border-radius: 4px;
-    margin-top: 2.75rem;
-    background: #386ad6;
-    color: #fff;
-    font-size: 1.25rem;
-    font-weight: 700;
-    border: 0;
-    cursor: pointer;
+  width: 100%;
+  height: 2.75rem;
+  border-radius: 4px;
+  margin-top: 2.75rem;
+  background: #386ad6;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
 }
 
 .join_button_disabled {
@@ -100,18 +127,35 @@
 }
 
 .testt2222 {
-  display: none;  
+  display: none;
 }
 
-.testt2222-active{
+.testt2222-active {
   position: absolute;
   max-height: 200px;
   padding: 10px;
   overflow-x: auto;
   background: #fff;
   border: 1px solid#b3bbcc;
-  border-radius: 18px;
+  border-radius: 8px;
   list-style: none;
+  font-size: .9200rem;
+  font-weight: bold;
+}
+
+.testt2222-active::-webkit-scrollbar {
+  width: 15px;
+}
+
+.testt2222-active::-webkit-scrollbar-thumb {
+  height: 30px;
+  background-color: #386ad6;
+  border-radius: 10px;
+}
+
+.testt2222-active::-webkit-scrollbar-track {
+  background-color: #e4eaf6;
+  border-radius: 18px;
 }
 
 .update-user-data {
@@ -133,7 +177,7 @@
 }
 
 @media (max-width:575px) {
-    .login_button {
-        font-size: 1rem;
-    }
+  .login_button {
+    font-size: 1rem;
+  }
 }
