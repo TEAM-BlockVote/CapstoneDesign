@@ -21,6 +21,7 @@ function Viewvote({ data }) {
 									<th>제목</th>
 									<th>투표 유형</th>
 									<th>작성일</th>
+                  <th>투표코드</th>
 								</tr>
 							</thead>
 							<tbody className="table_body">
@@ -36,6 +37,7 @@ function Viewvote({ data }) {
 										</td>
 										<td>{item.type}</td>
 										<td>{item.makeDate}</td>
+                    <td>{item.voteCode}</td>
 									</tr>
 								))}
 							</tbody>

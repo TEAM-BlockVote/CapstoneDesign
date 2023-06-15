@@ -78,3 +78,15 @@
   margin-bottom: 20%;
   transition: opacity 0.5s;
 }
+
+.candidate-info-modal {
+  width: 40%;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 7vh;
+  border-radius: 5px;
+  background-color: #386ad6;
+  border: 1px solid rgba(222, 222, 222, 0.2);
+  color: white;
+  margin-top: 5%;
+}

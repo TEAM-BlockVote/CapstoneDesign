@@ -1,15 +1,22 @@
+import CloseButton from 'react-bootstrap/CloseButton';
+import Modal from 'react-bootstrap/Modal';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 import HorizonLine from './HorizonLine';
 import './Main.css';
 import bannerLogo from './images/seoilLogo.png';
 import Team from './images/Team.png';
+import MakeVote from './images/makeVote.png';
+import Voting from './images/voting.png';
+import Result from './images/result.png';
 
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Tab from './Tab';
 import Future from './Future';
-import SignInModal from './SignInModal';
+import VoteBox from './VoteBox';
 
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
@@ -25,9 +32,17 @@ const Main = () => {
     setActiveIndex(index);
   };
 
+  const [showVotingModal, setShowVotingModal] = useState(false);
+  const handleVotingModalClose = () => setShowVotingModal(false);
+  const handleVotingModalShow = () => setShowVotingModal(true);
+
+  const [showResultModal, setShowResultModal] = useState(false);
+  const handleResultModalClose = () => setShowResultModal(false);
+  const handleResultModalShow = () => setShowResultModal(true);
+
   return (
     <>
-    {/* <SignInModal/> */}
+    {/* {<SignInModal/>} */}
       <div className="main_content_wrapper">
         <div className="main_content">
           <div className="banner">
@@ -42,7 +57,7 @@ const Main = () => {
               </div>
             </div>
           </div>
-          <div className="vote_info_wrapper">
+          {/* <div className="vote_info_wrapper">
             <div>
               현재 진행중인 투표 -
               <div className="vote_container">
@@ -72,6 +87,22 @@ const Main = () => {
                 </div>
               </div>
             </div>
+          </div> */}
+          <div className="tab-wrapper">
+            <ul className="tabs-list" style={{margin: '0 10%'}}>
+              <li className='go-link' onClick={handleVotingModalShow}>
+                <img src={Voting} alt='투표하기'></img>
+                <div> 투표하기 </div>
+              </li>
+              <li className='go-link' onClick={handleResultModalShow}>
+                <img src={Result} alt='결과보기'></img>
+                <div> 결과보기 </div>
+              </li>
+              <li className='go-link'>
+                <img src={MakeVote} alt='투표 신청하기'></img>
+                <div> 투표 신청하기 </div>
+              </li>
+            </ul>
           </div>
           <HorizonLine/>
           <div className="section-title">
@@ -133,7 +164,36 @@ const Main = () => {
           <p>  </p>
         </div>
       </div>
-    </>
+      <Modal show={showVotingModal} onHide={handleVotingModalClose} centered style={{textAlign: 'center'}}>
+        <Modal.Header style={{ borderBottom: 'rgb(222,222,222)' }}>
+          <CloseButton onClick={handleVotingModalClose} />
+        </Modal.Header>
+        <Modal.Body>
+        <form action='vote/hasVoteNumberVoting' method='get'>
+            {<VoteBox/>}
+            <input placeholder='발송 문자 7자리 숫자' name='voteCode'/>
+            <button className='votebox-submit' type='submit'>
+              투표하러가기
+            </button>
+          </form>
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showResultModal} onHide={handleResultModalClose} centered style={{textAlign: 'center'}}>
+        <Modal.Header style={{ borderBottom: 'rgb(222,222,222)' }}>
+          <CloseButton onClick={handleResultModalClose} />
+        </Modal.Header>
+        <Modal.Body>
+          <form action='vote/hasVoteNumberResult' method='get'>
+            {<VoteBox/>}
+            <input placeholder='발송 문자 7자리 숫자' name='voteCode'/>
+            <button className='votebox-submit' type='submit'>
+              결과보러가기
+            </button>
+          </form>
+        </Modal.Body>
+      </Modal>
+    </> 
   );
 };
 

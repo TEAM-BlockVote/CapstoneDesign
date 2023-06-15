@@ -203,3 +203,64 @@
   background-color: #4ec0e9;
   color: #ffffff;
 }
+
+.go-link {
+  width: 33.33%;
+  background-color: #eef6ff;
+  border: 1px white solid;
+  color: #0177ff;
+  line-height: 4rem;
+  margin: 0 10px;
+  border-radius: 16px;
+  padding-top: 10px;
+}
+
+.votebox-info {
+  background: #fff;
+  border-radius: 20px 20px;
+  margin: 5%;
+}
+
+.votebox-tit {
+  position: relative;
+  line-height: 4.6rem;
+  background: #333;
+  color: #fff;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.votebox-desc {
+  padding-top: 2rem;
+
+}
+.votebox-link {
+  padding-top: 2.3rem;
+}
+.votebox-dan {
+  font-size: 13px;
+  white-space: nowrap;
+  padding-bottom: 2rem;
+}
+
+.votebox-wrapper {
+  background-color: #eaf6f9;
+  padding: 5%;
+  margin-bottom: 5%;
+}
+
+.pass-box {
+  background: #eb3522;
+  color: #fff;
+  padding-top: 0.5rem;
+  text-align: center;
+}
+
+.votebox-submit {
+  width: 100%;
+  height: 7vh;
+  border-radius: 5px;
+  background-color: #386ad6;
+  border: 1px solid rgba(222, 222, 222, 0.2);
+  color: white;
+  margin-top: 5%;
+}
