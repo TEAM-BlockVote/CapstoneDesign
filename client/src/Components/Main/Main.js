@@ -184,13 +184,11 @@ const Main = () => {
           <CloseButton onClick={handleResultModalClose} />
         </Modal.Header>
         <Modal.Body>
-          <form action='vote/hasVoteNumberResult' method='get'>
-            {<VoteBox/>}
-            <input placeholder='발송 문자 7자리 숫자' name='voteCode'/>
-            <button className='votebox-submit' type='submit'>
-              결과보러가기
-            </button>
-          </form>
+          {<VoteBox/>}
+          <input placeholder='발송 문자 7자리 숫자' name='voteCode'/>
+          <button className='votebox-submit' onClick={() => {alert("아직 투표가 끝나지 않았습니다.")}}>
+            결과보러가기
+          </button>
         </Modal.Body>
       </Modal>
     </> 

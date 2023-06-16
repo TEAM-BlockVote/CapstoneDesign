@@ -68,11 +68,20 @@ const VotingMain = () => {
     }
   }
 
+  const handleVotesUpdate = () => {
+    const totalVotes = candidates.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.votes;
+    }, 0);
+
+    setTotalVotes(totalVotes);
+  }
+
   useEffect(() => {
     axios.get(`/vote/${voteCode}`)
     .then((res) => {
       setVoteInfo(res.data.hasVoteInfo);
       setCandidates(res.data.candidates);
+      handleVotesUpdate();
     })
     .catch((err) => {
       if (err.response) {
@@ -86,7 +95,20 @@ const VotingMain = () => {
         console.log("네트워크 에러");
       }
     });
-  }, [voteCode]);
+  }, [voteCode, candidates]);
+
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const res = await axios.post(`/vote/voting`, {"selectedCandidatedata": selectedCandidate});
+    if (res.status === 200) {
+      handleVotingModalClose()
+      alert('투표 완료!');
+    } else {
+      handleVotingModalClose()
+    }
+    console.log();
+  };
 
   if (!candidates) {
     return <div>데이터 로딩중...</div>;
@@ -103,7 +125,7 @@ const VotingMain = () => {
               </div>
               <div style={{display: 'flex', marginBottom: '3%', textAlign: 'left'}}>
                 <div style={{marginRight: '10%'}}>
-                  <span style={{color: '#a5a5a5'}}>투표수</span> <span style={{display: 'block', fontSize: '30px'}}> 1,323표 </span>
+                  <span style={{color: '#a5a5a5'}}>투표수</span> <span style={{display: 'block', fontSize: '30px'}}> {totalVotes}표 </span>
                 </div>
                 <div>
                   <span style={{color: '#a5a5a5'}}>남은 시간</span> <span style={{display: 'block', fontSize: '30px'}}> {formatTime(remainingTime)} </span>
@@ -158,22 +180,24 @@ const VotingMain = () => {
           <CloseButton onClick={handleVotingModalClose} />
         </Modal.Header>
         <Modal.Body>
-          <div>
-          {candidates[selectedCandidate] && 
-          <div> 
-            <div>{candidates[selectedCandidate].id} 번 </div>
-            <div>{candidates[selectedCandidate].party} 팀 </div>
-            <div> {candidates[selectedCandidate].candidate} 후보</div> 
-            <div> 선택하신 후보자가 맞습니까? </div> 
-          </div>
-          }
-          <button className='candidate-info-modal' type='submit'>
-              예(투표)
-          </button>
-          <button className='candidate-info-modal' type='submit'>
-              아닙니다(취소)
-          </button>
-          </div>
+          <form onSubmit={handleFormSubmit}>
+            <div>
+            {candidates[selectedCandidate] && 
+            <div> 
+              <div>{candidates[selectedCandidate].id} 번 </div>
+              <div>{candidates[selectedCandidate].party} 팀 </div>
+              <div> {candidates[selectedCandidate].candidate} 후보</div> 
+              <div> 선택하신 후보자가 맞습니까? </div> 
+            </div>
+            }
+            <button className='candidate-info-modal' type='submit' style={{backgroundColor: '#fb7e75'}}>
+                예(투표)
+            </button>
+            <button type='button' className='candidate-info-modal' onClick={handleVotingModalClose}>
+                아닙니다(취소)
+            </button>
+            </div>
+          </form>
         </Modal.Body>
       </Modal>
     </>

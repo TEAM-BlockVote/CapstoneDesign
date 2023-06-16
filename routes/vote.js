@@ -164,4 +164,29 @@ router.get('/:voteCode', async (req, res, next) => {
   console.log("hasVoteNumberVoting");
 });
 
+router.post("/voting", async(req, res, next) => {
+  const candidateId = parseInt(req.body.selectedCandidatedata);
+  const votesUpdateSql = "update candidates set votes = votes + 1 where id = ?"
+
+  try {
+    const hasVoteInfo  = await new Promise((resolve, reject) => {
+      pool.query(votesUpdateSql, [candidateId+1], (err, results, fields) => {
+        if (err) {
+          reject(err);
+        }
+        else
+          resolve(results);
+      });
+    });
+    if(hasVoteInfo.changedRows === 0) {
+      res.status(404).json({ error: '투표중 오류발생' });
+    } else {
+      res.status(200).json({ post: '성공' });
+    }
+  } catch (error) {
+    console.log(error);
+    next(error);
+  };
+});
+
 module.exports = router;
