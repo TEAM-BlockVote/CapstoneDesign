@@ -5,6 +5,8 @@ const {isLoggedIn, isNotLoggedIn} = require('../middlewares/index');
 const {localLogin, kakaoLogin} = require('../controllers/auth');
 const pool = require('../server/Router/pool');
 const passport = require("passport");
+const web3 = require('web3');
+const sendEther = require('../payment/sendPayment');
 
 router.post('/localLogin', isNotLoggedIn, localLogin);
 router.post('/kakaoLogin', passport.authenticate('kakao'));
@@ -101,29 +103,42 @@ router.get('/hasStudentNumber', async (req, res, next)=>{
 router.post('/signup', async (req, res, next) => {
   const {studentNumber, name, dep, password, telNumber} = req.body;
   const hasUserSql = 'select * from users where studentNumber = ?';
-  const insertUserSql = 'INSERT INTO users (studentNumber, name, dep, password, telNumber) VALUES (?, ?, ?, ?, ?)';
-  
+  const insertUserSql = 'INSERT INTO users (studentNumber, name, dep, password, telNumber, walletAddr, walletPrivateKey) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  const privateKey = await web3.eth.accounts.create().privateKey;
+  const address = await web3.eth.accounts.privateKeyToAccount(privateKey).address;
+  const checkUser = async(studentNumber) => {
+    try {
+      const queryResult = await new Promise( (resolve, reject) => {
+        pool.query(hasUserSql, studentNumber, (err, results, fields) => {
+          if(err) 
+            reject(err);
+          else 
+            resolve(results);
+        });
+      });
+      return queryResult;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   try {
-    const isUser = await new Promise( (resolve, reject) => {
-      pool.query(hasUserSql, studentNumber, (err, results, fields) => {
+    const userExists = await checkUser(studentNumber);
+    if(userExists.length > 0) return res.send("<script>alert('이미 존재하는 학번입니다. 다시 회원가입 해주세요');location.href='/';</script>");
+    const hashPassword = await bcrypt.hash(password, 12);
+    await new Promise((resolve, reject) => {
+      pool.query(insertUserSql, [studentNumber, name, dep, hashPassword, telNumber, address, privateKey], (err, results, fields) =>{
         if(err) 
           reject(err);
         else 
-          resolve(results);
+        resolve(results);
       });
-    });
-  
-    if(isUser.length) 
-      return res.send("<script>alert('이미 존재하는 학번입니다. 다시 회원가입 해주세요');location.href='/';</script>");
-  
-    const hashPassword = await bcrypt.hash(password, 12);
-
-    pool.query(insertUserSql, [studentNumber, name, dep, hashPassword, telNumber], (err, results, fields) =>{
-      if(err) console.log(err);
-    });
+    });      
+    const user = await checkUser(studentNumber);
+    sendEther(user[0]);
   } catch (error) {
-    next(error);
-  };
+    console.log(error);
+  }
   return res.send("<script>alert('회원가입 완료!');location.href='/';</script>");
 });
 
