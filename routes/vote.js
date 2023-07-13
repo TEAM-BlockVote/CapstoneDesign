@@ -14,7 +14,7 @@ router.post('/write', async (req, res, next) => {
   const hours = String(currentDate.getHours()).padStart(2, '0');
   const minutes = String(currentDate.getMinutes()).padStart(2, '0');
   const makeDate = `${year}-${month}-${day} ${hours}:${minutes}`;
-  const voteCode = String(Math.floor(Math.random() * 9999999 + 1111111));
+  const voteCode = String(Math.floor(Math.random() * 9000000) + 1000000);
   
   const name = '홍길동';
   const text = '학교 운동장 잔디 설치'
