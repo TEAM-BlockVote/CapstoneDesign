@@ -52,7 +52,16 @@ router.get('/additionalInfo', isLoggedIn, (req, res, next) => {
 });
 
 router.get('/isLoggedIn', (req, res, next)=>{
-  res.send(req.isAuthenticated());
+  if(req.user) {
+    res.json({
+      isLoggedIn:req.isAuthenticated(),
+      user: req.user.name
+    });
+  } else {
+    res.json({
+      isLoggedIn:req.isAuthenticated()
+    });
+  }
 });
 
 router.get('/logout', (req, res, next)=>{
