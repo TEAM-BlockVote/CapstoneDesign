@@ -8,6 +8,7 @@ const passport = require('passport');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
 const path = require('path');
+const { Web3 } = require('web3');
 
 app.use(cors());
 dotenv.config();
@@ -18,6 +19,8 @@ const redisClient = redis.createClient({
 });
 redisClient.connect().then();
 
+const web3 = new Web3(process.env.INFURA_API);
+const adminWallet = web3.eth.accounts.privateKeyToAccount(process.env.METAMASK_PRIVATE_KEY);
 const pool = require('./server/Router/pool');
 const authRouter = require('./routes/auth');
 const voteRouter = require('./routes/vote');
@@ -39,6 +42,10 @@ app.use(session({
   },
   store: new RedisStore({ client: redisClient }),
 }));
+app.use((req, res, next) => {
+  req.adminWallet = adminWallet;
+  next();
+})
 
 app.use(express.static(path.join(__dirname, "/client/build")));
 app.set('port', process.env.PORT || 5000);
