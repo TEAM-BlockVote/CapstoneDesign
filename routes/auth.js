@@ -5,7 +5,6 @@ const {isLoggedIn, isNotLoggedIn} = require('../middlewares/index');
 const {localLogin, kakaoLogin} = require('../controllers/auth');
 const pool = require('../server/Router/pool');
 const passport = require("passport");
-const web3 = require('web3');
 const sendEther = require('../payment/sendPayment');
 
 router.post('/localLogin', isNotLoggedIn, localLogin);
@@ -113,8 +112,8 @@ router.post('/signup', async (req, res, next) => {
   const {studentNumber, name, dep, password, telNumber} = req.body;
   const hasUserSql = 'select * from users where studentNumber = ?';
   const insertUserSql = 'INSERT INTO users (studentNumber, name, dep, password, telNumber, walletAddr, walletPrivateKey) VALUES (?, ?, ?, ?, ?, ?, ?)';
-  const privateKey = await web3.eth.accounts.create().privateKey;
-  const address = await web3.eth.accounts.privateKeyToAccount(privateKey).address;
+  const privateKey = await req.web3.eth.accounts.create().privateKey;
+  const address = await req.web3.eth.accounts.privateKeyToAccount(privateKey).address;
   const checkUser = async(studentNumber) => {
     try {
       const queryResult = await new Promise( (resolve, reject) => {
@@ -144,7 +143,7 @@ router.post('/signup', async (req, res, next) => {
       });
     });      
     const user = await checkUser(studentNumber);
-    sendEther(user[0]);
+    sendEther(req.web3, user[0]);
   } catch (error) {
     console.log(error);
   }

@@ -1,16 +1,11 @@
-const { Web3 } = require('web3');
-
-const sendEther = async (toUser) =>  {
-  const web3 = new Web3(process.env.INFURA_API);
+const sendEther = async (web3, toUser) =>  {
   const gasPrice = await web3.eth.getGasPrice();
-  const amountToSend = web3.utils.toWei('0.003', 'ether');  
-  const adminWallet = web3.eth.accounts.privateKeyToAccount(process.env.METAMASK_PRIVATE_KEY);
-  web3.eth.accounts.wallet.add(adminWallet);
+  const amountToSend = web3.utils.toWei('0.003', 'ether');
   web3.eth.sendTransaction({
-    from: adminWallet.address,
+    from: web3.adminWallet.address,
     to: toUser.walletAddr,
     value: amountToSend,
-    gas: 70000 /*2*/, //가스량에 따라 유동적으로 바꿔줘야함.
+    gas: 70000 * 2, //가스량에 따라 유동적으로 바꿔줘야함.
     gasPrice: gasPrice,
   })
     .on('error', (error) => {

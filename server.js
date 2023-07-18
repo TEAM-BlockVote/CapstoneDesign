@@ -21,6 +21,8 @@ redisClient.connect().then();
 
 const web3 = new Web3(process.env.INFURA_API);
 const adminWallet = web3.eth.accounts.privateKeyToAccount(process.env.METAMASK_PRIVATE_KEY);
+web3.eth.accounts.wallet.add(adminWallet);
+web3.adminWallet = adminWallet;
 const pool = require('./server/Router/pool');
 const authRouter = require('./routes/auth');
 const voteRouter = require('./routes/vote');
@@ -43,7 +45,7 @@ app.use(session({
   store: new RedisStore({ client: redisClient }),
 }));
 app.use((req, res, next) => {
-  req.adminWallet = adminWallet;
+  req.web3 = web3;
   next();
 })
 
