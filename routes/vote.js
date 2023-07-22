@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../server/Router/pool');
+const { abi } = require('../artifacts/contracts/Voting.sol/Voting.json')
 
 router.post('/write', async (req, res, next) => {
-
   const { title, type, startDate, endDate } = req.body;
   const writer = String(req.user.name);
           
@@ -21,6 +21,18 @@ router.post('/write', async (req, res, next) => {
   const insertVoteSql = 'INSERT INTO vote (title, writer, type, startDate, endDate, name, text, makeDate, voteCode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
   try {
+    const candidateList = [1, 2, 3, 4];
+    const gasPrice = await req.web3.eth.getGasPrice();
+    const gasLimit = 150000; // 필요한 가스 양에 따라 조정합니다
+    const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
+    req.web3.eth.accounts.wallet.add(userAccount);
+
+    const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
+    contractInstance.methods.createVote(voteCode, candidateList).send({ gasPrice, gas: gasLimit });
+
+    // const result22 = await contractInstance.methods.getVoteList(voteCode).call();
+    // console.log(`검색하신 투표 번호: ${voteCode}`)
+    // console.log(result22);
     const voteUser = await new Promise((resolve, reject) => {
       pool.query(insertVoteSql, [title, writer, type, startDate, endDate, name, text, makeDate, voteCode], (err, results, fields) => {
         if (err) {
@@ -34,11 +46,11 @@ router.post('/write', async (req, res, next) => {
     console.log(error);
     next(error);
   };
+
   return res.redirect('/AdminMain');
 });
 
 router.get('/view', async (req, res, next) => {
-
   const selectVoteSql = 'select * from vote';
   try {
     const voteUser = await new Promise((resolve, reject) => {
@@ -86,8 +98,6 @@ router.get('/hasVoteNumberVoting', async (req, res, next) => {
     console.log(error);
     next(error);
   };
-
-  console.log("hasVoteNumberVoting");
 });
 
 router.get('/:voteCode', async (req, res, next) => {
@@ -160,8 +170,6 @@ router.get('/:voteCode', async (req, res, next) => {
     console.log(error);
     next(error);
   };
-
-  console.log("hasVoteNumberVoting");
 });
 
 router.post("/voting", async(req, res, next) => {
