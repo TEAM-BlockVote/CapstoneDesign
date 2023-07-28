@@ -10,12 +10,17 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
   const [candidateIndex, setCandidateIndex] = useState(0);
   const [promiseIndex, setPromiseIndex] = useState(0);
   const [isPostSubmitted, setIsPostSubmitted] = useState(false); 
+  const [selectedCandidate, setSelectedCandidate] = useState("후보자 1"); // Default selected candidate
 
   const candidates = [
     "후보자 1",
     "후보자 2",
     "후보자 3"
   ];
+
+  const handleCandidateChange = (event) => {
+    setSelectedCandidate(event.target.value);
+  };
 
   const promises = [
     [
@@ -50,6 +55,7 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
     const newPost = {
       title: title,
       content: content,
+      candidate: selectedCandidate // Include the selected candidate in the newPost object
     };
 
     try {
@@ -99,6 +105,21 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
               className="qna-write-form__textarea"
             />
           </div>
+          <div className="qna-write-form__label">
+            <label htmlFor="qna-form__candidate">후보자:</label>
+            <select
+              id="qna-form__candidate"
+              value={selectedCandidate}
+              onChange={handleCandidateChange}
+              className="qna-form__input"
+            >
+              {candidates.map((candidate) => (
+                <option key={candidate} value={candidate}>
+                  {candidate}
+                </option>
+              ))}
+            </select>
+          </div>
           <button type="submit" className="qna-write-form__button">작성완료</button>
         </form>
       )}
@@ -106,7 +127,6 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
       {isPostSubmitted && showTableComponent()}
     </>
   );
-  
 }
 
 export default WritingForm;
