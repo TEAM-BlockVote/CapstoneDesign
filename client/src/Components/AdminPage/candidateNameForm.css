@@ -1,0 +1,16 @@
+.candidate-name-input {
+  border: 2px #d1d5db solid;
+  border-radius: 0.5rem;
+  
+  font-size: 1rem;
+  line-height: 2.5rem;
+  color: #9ea5b1;
+  
+  padding-top: 0.5rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+
+  margin: 0.3rem 0px;
+}
+
