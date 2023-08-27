@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './WritingForm.css';
 import axios from 'axios';
@@ -7,42 +7,40 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const navigate = useNavigate();
-  const [candidateIndex, setCandidateIndex] = useState(0);
-  const [promiseIndex, setPromiseIndex] = useState(0);
-  const [isPostSubmitted, setIsPostSubmitted] = useState(false); 
-  const [selectedCandidate, setSelectedCandidate] = useState("후보자 1"); // Default selected candidate
+  const [selectedVote, setSelectedVote] = useState('');
+  const [isPostSubmitted, setIsPostSubmitted] = useState(false);
+  const [votes, setVotes] = useState([]);
+  const [selectedCandidate, setSelectedCandidate] = useState('');
 
-  const candidates = [
-    "후보자 1",
-    "후보자 2",
-    "후보자 3"
-  ];
+  useEffect(() => {
+    fetchVotes();
+  }, []);
+
+  const fetchVotes = async () => {
+    try {
+      const response = await axios.get('/board/vote');
+      if (response.status === 200) {
+        setVotes(response.data);
+      } else {
+        console.error('투표 정보를 불러오는 데 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('투표 정보를 불러오는 데 실패했습니다.', error);
+    }
+  };
+
+  const handleVoteChange = (event) => {
+    setSelectedVote(event.target.value);
+    setSelectedCandidate(''); // 투표 변경 시 후보자 선택 초기화
+  };
 
   const handleCandidateChange = (event) => {
     setSelectedCandidate(event.target.value);
   };
 
-  const promises = [
-    [
-      "1번 공약: 더 좋은 대학교를 만들겠습니다.",
-      "2번 공약: 더 많은 일자리를 창출하겠습니다.",
-      "3번 공약: 교통체증 문제를 해결하겠습니다."
-    ],
-    [
-      "1번 공약: 환경 보호를 위해 노력하겠습니다.",
-      "2번 공약: 교육 개혁을 추진하겠습니다.",
-      "3번 공약: 복지 제도를 강화하겠습니다."
-    ],
-    [
-      "1번 공약: 더 나은 병원을 만들겠습니다.",
-      "2번 공약: 소득 격차를 해소하겠습니다.",
-      "3번 공약: 주택 가격 안정을 위해 노력하겠습니다."
-    ]
-  ];
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
+    
     if (title === '') {
       alert('제목을 입력해주세요.');
       return;
@@ -51,41 +49,59 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
       alert('내용을 입력해주세요.');
       return;
     }
-
+    if (selectedVote === '') {
+      alert('투표를 선택해주세요.');
+      return;
+    }
+    if (selectedCandidate === '') {
+      alert('후보자를 선택해주세요.');
+      return;
+    }
+  
+    const selectedVoteObject = votes.find((vote) => vote.voteCode === selectedVote);
+  
+    if (!selectedVoteObject) {
+      console.error('선택한 투표를 찾을 수 없습니다.');
+      return;
+    }
+  
     const newPost = {
       title: title,
       content: content,
-      candidate: selectedCandidate // Include the selected candidate in the newPost object
+      voteCode: selectedVote, // 투표 코드를 서버로 보냄
+      candidate: selectedCandidate // 후보자 변수 설정
     };
-
+  
+    console.log('New Post Object:', newPost);
+  
     try {
       const response = await axios.post('/board/qnaposts', newPost);
-
+  
       if (response.status === 200) {
         alert('글 작성이 완료되었습니다.');
         setTitle('');
         setContent('');
         setIsPostSubmitted(true);
-        addPostToTable(newPost); 
-        window.location.reload();
-      
-      } else {
-        alert('글 작성 중 오류가 발생했습니다.');
+        addPostToTable(newPost);
       }
     } catch (error) {
       console.error('글 작성 중 오류가 발생했습니다.', error);
       alert('글 작성 중 오류가 발생했습니다.');
     }
   };
+  
+  
+  
 
   const showTableComponent = () => {
     setIsPostSubmitted(false);
-    addPostToTable(); 
+    addPostToTable();
   };
+
   return (
     <>
       {isPostSubmitted ? null : (
-        <form className="qna-write-form__container" onSubmit={handleFormSubmit} >
+        <form className="qna-write-form__container" onSubmit={handleFormSubmit}>
           <div className="qna-write-form__label">
             <label htmlFor="qna-form__title">제목:</label>
             <input
@@ -106,6 +122,22 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
             />
           </div>
           <div className="qna-write-form__label">
+            <label htmlFor="qna-form__vote">투표:</label>
+            <select
+              id="qna-form__vote"
+              value={selectedVote}
+              onChange={handleVoteChange}
+              className="qna-form__input"
+            >
+              <option value="">투표를 선택하세요</option>
+              {votes && votes.map((vote) => (
+                <option key={vote.voteCode} value={vote.voteCode}>
+                  {vote.title}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="qna-write-form__label">
             <label htmlFor="qna-form__candidate">후보자:</label>
             <select
               id="qna-form__candidate"
@@ -113,17 +145,23 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
               onChange={handleCandidateChange}
               className="qna-form__input"
             >
-              {candidates.map((candidate) => (
-                <option key={candidate} value={candidate}>
-                  {candidate}
-                </option>
-              ))}
+              <option value="">후보자를 선택하세요</option>
+              {votes &&
+                votes.find((vote) => vote.voteCode === selectedVote)?.name ? (
+                  <option value={votes.find((vote) => vote.voteCode === selectedVote)?.name}>
+                    {votes.find((vote) => vote.voteCode === selectedVote)?.name}
+                  </option>
+                ) : (
+                  <div>후보자가 없습니다.</div>
+                )}
             </select>
           </div>
-          <button type="submit" className="qna-write-form__button">작성완료</button>
+            <button type="submit" className="qna-write-form__button">
+            작성완료
+          </button>
         </form>
       )}
-  
+
       {isPostSubmitted && showTableComponent()}
     </>
   );

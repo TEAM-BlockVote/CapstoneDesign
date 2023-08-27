@@ -12,8 +12,6 @@ function NoticeHome() {
   return (
     <>
       <QnaInfo/>
-      <CandidateTabs />
-      <PromiseTabs />
       <Qnatable />
       <Bottom />
     </>

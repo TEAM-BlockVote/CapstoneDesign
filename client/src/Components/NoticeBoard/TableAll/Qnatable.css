@@ -1,100 +1,136 @@
-.qnatable-table {
-  width: 70%; 
-  height: 200px;
-  margin: 0 auto; 
-  vertical-align: middle;
-  border-collapse: collapse;
-}
-.qnatable-table thead th{
-  text-align: center;
-}
-.parent-element {
-  width: 70%; 
-}
+  .qnatable-table {
+    width: 70%; 
+    height: 200px;
+    margin: 0 auto; 
+    vertical-align: middle;
+    border-collapse: collapse;
+  }
+  .qnatable-table thead th{
+    text-align: center;
+  }
+  .parent-element {
+    width: 70%; 
+  }
 
-  .table-body.qnatable-table {
-    text-decoration: none;
-    text-align: center;
-  }
- 
+    .table-body.qnatable-table {
+      text-decoration: none;
+      text-align: center;
+    }
   
-  .table-body.qnatable-table > tr {
-    border-top: 1px solid #ccc;
-  }
-  .qna-pagination {
+    .group-header td {
+      background-color: #f5f5f5;  
+      font-weight: bold;
+    }
+
+    .table-body.qnatable-table > tr {
+      border-top: 1px solid #ccc;
+    }
+    .qna-pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      margin-bottom: 70px;
+    }
+    
+    .qna-page-item {
+      display: inline-block;
+      margin: 0 10px;
+    }
+    
+    .qna-page-link {
+      display: block;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      color: #333;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    .qna-page-link:hover {
+      background-color: #f5f5f5;
+    }
+    
+    .qna-page-link.disabled {
+      background-color: #f5f5f5;
+      color: #bbb;
+      cursor: not-allowed;
+    }
+    
+    .qna-page-link.active {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+    
+    .qna-page-link.active:hover {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+    .qna-page-item:hover .qna-page-link {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+    .btn.btn-default.btn-write {
+      border: 1px solid #ccc;
+      width: 150px;
+      margin-right: 20px;
+    }
+    
+    .candidate-tabs {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 20px; /* 수정 */
+      margin-bottom: 20px;
+    }
+    
+    
+    
+    .candidate-tab-button {
+      padding: 10px 10px;
+      border: 1px solid #ccc;
+      background-color: #f5f5f5;
+      color: #333;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .candidate-tab-button.active {
+      background-color: #007bff;
+      color: #fff;
+      border-color: #007bff;
+    }
+
+  .categories {
     display: flex;
-    justify-content: center;
-    margin-top: 40px;
-    margin-bottom: 70px;
+    justify-content: center; /* 가운데 정렬 */
+    margin-bottom: 20px; /* 아래 여백 추가 */
   }
-  
-  .qna-page-item {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  
-  .qna-page-link {
-    display: block;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
+
+  .category-button {
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 20px; /* 더 둥글게 만들기 */
     color: #333;
-    text-align: center;
-    text-decoration: none;
+    padding: 80px 150px; /* 더 작은 버튼 크기 및 내용과의 간격 조정 */
+    margin: 0 10px; /* 각 버튼 사이 여백 */
     cursor: pointer;
-  }
-  
-  .qna-page-link:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .qna-page-link.disabled {
-    background-color: #f5f5f5;
-    color: #bbb;
-    cursor: not-allowed;
-  }
-  
-  .qna-page-link.active {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
-  }
-  
-  .qna-page-link.active:hover {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
-  }
-  .qna-page-item:hover .qna-page-link {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
-  }
-  .btn.btn-default.btn-write {
-    border: 1px solid #ccc;
-    width: 150px;
-    float: right;
-    margin-right: 230px;
-  }
-  .candidate-tabs {
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 200px; 
-    margin-bottom: 20px;
-  }
-  
-  
-  .candidate-tab-button {
-    padding: 10px 10px;
-    border: 1px solid #ccc;
-    background-color: #f5f5f5;
-    color: #333;
-    cursor: pointer;
+    font-size: 14px; /* 폰트 크기 조정 */
+    font-weight: bold; /* 글꼴 굵기 설정 */
     transition: background-color 0.3s ease;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+  }
+
+  .category-button:hover {
+    background-color: #e0e0e0; /* 호버 시 배경색 변경 */
+  }
+
+  .write-button-container {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 설정 */
+    margin: 20px; /* 여백 추가 */
   }
   
-  .candidate-tab-button.active {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
-  }
