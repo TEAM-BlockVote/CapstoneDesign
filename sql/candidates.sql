@@ -1,6 +1,8 @@
 CREATE TABLE `candidates` (
-  `id` INT PRIMARY KEY,
-  `party` VARCHAR(100) NOT NULL,
-  `candidate` VARCHAR(100) NOT NULL,
-  `votes` int DEFAULT '0' NOT NULL
+  `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  `voteCode` VARCHAR(45) NOT NULL,
+  `partyName` VARCHAR(100) NOT NULL,
+  `candidateName` VARCHAR(100) NOT NULL,
+  `promise` VARCHAR(3000) NOT NULL,
+  `partyimage` VARCHAR(500) NOT NULL
 );

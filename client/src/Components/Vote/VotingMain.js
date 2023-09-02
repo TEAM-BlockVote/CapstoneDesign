@@ -100,7 +100,10 @@ const VotingMain = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post(`/vote/voting`, {"selectedCandidatedata": selectedCandidate});
+    const res = await axios.post(`/vote/voting`, {
+      "selectedCandidatedata": selectedCandidate,
+      "voteCode": voteCode,
+    });
     if (res.status === 200) {
       handleVotingModalClose()
       alert('투표 완료!');
