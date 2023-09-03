@@ -72,6 +72,14 @@ router.post('/write', async (req, res, next) => {
         });
       });
     });
+    Promise.all(promises)
+    .then(() => {
+      console.log("completed");
+      categoryGeneratorService(voteCode);
+    })
+    .catch((err) => {
+      console.error("candidate insert error:", err);
+    });
   } catch (error) {
     console.log(error);
     next(error);
