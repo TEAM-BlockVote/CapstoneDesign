@@ -22,9 +22,10 @@ function Makevote() {
     candidateNames: [],
     promises: [],
     imagePreview: null,
+    partyNumber: 0,
   };
 
-  const [candidateInfo, setCandidateInfo] = useState([ newCandidate ])
+  const [candidateInfo, setCandidateInfo] = useState([])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +37,7 @@ function Makevote() {
 
   const increaseCandidate = (event) => {
     event.preventDefault();
+    newCandidate.partyNumber = candidateInfo.length+1;
     const newFormDataArray = [...candidateInfo, newCandidate];
     setCandidateInfo(newFormDataArray);
   };

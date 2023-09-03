@@ -50,7 +50,7 @@ router.post('/write', async (req, res, next) => {
     // console.log(`검색하신 투표 번호: ${voteCode}`)
     // console.log(result22);
 
-    const voteUser = await new Promise((resolve, reject) => { // voteuser는 뭔지 모르겠음.
+    const voteCreate = await new Promise((resolve, reject) => {
       pool.query(insertVoteSql, [title, writer, type, startDate, endDate, makeDate, voteCode], (err, results, fields) => {
         if (err) {
           reject(err);
@@ -60,28 +60,22 @@ router.post('/write', async (req, res, next) => {
       });
     });
     
-    const insertCandidatesSql = 'INSERT INTO candidates (voteCode, partyName, candidateName, promise, partyimage) VALUES (?, ?, ?, ?, ?)';
-    req.body.candidateInfo.map( async (candidate, index) => {
-      await new Promise((resolve, reject) => {
-        pool.query(insertCandidatesSql, [voteCode, candidate.partyName, candidate.candidateNames.join(','), candidate.promises.join(','), Math.floor(Math.random() * 9000000)], (err, results, fields) => {
+    const insertCandidatesSql = 'INSERT INTO candidates (voteCode, partyName, partyNumber, candidateName, promise, partyimage) VALUES (?, ?, ?, ?, ?, ?)';
+    const promises = req.body.candidateInfo.map((candidate, index) => {
+      return new Promise((resolve, reject) => {
+        pool.query(insertCandidatesSql, [voteCode, candidate.partyName, candidate.partyNumber, candidate.candidateNames.join(';'), candidate.promises.join(';'), Math.floor(Math.random() * 9000000)], (err, results, fields) => {
           if (err) {
             reject(err);
-          }
-          else
+          } else {
             resolve(results);
+          }
         });
       });
-    })
-
-    console.log("???");
-
-    categoryGeneratorService();
-
+    });
   } catch (error) {
     console.log(error);
     next(error);
   };
-
   return res.json({status: 200});
 });
 
