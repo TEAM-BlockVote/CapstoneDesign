@@ -33,7 +33,7 @@ const AdminMain = () => {
   }, [ctx.isLoggedIn, navigate]);
 
   function MakevoteClick(tab, index) {
-    setContent(<Makevote data={data} setData={setData} />);
+    setContent(<Makevote/>);
     setSelectedTab(tab);
     setActiveIndex(index);
   }
