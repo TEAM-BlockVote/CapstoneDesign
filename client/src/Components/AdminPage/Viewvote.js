@@ -4,8 +4,7 @@ import './css.css';
 
 
 function Viewvote({ data }) {
-
-	
+  
 	return (
 		<div>
 			<div className="container">

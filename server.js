@@ -31,8 +31,17 @@ const smsRouter = require('./routes/sms');
 const passportConfig = require('./passport');
 
 passportConfig();
-app.use(express.json()); // 제아슨 요청
-app.use(express.urlencoded({ extended: true})); //폼요청
+const fs = require('fs');
+
+try {
+  fs.readdirSync('uploads');
+} catch (error) {
+  console.error("uploads 폴더가 없습니다. uploads 폴더를 생성합니다.");
+  fs.mkdirSync("uploads");
+}
+
+app.use(express.json({limit: '100mb'}));
+app.use(express.urlencoded({limit: '100mb', extended: true}));
 app.use(cookieParser(process.env.COOKIE_SECRET)); //세션쿠키객체.
 app.use(session({
   resave: false,

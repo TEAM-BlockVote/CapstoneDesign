@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './css.css';
 import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function SetVote() {
 	const { state } = useLocation();
+  console.log(state.data);
+
+  const [candidates, setCandidates] = useState('');
+  useEffect(() => {
+    axios.post(`/vote/candidates`, { voteCode: state.data.voteCode})
+      .then((res) => {
+        console.log(res.data)
+        // setCandidates(res.candidates);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [state]);
 
 	return (
 		<>
@@ -82,6 +96,10 @@ function SetVote() {
 					</div>
 				</div>
 			</form >
+
+      <div>
+        안녕!
+      </div>
 		</>
 	);
 }
