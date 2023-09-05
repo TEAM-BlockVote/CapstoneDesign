@@ -43,3 +43,14 @@
     font-size: 20px;
     background-color: #fff;
   }
+
+  .allowed_dep {
+    background-color: #f6f6f6;
+    padding: 1%;
+    color: #0078ff;
+    margin-right: 3%;
+  }
+  
+  .allowed_dep_card {
+    margin-bottom: 3%;
+  }
