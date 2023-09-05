@@ -22,9 +22,9 @@ router.post('/write', async (req, res, next) => {
   //   return res.json({ message: 'Image uploaded successfully' });
   // });
   
-  const { title, type, startDate, endDate } = req.body.voteInfoData;  
+  const { title, type, startDate, endDate, allowedDepartments } = req.body.voteInfoData;
+  
   const writer = String(req.user.name);
-          
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -33,8 +33,6 @@ router.post('/write', async (req, res, next) => {
   const minutes = String(currentDate.getMinutes()).padStart(2, '0');
   const makeDate = `${year}-${month}-${day} ${hours}:${minutes}`;
   const voteCode = String(Math.floor(Math.random() * 9000000) + 1000000);
-  
-  const insertVoteSql = 'INSERT INTO vote (title, writer, type, startDate, endDate, makeDate, voteCode) VALUES (?, ?, ?, ?, ?, ?, ?)'; // create로 바꿔야하지 않나?
 
   try {
     const candidateList = [1, 2, 3, 4];
@@ -50,8 +48,9 @@ router.post('/write', async (req, res, next) => {
     // console.log(`검색하신 투표 번호: ${voteCode}`)
     // console.log(result22);
 
-    const voteCreate = await new Promise((resolve, reject) => {
-      pool.query(insertVoteSql, [title, writer, type, startDate, endDate, makeDate, voteCode], (err, results, fields) => {
+    const createVoteSql = 'INSERT INTO vote (title, writer, type, startDate, endDate, makeDate, voteCode) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    await new Promise((resolve, reject) => {
+      pool.query(createVoteSql, [title, writer, type, startDate, endDate, makeDate, voteCode], (err, results, fields) => {
         if (err) {
           reject(err);
         }
@@ -59,6 +58,19 @@ router.post('/write', async (req, res, next) => {
           resolve(results);
       });
     });
+
+    const insertVoteDepartmentsSql = 'insert into voteDepartment values(?, ?);';
+    allowedDepartments.map( async(departments, index) => {
+      await new Promise((resolve, reject) => {
+        pool.query(insertVoteDepartmentsSql, [voteCode, departments], (err, results, fields) => {
+          if (err) {
+            reject(err);
+          }
+          else
+            resolve(results);
+        });
+      });
+    })
     
     const insertCandidatesSql = 'INSERT INTO candidates (voteCode, partyName, partyNumber, candidateName, promise, partyimage) VALUES (?, ?, ?, ?, ?, ?)';
     const promises = req.body.candidateInfo.map((candidate, index) => {

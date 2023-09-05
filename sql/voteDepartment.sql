@@ -1,4 +1,4 @@
 CREATE TABLE voteDepartment (
-  `voteCode` INT NOT NULL,
+  `voteCode` VARCHAR(10) NOT NULL,
   `department` VARCHAR(255) NOT NULL
 );
