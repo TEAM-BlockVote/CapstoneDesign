@@ -1,27 +1,12 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path'); 
 const pool = require('../server/Router/pool');
 const { abi } = require('../artifacts/contracts/Voting.sol/Voting.json')
 const router = express.Router();
 const { categoryGeneratorService } = require('../service/categoryGeneratorService');
 
-router.post('/write', async (req, res, next) => {
-  // const { imageData } = req.body;
-
-  // if (!imageData) {
-  //   return res.status(400).json({ error: 'Image data missing' });
-  // }
-
-  // const imageBuffer = Buffer.from(imageData, 'base64');
-  // const imagePath = path.join(__dirname, 'uploads', 'image.png');
-
-  // fs.writeFile(imagePath, imageBuffer, (err) => {
-  //   if (err) {
-  //     return res.status(500).json({ error: 'Error saving image' });
-  //   }
-  //   return res.json({ message: 'Image uploaded successfully' });
-  // });
-  
+router.post('/write', async (req, res, next) => {  
   const { title, type, startDate, endDate, allowedDepartments } = req.body.voteInfoData;
   
   const writer = String(req.user.name);
@@ -74,8 +59,17 @@ router.post('/write', async (req, res, next) => {
     
     const insertCandidatesSql = 'INSERT INTO candidates (voteCode, partyName, partyNumber, candidateName, promise, partyimage) VALUES (?, ?, ?, ?, ?, ?)';
     const promises = req.body.candidateInfo.map((candidate, index) => {
+      let base64Data = req.body.candidateInfo[index].imagePreview.replace(/^data:image\/\w+;base64,/, '');
+      let binaryData = Buffer.from(base64Data, 'base64');
+      let uploadDirRelative = '../uploads';
+      let candidateImageFileName = `${voteCode}_${candidate.partyNumber}.png`;
+      let imagePathRelative = path.join(uploadDirRelative, candidateImageFileName);
+      let imagePath = path.join(__dirname, imagePathRelative);
+      fs.writeFile(imagePath, binaryData, (err) => {
+        if (err) console.error(err);
+      });
       return new Promise((resolve, reject) => {
-        pool.query(insertCandidatesSql, [voteCode, candidate.partyName, candidate.partyNumber, candidate.candidateNames.join(';'), candidate.promises.join(';'), Math.floor(Math.random() * 9000000)], (err, results, fields) => {
+        pool.query(insertCandidatesSql, [voteCode, candidate.partyName, candidate.partyNumber, candidate.candidateNames.join(';'), candidate.promises.join(';'), candidateImageFileName], (err, results, fields) => {
           if (err) {
             reject(err);
           } else {
