@@ -4,19 +4,14 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import Modal from 'react-bootstrap/Modal';
 import './VotingMain.css';
 import axios from 'axios';
-import img1 from './images/1.jpg';
-import img2 from './images/2.jpg';
-import img3 from './images/3.jpg';
-import img4 from './images/4.jpg';
 
 const VotingMain = () => {
-  const imgArr = [img1, img2, img3, img4];
   const urlParams = new URLSearchParams(window.location.search);
   const voteCode = urlParams.get('voteCode');
   
   const [voteInfo, setVoteInfo] = useState('');
   const [candidates, setCandidates] = useState(null);
-  const [totalVotes, setTotalVotes] = useState(0);
+  const [totalVotes, setTotalVotes] = useState(0);  
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [opacityStyleState, setOpacityStyleState] = useState(Array(4).fill(true)); //하드코딩 바꿔야함
   const [displayStyleState, setDisplayStyleState] = useState(Array(4).fill(false)); //하드코딩 바꿔야함
@@ -79,9 +74,9 @@ const VotingMain = () => {
   useEffect(() => {
     axios.get(`/vote/${voteCode}`)
     .then((res) => {
-      setVoteInfo(res.data.hasVoteInfo);
-      setCandidates(res.data.candidates);
-      handleVotesUpdate();
+      setVoteInfo(res.data.voteInfo);
+      setCandidates(res.data.candidatesInfo);
+      // handleVotesUpdate();
     })
     .catch((err) => {
       if (err.response) {
@@ -95,7 +90,7 @@ const VotingMain = () => {
         console.log("네트워크 에러");
       }
     });
-  }, [voteCode, candidates]);
+  }, [voteCode]);
 
 
   const handleFormSubmit = async (e) => {
@@ -147,13 +142,13 @@ const VotingMain = () => {
                 >                  
                   <div>
                     <div>
-                      <img src={imgArr[element.id-1]} alt='googleimg' className='list_img'/>
+                      <img src={element.partyimage} alt='후보자 사진' className='list_img'/>
                     </div>
                     <div className='candidate_info'>
-                      <span className='candidate_num'> {element.id} </span>
+                      <span className='candidate_num'> {element.partyNumber} </span>
                       <div className='candidate_title'>
-                        <strong className='party_name' > {element.party} </strong>
-                        <h4 className='candidates_name' >{element.candidate}</h4>
+                        <strong className='party_name' > {element.partyName} </strong>
+                        <h4 className='candidates_name' >{element.candidateName}</h4>
                       </div>
                     </div>
                     <div>
@@ -166,9 +161,9 @@ const VotingMain = () => {
                   </div>
                 </li>
                 <div style={{backgroundColor: '#f2f2f2', display: displayStyleState[index] ? '' : 'none'}}>
-                  {element.promise.map((ele, index) => (
+                  {/* {element.promise.map((ele, index) => (
                     <span style={{display: 'block'}} key={index}>{ele}</span>
-                  ))}
+                  ))} */}
                 </div>
                 </form>
               ))}
