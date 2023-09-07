@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { candidatesData }  from './candidatesData';
 import CloseButton from 'react-bootstrap/CloseButton';
 import Modal from 'react-bootstrap/Modal';
 import './VotingMain.css';
