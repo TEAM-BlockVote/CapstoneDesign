@@ -144,39 +144,13 @@ router.get('/hasVoteNumberVoting', async (req, res, next) => {
 });
 
 router.get('/:voteCode', async (req, res, next) => {
-  const promiseArr = [
-    [
-      '학생회관 구축',
-      '시험기간 도서관 24시간 개방',
-      '학생식당 가격인하 및 품질개선',
-      '분기 별 학생간담회 개최',
-    ],
-    [
-      '각 건물 편의시설 및 휴게 공간',
-      '축제, 체육대회등 다양한 행사 재개',
-      '교내 냉, 낭방 시설 최적화',
-      '교내 건의함 설치',
-    ],
-    [
-     '교내 주차장 확대',
-     '샤워실, 체육관, 상시 이용',
-     '셔틀버스 운영시간 및 노선 확대',
-     '총학생회 홈페이지 및 sns 활성화',
-    ],
-    [
-     '졸업앨범 재시행',
-     '취업박람회 추진',
-     '취업 지원 프로그램 확대 ',
-     '다양한 현장 실습 기회 확대',
-    ]
-  ]
-
   const voteCode = req.params.voteCode;
-  const selectvoteCodeSql =  'select * from vote where voteCode = ?';
-  const selectcandidates =  'select * from candidates';
+  const selectVoteInfoSql = `select title, type, startDate, endDate from vote where voteCode = ?;`;
+  const selectcandidatesInfoSql = `select partyNumber, partyimage, partyName, candidateName, promise from candidates where voteCode = ? order by partyNumber;`;
+
   try {
-    const hasVoteInfo  = await new Promise((resolve, reject) => {
-      pool.query(selectvoteCodeSql, [voteCode], (err, results, fields) => {
+    const voteInfo = await new Promise((resolve, reject) => {
+      pool.query(selectVoteInfoSql, [voteCode], (err, results, fields) => {
         if (err) {
           reject(err);
         }
@@ -185,8 +159,8 @@ router.get('/:voteCode', async (req, res, next) => {
       });
     });
 
-    let candidates  = await new Promise((resolve, reject) => {
-      pool.query(selectcandidates, [voteCode], (err, results, fields) => {
+    const candidatesInfo = await new Promise((resolve, reject) => {
+      pool.query(selectcandidatesInfoSql, [voteCode], (err, results, fields) => {
         if (err) {
           reject(err);
         }
@@ -195,17 +169,24 @@ router.get('/:voteCode', async (req, res, next) => {
       });
     });
 
-    candidates.map((ele, i) => {
-      ele.promise = promiseArr[i];
+    candidatesInfo.map((candidate, index) => {
+      let imagePath = `../uploads/${candidate.partyimage}`;
+      try {
+        const data = fs.readFileSync(path.join(__dirname, imagePath));
+        const base64ImageData = Buffer.from(data).toString('base64');
+        candidate.partyimage = `data:image/png;base64,${base64ImageData}`;
+      } catch (err) {
+        console.error(err);
+      }
     });
+    
+    const vote = {
+      voteInfo,
+      candidatesInfo
+    }
 
-    const votinfInfo = {
-      hasVoteInfo,
-      candidates
-    };
-
-    if (hasVoteInfo.length > 0) {
-      return res.json(votinfInfo);
+    if (voteInfo.length > 0) {
+      return res.json(vote);
     } else {
       res.status(404).json({ error: '투표를 찾을 수 없습니다.' });
     }
