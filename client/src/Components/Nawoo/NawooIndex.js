@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import NawooMain from './NawooMain';
+import VotableItemList from './VotableItemList';
 import AuthContext from '../../Store/auth-context';
 import "./NawooIndex.css";
 
@@ -32,7 +32,7 @@ const NawooIndex = () => {
   return (
     <div className='nawoo_site'>
       <div className='nawoo_main'>
-        { <NawooMain categories={categories} voteList={voteList}/> }
+        { <VotableItemList categories={categories} voteList={voteList}/> }
       </div>
     </div>
   );
