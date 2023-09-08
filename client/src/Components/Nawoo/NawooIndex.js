@@ -1,17 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import NawooMain from './NawooMain';
-import NawooCategory from './NawooCategory';
-import NawooQna from './NawooQna';
-import NawooResult from './NawooResult';
+import VotableItemList from './VotableItemList';
 import AuthContext from '../../Store/auth-context';
-import "./NawooPage.css";
+import "./NawooIndex.css";
 
-const NawooPage = () => {
-  const [currentPage, setCurrentPage] = useState('main');
-  const [selectedCategories, setSelectedCategories] = useState([]);
+const NawooIndex = () => {
   const [voteList, setVoteList] = useState([]);
+  const [categories, setCategories] = useState([]);               
   const ctx = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -25,24 +21,21 @@ const NawooPage = () => {
   useEffect(() => {
     axios.get('nawoo/voteList')
     .then((res) => {
-      setVoteList(res.data);
+      setCategories(res.data.categories);
+      setVoteList(res.data.voteList);
     })
     .catch((err) => {
       console.log(err);
     })
   }, []);
 
-  if (voteList.length === 0) {
-    return <div>데이터 로딩중...</div>;
-  }
-
   return (
     <div className='nawoo_site'>
       <div className='nawoo_main'>
-        { <NawooMain voteList={voteList}/> }
+        { <VotableItemList categories={categories} voteList={voteList}/> }
       </div>
     </div>
   );
 }
 
-export default NawooPage;
+export default NawooIndex;

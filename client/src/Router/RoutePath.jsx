@@ -7,7 +7,7 @@ import WritingForm from "../Components/NoticeBoard/WriteAll/WritingForm";
 import AdminMain from "../Components/AdminPage/AdminMain";
 import SetVote from "../Components/AdminPage/SetVote";
 import AdditionalInfo from "../Components/Register/AdditionalInfo";
-import NawooPage from "../Components/Nawoo/NawooPage";
+import NawooIndex from "../Components/Nawoo/NawooIndex";
 import VotingMain from "../Components/Vote/VotingMain";
 import QnaPosted from "../Components/NoticeBoard/TableAll/QnaPosted";
 const router = createBrowserRouter([
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     ],
   },
   {path: '/additionalInfo', element: <AdditionalInfo/>},
-  {path: '/nawoopage', element: <NawooPage/>},
+  {path: '/NawooIndex', element: <NawooIndex/>},
 ]);
 
 export default router;

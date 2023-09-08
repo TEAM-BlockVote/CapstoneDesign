@@ -40,7 +40,7 @@ const Header = () => {
                 <Link className="nav-link" to="/notice">  QnA </Link>
               </li>
               <li className="nav-item me-5">
-                <Link className="nav-link" to="/NawooPage"> 나만의 후보찾기 </Link>
+                <Link className="nav-link" to="/NawooIndex"> 나만의 후보찾기 </Link>
               </li>
             </ul>
             <ul className="navbar-nav account">
