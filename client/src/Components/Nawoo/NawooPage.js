@@ -1,42 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import NawooMain from './NawooMain';
 import NawooCategory from './NawooCategory';
 import NawooQna from './NawooQna';
 import NawooResult from './NawooResult';
+import AuthContext from '../../Store/auth-context';
 import "./NawooPage.css";
 
-function NawooPage() {
+const NawooPage = () => {
   const [currentPage, setCurrentPage] = useState('main');
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [voteList, setVoteList] = useState([]);
+  const ctx = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentPage === 'category') {
-    } else if (currentPage === 'qna') {
+    if (ctx.isLoggedIn === false) {
+      navigate("/");
+      alert("로그인 후 이용해 주세요");
     }
-  }, [currentPage]);
+  }, [ctx.isLoggedIn, navigate]);
 
-  const handleFormClick = () => {
-    setCurrentPage('category');
-  };
+  useEffect(() => {
+    axios.get('nawoo/voteList')
+    .then((res) => {
+      setVoteList(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }, []);
 
-  const handleButtonClick = (categories) => {
-    setSelectedCategories(categories);
-    setCurrentPage('qna');
-  };
-
-  const handleNextButtonClick = () => {
-    setCurrentPage('result');
-  };
+  if (voteList.length === 0) {
+    return <div>데이터 로딩중...</div>;
+  }
 
   return (
     <div className='nawoo_site'>
       <div className='nawoo_main'>
-        {currentPage === 'main' && <NawooMain onFormClick={handleFormClick} />}
-        {currentPage === 'category' && <NawooCategory onButtonClick={handleButtonClick} />}
-        {currentPage === 'qna' && (
-          <NawooQna selectedCategories={selectedCategories} onNextButtonClick={handleNextButtonClick} />
-        )}
-        {currentPage === 'result' && <NawooResult />}
+        { <NawooMain voteList={voteList}/> }
       </div>
     </div>
   );

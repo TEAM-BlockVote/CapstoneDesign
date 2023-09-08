@@ -1,8 +1,7 @@
 import React from 'react';
 import "./NawooMain.css";
 
-function NawooMain({onFormClick}) {
-  
+function NawooMain({ onFormClick, voteList }) {
   return (
     <div className='nawoo_form' onClick={onFormClick}>
       <div className='nawoo_top'>
@@ -12,16 +11,24 @@ function NawooMain({onFormClick}) {
         </div>
       </div>
       <div className='nawoo_middle'>
-        <div className='nawoo_image'>
-          <img src='/img/nawoomain.png' className='nawoo_img' alt='nawooimg' />
+        <div className='vote-list'>
+          <h2>투표 가능한 목록</h2>
+          <ul>
+            {voteList.map((vote) => (
+              <li key={vote.voteCode}>
+                {vote.title}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
       <div className='nawoo_bottom'>
         <div className='nawoo_logo'>
-          화면을 눌러 시작해주세요!
+          <button>다음</button>
         </div>
       </div>
     </div>
   );
-};
+}
+
 export default NawooMain;
