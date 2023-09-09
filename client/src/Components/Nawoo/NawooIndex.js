@@ -7,7 +7,6 @@ import "./NawooIndex.css";
 
 const NawooIndex = () => {
   const [voteList, setVoteList] = useState([]);
-  const [categories, setCategories] = useState([]);               
   const ctx = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -21,8 +20,7 @@ const NawooIndex = () => {
   useEffect(() => {
     axios.get('nawoo/voteList')
     .then((res) => {
-      setCategories(res.data.categories);
-      setVoteList(res.data.voteList);
+      setVoteList(res.data);
     })
     .catch((err) => {
       console.log(err);
@@ -32,7 +30,7 @@ const NawooIndex = () => {
   return (
     <div className='nawoo_site'>
       <div className='nawoo_main'>
-        { <VotableItemList categories={categories} voteList={voteList}/> }
+        { <VotableItemList voteList={voteList}/> }
       </div>
     </div>
   );

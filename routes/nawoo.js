@@ -3,15 +3,10 @@ const router = express.Router();
 const pool = require('../server/Router/pool');
 
 router.get('/voteList', async (req, res, next) => {
-  const userDepartment = req.user.dep;
-
   try {
     const VoteListSql = 'SELECT * FROM vote WHERE voteCode IN (SELECT voteCode FROM voteDepartment WHERE department = ?)';
-    
-    console.log('User Department:', userDepartment);
-    
     const voteList = await new Promise((resolve, reject) => {
-      pool.query(VoteListSql, [userDepartment], (err, results, fields) => {
+      pool.query(VoteListSql, [req.user.dep], (err, results, fields) => {
         if (err) {
           reject(err);
         } else {
@@ -19,50 +14,39 @@ router.get('/voteList', async (req, res, next) => {
         }
       });
     });
+    res.json(voteList);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
 
-    const voteCode = voteList.map((vote, index) => {
-      return vote.voteCode; 
-    })
-
-    const voteInfo = {
-      voteList
-    };
-    
+router.get('/CategorySelect/:voteCode', async (req, res, next) => {
+  const voteCode = req.params.voteCode;
+  try {
     const selectCategories = "select voteCode, category, candidateNumber, promise from categories where voteCode = ?;";
-    const categories = voteCode.map( async(voteCode, index) => {
-      return await new Promise((resolve, reject) => {
-        pool.query(selectCategories, [voteCode], (err, results, fields) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(results);
-          }
-        });
+    const categories = await new Promise((resolve, reject) => {
+      pool.query(selectCategories, [voteCode], (err, results, fields) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
       });
-    })
-    Promise.all(categories)
-    .then((res) => {
-      console.log(res);
-      res.forEach(categoryData => {
-        categoryData.forEach(item => {
-          if (!voteInfo.categories[item.category]) {
-            voteInfo.categories[item.category] = [];
-          }
-          // 이미 존재하는 카테고리에 데이터를 추가합니다.
-          voteInfo.categories[item.category].push({
-            candidateNumber: item.candidateNumber,
-            promise: item.promise
-          });
-        });
-      });
+    });
+    const data = {};
 
-      console.log(voteInfo);
-    })
-    .catch((err) => {
-      //에러처리 나중에
-    })
+    categories.map((item, index) => {
+      if (!data[item.category]) {
+        data[item.category] = [];
+      }
+      data[item.category].push({
+        candidateNumber: item.candidateNumber,
+        promise: item.promise
+      });
+    });
     
-    res.send(voteList);
+    res.json(data);
   } catch (error) {
     console.log(error);
     next(error);
