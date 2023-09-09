@@ -10,6 +10,7 @@ import AdditionalInfo from "../Components/Register/AdditionalInfo";
 import NawooIndex from "../Components/Nawoo/NawooIndex";
 import VotingMain from "../Components/Vote/VotingMain";
 import QnaPosted from "../Components/NoticeBoard/TableAll/QnaPosted";
+import CategorySelect from "../Components/Nawoo/CategorySelect";
 const router = createBrowserRouter([
   {
     path: '/',
@@ -26,7 +27,8 @@ const router = createBrowserRouter([
     ],
   },
   {path: '/additionalInfo', element: <AdditionalInfo/>},
-  {path: '/NawooIndex', element: <NawooIndex/>},
+  {path: '/Nawoo', element: <NawooIndex/>},
+  {path: '/Nawoo/CategorySelect/:voteCode', element: <CategorySelect/>},
 ]);
 
 export default router;
