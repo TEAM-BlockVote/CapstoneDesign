@@ -27,7 +27,7 @@ function Category({categories, selectedButtons, setCurrentPage, onCategorySelect
         }
       </div>
       <div className='category_bottom'>
-        <button className='category_next' onClick={ () => {setCurrentPage("PromiseSelect")}}>
+        <button className='category_next' onClick={ () => {setCurrentPage("promiseSelect")}}>
           테스트 하기
         </button>
       </div>

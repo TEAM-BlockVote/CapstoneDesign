@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Category from './Category';
-import PromiseSelect from './PromiseSelect';
+import Promise from './Promise';
+import Result from './Result';
 import "./NawooCategory.css";
 
 function CategorySelect() {
@@ -10,6 +11,7 @@ function CategorySelect() {
   const [categories, setCategories] = useState();
   const [selectCategories, setSelectCategories] = useState([]);
   const [selectedButtons, setSelectedButtons] = useState([]);
+  const [selectedPromises, setSelectedPromises] = useState([]);
 
   const [currentPage, setCurrentPage] = useState("categorySelect");
 
@@ -50,28 +52,29 @@ function CategorySelect() {
   if(!categories) {
     return "gngngn";
   }
-
-  console.log(selectCategories);
-
-   // 삼항 연산자로 안에 들어갈 데이터 쪽만 로딩 페이지로 
   
   return(
     <div>
       {
-        (currentPage === "categorySelect" ?
-          <Category
-            categories={categories}
-            selectedButtons={selectedButtons}
-            setCurrentPage={(page) => {setCurrentPage(page)}}
-            onCategorySelect={(category, index) => {
-              handleSelectCategory(category, index)
-            }}
-          />
-          : 
-          <PromiseSelect
-            selectCategories={ selectCategories }
-          />
-        )
+        (currentPage === "categorySelect") ?
+        <Category
+          categories={categories}
+          selectedButtons={selectedButtons}
+          setCurrentPage={(page) => {setCurrentPage(page)}}
+          onCategorySelect={(category, index) => {
+            handleSelectCategory(category, index)
+          }}
+        />
+        : (currentPage === "promiseSelect") ?
+        <Promise
+          selectCategories={ selectCategories }
+          setCurrentPage={(page) => {setCurrentPage(page)}}
+          setPromises={(item) => {setSelectedPromises(item)}}
+        />
+        :
+        <Result
+        selectedPromises={selectedPromises}
+        />
       }
     </div>
   )
