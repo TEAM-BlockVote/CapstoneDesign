@@ -1,4 +1,6 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path'); 
 const router = express.Router();
 const pool = require('../server/Router/pool');
 
@@ -34,19 +36,45 @@ router.get('/CategorySelect/:voteCode', async (req, res, next) => {
         }
       });
     });
-    const data = {};
 
-    categories.map((item, index) => {
-      if (!data[item.category]) {
-        data[item.category] = [];
+    const selectCandidatesInfoSql = `select partyNumber, partyimage, partyName, candidateName, promise from candidates where voteCode = ? order by partyNumber;`;
+    const candidatesInfo = await new Promise((resolve, reject) => {
+      pool.query(selectCandidatesInfoSql, [voteCode], (err, results, fields) => {
+        if (err) {
+          reject(err);
+        }
+        else
+          resolve(results);
+      });
+    });
+
+    candidatesInfo.map((candidate, index) => {
+      let imagePath = `../uploads/${candidate.partyimage}`;
+      try {
+        const data = fs.readFileSync(path.join(__dirname, imagePath));
+        const base64ImageData = Buffer.from(data).toString('base64');
+        candidate.partyimage = `data:image/png;base64,${base64ImageData}`;
+      } catch (err) {
+        console.error(err);
       }
-      data[item.category].push({
+    });
+
+    const categoriesData = {};
+    categories.map((item, index) => {
+      if (!categoriesData[item.category]) {
+        categoriesData[item.category] = [];
+      }
+      categoriesData[item.category].push({
         candidateNumber: item.candidateNumber,
         promise: item.promise
       });
     });
+    const nawooData = {
+      categoriesData,
+      candidatesInfo
+    };
     
-    res.json(data);
+    res.json(nawooData);
   } catch (error) {
     console.log(error);
     next(error);
