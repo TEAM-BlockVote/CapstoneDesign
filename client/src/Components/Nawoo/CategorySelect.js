@@ -12,15 +12,17 @@ function CategorySelect() {
   const [selectCategories, setSelectCategories] = useState([]);
   const [selectedButtons, setSelectedButtons] = useState([]);
   const [selectedPromises, setSelectedPromises] = useState([]);
+  const [candidates, setCandidates] = useState();
 
   const [currentPage, setCurrentPage] = useState("categorySelect");
 
   useEffect(() => {
     axios.get(`/nawoo/CategorySelect/${voteCode}`)
     .then((res) => {
-      setCategories(res.data);
-      setSelectedButtons(new Array(Object.keys(res.data).length).fill(false));
-      setSelectCategories(new Array(Object.keys(res.data).length).fill(false));
+      setCandidates(res.data.candidatesInfo);
+      setCategories(res.data.categoriesData);
+      setSelectedButtons(new Array(Object.keys(res.data.categoriesData).length).fill(false));
+      setSelectCategories(new Array(Object.keys(res.data.categoriesData).length).fill(false));
     })
     .catch((err) => {
       console.log(err);
@@ -73,7 +75,8 @@ function CategorySelect() {
         />
         :
         <Result
-        selectedPromises={selectedPromises}
+          candidates={candidates}
+          selectedPromises={selectedPromises}
         />
       }
     </div>

@@ -14,20 +14,18 @@ const NawooIndex = () => {
     if (ctx.isLoggedIn === false) {
       navigate("/");
       alert("로그인 후 이용해 주세요");
+    } else {
+      axios.get('nawoo/voteList')
+      .then((res) => {
+        setVoteList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     }
   }, [ctx.isLoggedIn, navigate]);
 
-  useEffect(() => {
-    axios.get('nawoo/voteList')
-    .then((res) => {
-      setVoteList(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }, []);
-
-  return (
+  return ctx.isLoggedIn === false || ctx.isLoggedIn === null ? null : (
     <div className='nawoo_site'>
       <div className='nawoo_main'>
         { <VotableItemList voteList={voteList}/> }
