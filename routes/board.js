@@ -5,20 +5,16 @@
   
 
   router.post('/qnaposts', async (req, res, next) => {
-    const { title, content, voteCode, candidate } = req.body; // candidate 추가
-    console.log('Received voteCode:', voteCode); // 로그로 voteCode 값 출력
+    const { title, content, voteTitle, candidate } = req.body; // voteTitle 값 받음
+    console.log('Received voteTitle:', voteTitle); // 로그로 voteTitle 값 출력
   
     if (!title || !content || !candidate) { // 후보자도 체크
       res.status(400).json({ error: '제목과 내용, 후보자를 모두 입력해주세요.' });
       return;
     }
   
-    const voteName = await getVoteNameByCode(voteCode); // 추가: voteCode로 voteName 가져오기
-  
-    if (!voteName) {
-      res.status(400).json({ error: '유효한 투표를 선택해주세요.' });
-      return;
-    }
+    // voteTitle을 그대로 voteName에 저장
+    const voteName = voteTitle;
   
     const name = '2019*****'; // 작성자 이름 일단 설정
     const currentDate = new Date();
@@ -28,8 +24,8 @@
     const hours = String(currentDate.getHours()).padStart(2, '0');
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
     const date = `${year}-${month}-${day} ${hours}:${minutes}`;
-    const view = 128; // 조회수를 128으로 초기화
-    const insertQuery = 'INSERT INTO qna (title, name, date, view, content, candidate, voteName) VALUES (?, ?, ?, ?, ?, ?, ?)'; // 추가: voteName 삽입
+    const view = 128; // 조회수를 128로 초기화
+    const insertQuery = 'INSERT INTO qna (title, name, date, view, content, candidate, voteName) VALUES (?, ?, ?, ?, ?, ?, ?)';
   
     try {
       await new Promise((resolve, reject) => {
@@ -188,6 +184,35 @@
     }
     
   });
+  
+  router.get('/candidates/:selectedVoteTitle', async (req, res, next) => {
+    const { selectedVoteTitle } = req.params;
+    const selectCandidatesQuery = 'SELECT name FROM vote WHERE title = ?';
+  
+    try {
+      const candidates = await new Promise((resolve, reject) => {
+        pool.query(selectCandidatesQuery, [selectedVoteTitle], (err, results, fields) => {
+          if (err) {
+            reject(err);
+          } else {
+            const candidateNames = results.map((row) => row.name);
+            resolve(candidateNames);
+          }
+        });
+      });
+  
+      if (candidates && candidates.length > 0) {
+        res.status(200).json({ candidates });
+      } else {
+        res.status(404).json({ error: '후보자 정보를 찾을 수 없습니다.' });
+      }
+    } catch (error) {
+      console.error('후보자 정보를 불러오는 중 오류가 발생했습니다.', error);
+      res.status(500).json({ error: '후보자 정보를 불러오는 중 오류가 발생했습니다.' });
+    }
+  });
+  
+  
   
 
   module.exports = router;

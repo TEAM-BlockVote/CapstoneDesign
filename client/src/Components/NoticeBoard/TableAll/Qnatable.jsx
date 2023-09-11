@@ -10,8 +10,9 @@ function Qnatable() {
   const [tableposts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedCandidate, setSelectedCandidate] = useState(null); // 선택된 후보자 상태 추가
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
   const categoriesRef = useRef([]);
+  const [selectedVoteTitle, setSelectedVoteTitle] = useState(''); // 선택한 투표 추가
 
   useEffect(() => {
     fetchPosts();
@@ -32,7 +33,8 @@ function Qnatable() {
   };
 
   const handleWriteClick = () => {
-    setShowWritingForm(true);
+    // 글 작성하기 버튼을 클릭할 때 선택한 투표 정보만 WritingForm 컴포넌트로 전달
+    setShowWritingForm(!showWritingForm);
   };
 
   const handlePostClick = (postId) => {
@@ -45,9 +47,13 @@ function Qnatable() {
 
   const handleCategoryClick = (categoryName) => {
     setSelectedCategory(categoryName);
-    setSelectedCandidate(null); // 카테고리 변경 시 후보자 선택 초기화
-  };
+    setSelectedCandidate(null);
+    const selectedVote = tableposts.find(post => post.voteName === categoryName);
+    setSelectedVoteTitle(selectedVote ? selectedVote.voteName : '');
   
+    setShowWritingForm(false);
+  };
+
   const handleCandidateClick = (candidateName) => {
     setSelectedCandidate(candidateName);
   };
@@ -60,47 +66,54 @@ function Qnatable() {
         <WritingForm
           addPostToTable={addPostToTable}
           handleFormCancel={() => setShowWritingForm(false)}
+          selectedVoteTitle={selectedVoteTitle}
+          setSelectedVoteTitle={setSelectedVoteTitle} 
         />
       ) : (
         <>
-          <div className="categories">
-            {tableposts.reduce((categories, post) => {
-              if (!categories.includes(post.voteName)) {
-                categories.push(post.voteName);
-              }
-              return categories;
-            }, []).map((categoryName, index) => (
-              <button
-                key={index}
-                onClick={() => handleCategoryClick(categoryName)}
-                className={`category-button ${selectedCategory === categoryName ? 'active' : ''}`}
-              >
-                {categoryName}
-              </button>
-            ))}
-          </div>
-          <div className="candidate-tabs">
-            {selectedCategory !== null &&
-              tableposts
-                .filter((post) => post.voteName === selectedCategory)
-                .reduce((candidates, post) => {
-                  if (!candidates.includes(post.candidate)) {
-                    candidates.push(post.candidate);
+          {!showWritingForm && (
+            <div>
+              <div className="categories">
+                {tableposts.reduce((categories, post) => {
+                  if (!categories.includes(post.voteName)) {
+                    categories.push(post.voteName);
                   }
-                  return candidates;
-                }, [])
-                .map((candidate, index) => (
+                  return categories;
+                }, []).map((categoryName, index) => (
                   <button
                     key={index}
-                    onClick={() => handleCandidateClick(candidate)}
-                    className={`candidate-tab-button ${selectedCandidate === candidate ? 'active' : ''}`}
+                    onClick={() => handleCategoryClick(categoryName)}
+                    className={`category-button ${selectedCategory === categoryName ? 'active' : ''}`}
                   >
-                    후보자 {candidate}
+                    {categoryName}
                   </button>
                 ))}
-          </div>
-          <div className="qna-container">
-            {selectedCategory !== null && selectedCandidate !== null && (
+              </div>
+              <div className="candidate-tabs">
+                {selectedCategory !== null &&
+                  tableposts
+                    .filter((post) => post.voteName === selectedCategory)
+                    .reduce((candidates, post) => {
+                      if (!candidates.includes(post.candidate)) {
+                        candidates.push(post.candidate);
+                      }
+                      return candidates;
+                    }, [])
+                    .map((candidate, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleCandidateClick(candidate)}
+                        className={`candidate-tab-button ${selectedCandidate === candidate ? 'active' : ''}`}
+                      >
+                        후보자 {candidate}
+                      </button>
+                    ))}
+              </div>
+            </div>
+          )}
+          {!showWritingForm && (
+            <div className="qna-container">
+              {selectedCategory !== null && selectedCandidate !== null && (
                 <div ref={(element) => (categoriesRef.current[selectedCategory] = element)}>
                   <h2>{selectedCategory}</h2>
                   <table className="qnatable-table">
@@ -137,12 +150,21 @@ function Qnatable() {
                   </table>
                 </div>
               )}
-                        </div>
+            </div>
+          )}
           <div className="write-button-container">
-            <button onClick={() => setShowWritingForm(!showWritingForm)} className="btn btn-default btn-write">
-              글 작성하기
-            </button>
+            {!showWritingForm && selectedCategory !== null && (
+              <button onClick={handleWriteClick} className="btn btn-default btn-write">
+                글 작성하기
+              </button>
+            )}
           </div>
+          {showWritingForm && (
+            <WritingForm
+              addPostToTable={addPostToTable}
+              selectedVoteTitle={selectedVoteTitle} // 선택한 투표 정보 전달
+            />
+          )}
         </>
       )}
     </>
