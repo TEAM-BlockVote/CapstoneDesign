@@ -29,6 +29,7 @@ const voteRouter = require('./routes/vote');
 const boardRouter = require('./routes/board');
 const smsRouter = require('./routes/sms');
 const passportConfig = require('./passport');
+const nawooRouter = require('./routes/nawoo');
 
 passportConfig();
 const fs = require('fs');
@@ -67,6 +68,7 @@ app.use('/auth', authRouter);
 app.use('/vote', voteRouter);
 app.use('/board', boardRouter);
 app.use('/sms', smsRouter);
+app.use('/nawoo', nawooRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build/index.html"));

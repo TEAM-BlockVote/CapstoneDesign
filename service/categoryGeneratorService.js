@@ -46,6 +46,7 @@ exports.categoryGeneratorService = async (voteCode) => {
       const chatCompletion = await openai.chat.completions.create({
         model: 'gpt-4',
         max_tokens: 2000,
+        temperature: 0.7,
         messages: [
           {
             role: 'system',

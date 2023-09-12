@@ -45,7 +45,7 @@
   transition: 0.5s ease-out;
 }
 
-.select_label2.selected {
+.select_label2_selected {
   width: auto;
   margin: 5px;
   padding: 3px;

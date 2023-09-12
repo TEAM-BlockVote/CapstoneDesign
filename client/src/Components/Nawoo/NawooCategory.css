@@ -72,7 +72,7 @@
   transition: 0.5s ease-out;
 }
 
-.category_btn.selected {
+.category_btn_selected {
   width:30%;
   margin: 5px;
   background: rgb(13, 13, 81);
