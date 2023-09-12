@@ -11,34 +11,42 @@ function Qnatable() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage] = useState(8); // 페이지당 게시물 수를 8로 설정
   const categoriesRef = useRef([]);
-  const [selectedVoteTitle, setSelectedVoteTitle] = useState(''); // 선택한 투표 추가
+  const [selectedVoteTitle, setSelectedVoteTitle] = useState('');
 
   useEffect(() => {
     fetchPosts();
   }, []);
 
-  const fetchPosts = async () => {
-    try {
-      const response = await axios.get('/board/qnaposts');
-      if (response.status === 200) {
-        setPosts(response.data.tableposts);
-      } else {
-        console.error('게시물을 불러오는 데 실패했습니다.');
-      }
-      setIsLoading(false);
-    } catch (error) {
-      console.error('게시물을 불러오는 데 실패했습니다.', error);
+  // 클라이언트 측 코드에서 fetchPosts 함수 수정
+const fetchPosts = async () => {
+  try {
+    const response = await axios.get(`/board/qnaposts?page=${currentPage}`); // 페이지 번호를 추가하여 요청
+    if (response.status === 200) {
+      setPosts(response.data.tableposts);
+    } else {
+      console.error('게시물을 불러오는 데 실패했습니다.');
     }
-  };
+    setIsLoading(false);
+  } catch (error) {
+    console.error('게시물을 불러오는 데 실패했습니다.', error);
+  }
+};
+
 
   const handleWriteClick = () => {
-    // 글 작성하기 버튼을 클릭할 때 선택한 투표 정보만 WritingForm 컴포넌트로 전달
     setShowWritingForm(!showWritingForm);
   };
 
-  const handlePostClick = (postId) => {
-    navigate(`/post/${postId}`);
+  const handlePostClick = async (postId) => {
+    try {
+      await axios.post(`/board/qnaposts/${postId}/increase-view`);
+      navigate(`/post/${postId}`);
+    } catch (error) {
+      console.error('조회수 증가 요청에 실패했습니다.', error);
+    }
   };
 
   const addPostToTable = (newPost) => {
@@ -50,12 +58,20 @@ function Qnatable() {
     setSelectedCandidate(null);
     const selectedVote = tableposts.find(post => post.voteName === categoryName);
     setSelectedVoteTitle(selectedVote ? selectedVote.voteName : '');
-  
+    setCurrentPage(1); // 카테고리 변경 시 현재 페이지를 1로 리셋
     setShowWritingForm(false);
   };
 
   const handleCandidateClick = (candidateName) => {
     setSelectedCandidate(candidateName);
+  };
+
+  const getCurrentPagePosts = () => {
+    const startIndex = (currentPage - 1) * perPage;
+    const endIndex = startIndex + perPage;
+    return tableposts
+      .filter((post) => post.voteName === selectedCategory && post.candidate === selectedCandidate)
+      .slice(startIndex, endIndex);
   };
 
   return (
@@ -127,25 +143,23 @@ function Qnatable() {
                       </tr>
                     </thead>
                     <tbody className="table-body qnatable-table">
-                      {tableposts
-                        .filter((post) => post.voteName === selectedCategory && post.candidate === selectedCandidate)
-                        .map((post, index) => (
-                          <tr key={post.id}>
-                            <td>{index + 1}</td>
-                            <td>
-                              <Link
-                                to={`/post/${post.id}`}
-                                onClick={() => handlePostClick(post.id)}
-                                style={{ textDecoration: 'none', color: 'inherit' }}
-                              >
-                                {post.title}
-                              </Link>
-                            </td>
-                            <td>{post.name}</td>
-                            <td>{post.date}</td>
-                            <td>{post.view}</td>
-                          </tr>
-                        ))}
+                      {getCurrentPagePosts().map((post, index) => (
+                        <tr key={post.id}>
+                          <td>{index + 1}</td>
+                          <td>
+                            <Link
+                              to={`/post/${post.id}`}
+                              onClick={() => handlePostClick(post.id)}
+                              style={{ textDecoration: 'none', color: 'inherit' }}
+                            >
+                              {post.title}
+                            </Link>
+                          </td>
+                          <td>{post.name}</td>
+                          <td>{post.date}</td>
+                          <td>{post.view}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -162,7 +176,7 @@ function Qnatable() {
           {showWritingForm && (
             <WritingForm
               addPostToTable={addPostToTable}
-              selectedVoteTitle={selectedVoteTitle} // 선택한 투표 정보 전달
+              selectedVoteTitle={selectedVoteTitle}
             />
           )}
         </>

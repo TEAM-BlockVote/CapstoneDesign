@@ -24,7 +24,7 @@
     const hours = String(currentDate.getHours()).padStart(2, '0');
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
     const date = `${year}-${month}-${day} ${hours}:${minutes}`;
-    const view = 128; // 조회수를 128로 초기화
+    const view = 0;
     const insertQuery = 'INSERT INTO qna (title, name, date, view, content, candidate, voteName) VALUES (?, ?, ?, ?, ?, ?, ?)';
   
     try {
@@ -67,28 +67,52 @@
     }
   }
 
-  // 게시물 목록을 가져오는 API
-  router.get('/qnaposts', async (req, res, next) => {
-    const selectQuery = 'SELECT * FROM qna';
 
-    try {
-      const tableposts = await new Promise((resolve, reject) => {
-        pool.query(selectQuery, (err, results, fields) => {
+// 게시물 목록 가져오기
+router.get('/qnaposts', async (req, res, next) => {
+  const page = req.query.page || 1; // 클라이언트에서 전달된 페이지 번호, 기본값은 1
+  const perPage = 5; // 페이지당 게시물 수
+
+  try {
+    console.log(`Requested page: ${page}`); // 페이지 번호 로그 추가
+    const offset = (page - 1) * perPage; // 오프셋 계산
+    const selectQuery = `SELECT * FROM qna `; // LIMIT을 사용하여 범위 지정
+
+    // 전체 게시물 수를 가져오는 쿼리 추가
+    const countQuery = 'SELECT COUNT(*) as totalCount FROM qna';
+
+    const [tableposts, totalCountResult] = await Promise.all([
+      new Promise((resolve, reject) => {
+        pool.query(selectQuery, [offset, perPage], (err, results, fields) => {
           if (err) {
             reject(err);
           } else {
             resolve(results);
           }
         });
-      });
-      res.status(200).json({ tableposts });
-    } catch (error) {
-      console.error('게시물을 불러오는 중 오류가 발생했습니다.', error);
-      res.status(500).json({ error: '게시물을 불러오는 중 오류가 발생했습니다.' });
-    }
-  });
+      }),
+      new Promise((resolve, reject) => {
+        pool.query(countQuery, (err, results, fields) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(results[0].totalCount); // 전체 게시물 수 반환
+          }
+        });
+      }),
+    ]);
 
-  // 게시물을 가져오는 API
+    res.status(200).json({ tableposts, totalCount: totalCountResult });
+  } catch (error) {
+    console.error('게시물을 불러오는 중 오류가 발생했습니다.', error);
+    res.status(500).json({ error: '게시물을 불러오는 중 오류가 발생했습니다.' });
+  }
+});
+
+
+
+
+  // 게시물 클릭 시 가져오는 코드
   router.get('/qnaposts/:id', async (req, res, next) => {
     const { id } = req.params;
     const selectQuery = 'SELECT * FROM qna WHERE id = ?';
@@ -212,6 +236,27 @@
     }
   });
   
+  router.post('/qnaposts/:id/increase-view', async (req, res, next) => {
+    const { id } = req.params;
+    const updateViewQuery = 'UPDATE qna SET view = view + 1 WHERE id = ?';
+  
+    try {
+      await new Promise((resolve, reject) => {
+        pool.query(updateViewQuery, [id], (err, results, fields) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(results);
+          }
+        });
+      });
+  
+      res.status(200).json({ message: '조회수가 증가되었습니다.' });
+    } catch (error) {
+      console.error('조회수 증가에 실패했습니다.', error);
+      res.status(500).json({ error: '조회수 증가에 실패했습니다.' });
+    }
+  });
   
   
 
