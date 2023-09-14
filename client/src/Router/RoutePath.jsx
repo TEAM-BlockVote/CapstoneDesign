@@ -7,7 +7,7 @@ import WritingForm from "../Components/NoticeBoard/WriteAll/WritingForm";
 import AdminMain from "../Components/AdminPage/AdminMain";
 import SetVote from "../Components/AdminPage/SetVote";
 import AdditionalInfo from "../Components/Register/AdditionalInfo";
-import NawooIndex from "../Components/Nawoo/NawooIndex";
+import NawooMain from "../Components/Nawoo/Main";
 import VotingMain from "../Components/Vote/VotingMain";
 import QnaPosted from "../Components/NoticeBoard/TableAll/QnaPosted";
 import CategorySelect from "../Components/Nawoo/CategorySelect";
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     ],
   },
   {path: '/additionalInfo', element: <AdditionalInfo/>},
-  {path: '/Nawoo', element: <NawooIndex/>},
+  {path: '/Nawoo', element: <NawooMain/>},
   {path: '/Nawoo/CategorySelect/:voteCode', element: <CategorySelect/>},
 ]);
 

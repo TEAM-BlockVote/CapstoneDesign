@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import VotableItemList from './VotableItemList';
 import AuthContext from '../../Store/auth-context';
-import "./NawooIndex.css";
+import VotableItemList from './VotableItemList';
+
+import Index from './Index';
+import "./Main.css";
 
 const NawooIndex = () => {
   const [voteList, setVoteList] = useState([]);
+  const [currentPage, setCurrentPage] = useState("index");
   const ctx = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -28,7 +31,9 @@ const NawooIndex = () => {
   return ctx.isLoggedIn === false || ctx.isLoggedIn === null ? null : (
     <div className='nawoo_site'>
       <div className='nawoo_main'>
-        { <VotableItemList voteList={voteList}/> }
+        {
+          (currentPage === "index") ? <Index setCurrentPage={(page) => {setCurrentPage(page)}}/> : <VotableItemList voteList={voteList}/>
+        }
       </div>
     </div>
   );

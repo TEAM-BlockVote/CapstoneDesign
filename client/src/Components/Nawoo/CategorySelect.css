@@ -1,0 +1,37 @@
+
+
+.category_label1 {
+  margin-top: 10px;
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: rgb(13, 13, 81);
+}
+
+.count_margin {
+  margin-top: 30px;
+  display: flex;
+  height:100%;
+  text-align: center;
+  justify-content:flex-end;
+}
+
+.category_label2 {
+  margin-top: 11px;
+  margin-bottom: 11px;
+  height: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(13, 13, 81);
+}
+
+.category_count {
+  margin: 10px;
+  font-weight: bold;
+  width: 50px;
+  text-align: center;
+  background: white;
+  border: 2px solid rgb(13, 13, 81);
+  border-radius: 0.3rem;
+  color: rgb(13, 13, 81);
+}

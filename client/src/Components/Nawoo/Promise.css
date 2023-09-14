@@ -1,0 +1,46 @@
+.category_top {
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+  padding: 5%;
+}
+
+.qna_category {
+  display: flex;
+  flex-direction: column;
+}
+
+.select_label1 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: white;
+}
+
+.qna_select {
+  margin-top: 5%;
+  display: flow-root;
+  flex-direction: column;
+}
+
+.next_button {
+  width: 50%;
+  margin: auto;
+  background-color: #ffffff;
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.result_button {
+  width: 50%;
+  margin: auto;
+  background-color: rgb(132, 245, 184);
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+  font-size: 15px;
+  font-weight: bold;
+}
