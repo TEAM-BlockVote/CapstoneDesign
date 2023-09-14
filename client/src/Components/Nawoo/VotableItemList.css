@@ -1,111 +1,85 @@
-.nawoo_form {
+.nw_explain1 {
   display: flex;
-  position: relative;
   width: 100%;
-  max-width: 500px;
-  height: 100vh;
-  background-color: white;
   flex-direction: column;
   margin: auto;
-  border: 3px solid rgb(0, 0, 79);
+  text-align: center;
+}
+
+.nw_select_1 {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 3rem;
+  font-weight: 500;
+  color: #fff;
+  margin-top: 18%;
+}
+
+.nw_select_text2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.nw_select_2 {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: left;
+  margin: 10% 0% 8% 5%;
+  line-height: 2;
+}
+
+.nw_votebox_text {
+  color: white;
+  text-align: center;
+  margin: 2rem;
+}
+
+.nw_middle {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.nw_votebox {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  color: white;
+}
+
+.nw_votelist {
+  background: #1e2029;
+  border: 1px solid #abc1a7;
+  color: #abc1a7;
+  border-radius: 0.7rem;
+  text-align: center;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.nw_vote {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 @media (max-height: 600px) {
-  .nawoo_form {
+  .nw_form {
     overflow-y: hidden;
   }
 }
 
 @media (min-width: 375px) {
-  .nawoo_form {
-    max-width: 350px;
+  .nw_form {
+    max-width: 100%;
   }
 }
 
 @media (min-width: 575px) {
-  .nawoo_form {
-    max-width: 400px;
+  .nw_form {
+    max-width: 700px;
   }
-}
-
-@media (min-width: 575px) {
-  .nawoo_form {
-    max-width: 500px;
-  }
-}
-
-.nawoo_top {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  margin: auto;
-  text-align: center;
-}
-
-.nawoo_logo {
-  display: flex;
-  width: 100%;
-  height: auto;
-  flex-direction: column;
-  font-size: 2rem;
-  font-weight: bolder;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  min-width: 1.5rem;
-  margin: auto;
-  padding: 10%;
-  color: rgb(13, 13, 81);
-}
-
-@media (min-width: 275px) {
-  .nawoo_logo {
-    font-size: 1.6rem;
-  }
-}
-
-@media (min-width: 575px) {
-  .nawoo_logo {
-    font-size: 1.8rem;
-  }
-}
-
-@media (min-width: 767px) {
-  .nawoo_logo {
-    font-size: 2rem;
-  }
-}
-
-.nawoo_middle {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  margin: auto;
-  text-align: center;
-  cursor: crosshair;
-}
-
-.nawoo_img {
-  display: flex;
-  position: relative;
-  width: 300px;
-  height: auto;
-  flex-direction: column;
-  margin: auto;
-  opacity: 0.3;
-  transition: 0.5s ease-out;
-}
-
-.nawoo_img:hover {
-  opacity: 1.0;
-  transition: 0.5s ease-out;
-}
-
-.nawoo_bottom {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  margin: auto;
-  text-align: center;
 }
