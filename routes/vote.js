@@ -20,7 +20,7 @@ router.post('/write', async (req, res, next) => {
   const voteCode = String(Math.floor(Math.random() * 9000000) + 1000000);
 
   try {
-    const candidateList = [1, 2, 3, 4];
+    const candidateList = req.body.candidateInfo.map(item => item.partyNumber);
     const gasPrice = await req.web3.eth.getGasPrice();
     const gasLimit = 150000; // 필요한 가스 양에 따라 조정합니다
     const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
@@ -44,10 +44,23 @@ router.post('/write', async (req, res, next) => {
       });
     });
 
-    const insertVoteDepartmentsSql = 'insert into voteDepartment values(?, ?);';
+    const insertAllowedVoteDepartmentsSql = 'insert into voteDepartment values(?, ?);';
     allowedDepartments.map( async(departments, index) => {
       await new Promise((resolve, reject) => {
-        pool.query(insertVoteDepartmentsSql, [voteCode, departments], (err, results, fields) => {
+        pool.query(insertAllowedVoteDepartmentsSql, [voteCode, departments], (err, results, fields) => {
+          if (err) {
+            reject(err);
+          }
+          else
+            resolve(results);
+        });
+      });
+    })
+    
+    const insertInitVotingResultsSql = 'insert into votingResults(voteCode, partyNumber, lastUpdate) values(?, ?, ?)';
+    candidateList.map( async(candidateNumber, index) => {
+      await new Promise((resolve, reject) => {
+        pool.query(insertInitVotingResultsSql, [voteCode, candidateNumber, makeDate], (err, results, fields) => {
           if (err) {
             reject(err);
           }
