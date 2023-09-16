@@ -125,7 +125,7 @@
   .banner_img {
     width: 200px;
     margin-bottom: 10%;
-    margin-left: 50%;
+    margin-left: 45%;
   }
 }
 
@@ -391,6 +391,7 @@
   font-weight: bold;
   margin-top: 5px;
   padding: 0 10px;
+  cursor: pointer;
 }
 
 .footer-logo {
