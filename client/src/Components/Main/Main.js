@@ -41,10 +41,17 @@ const Main = () => {
   const handleResultModalClose = () => setShowResultModal(false);
   const handleResultModalShow = () => setShowResultModal(true);
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       {/* {<SignInModal/>} */}
-      <div className="main_content_wrapper">
+      <div id='home' className="main_content_wrapper">
         <div className="main_content">
           <div className="banner">
             <div className="banner_info">
@@ -106,7 +113,7 @@ const Main = () => {
             </ul>
           </div>
           <HorizonLine />
-          <div className="section-title">
+          <div id='summary' className="section-title">
             <p className="main_title">특별함</p>
           </div>
           <div className="section-info">
@@ -138,7 +145,7 @@ const Main = () => {
             </Swiper>
           </div>
           <HorizonLine />
-          <div className="section-title">
+          <div id='help' className="section-title">
             <p className="main_title">지금까지</p>
             <p className="sub_title">이런 별거 없었던 문제들 해결해 드리겠습니다.</p>
           </div>
@@ -151,7 +158,7 @@ const Main = () => {
             {selectedTab}
           </div>
           <HorizonLine />
-          <div className="section-title">
+          <div id='page_function' className="section-title">
             <p className="main_title">BlockVote와 함께한다면?</p>
             <p className="sub_title">아래와 같은 결과를 함께 만들어 나갈수 있습니다.</p>
           </div>
@@ -160,10 +167,10 @@ const Main = () => {
       </div>
       <div className="footer">
         <div className="footer-list">
-          <label className='producers'>전준호</label>
-          <label className='producers'>이서진</label>
-          <label className='producers'>유승민</label>
-          <label className='producers'>나윤성</label>
+          <label className='producers' onClick={() => scrollToSection('home')}>홈</label>
+          <label className='producers' onClick={() => scrollToSection('summary')}>개요</label>
+          <label className='producers' onClick={() => scrollToSection('help')}>도움말</label>
+          <label className='producers' onClick={() => scrollToSection('page_function')}>기능</label>
         </div>
         <div className='footer-logo'>
           <img className="under-logo" src={underLogo} alt="underLogo" />
