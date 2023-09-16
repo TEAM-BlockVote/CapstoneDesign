@@ -1,11 +1,23 @@
 .footer {
-  height: 100px;
-  position : relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
+  height: auto;
   background: #202942;
+  padding: 30px;
 }
 
-.footer-content {
+.footer-list {
   display: flex;
-  justify-content: space-around;
-  padding-top: 2rem;
+  flex-direction: row;
+  text-align: center;
+  margin: auto;
+}
+
+.producers {
+  color: azure;
+  font-weight: bold;
+  margin-top: 5px;
+  padding: 0 10px;
 }

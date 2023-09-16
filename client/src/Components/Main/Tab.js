@@ -70,7 +70,7 @@ const Tab = ({ index }) => {
           <div className="tab_contnet">
             <img className="tab_contnet_img" src={element.img} alt="img" />
             <div className="tab_contnet_title">
-              <div>{element.title}</div>
+              <div className="content_title">{element.title}</div>
               <div>{element.content}</div>
             </div>
           </div>

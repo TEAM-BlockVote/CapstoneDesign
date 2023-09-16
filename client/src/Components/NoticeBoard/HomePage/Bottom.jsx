@@ -1,13 +1,18 @@
 import React from "react";
+import underLogo from '../../Main/images/underLogo.png';
 import "./Bottom.css";
 
 function Bottom() {
   return (
     <div className="footer">
-        <div className="footer-content">
-          <p style={{color: '#adb5bd', fontSize: 2+'rem'}}> BlockVote </p>
-          <p style={{color: '#adb5bd'}}> 전준호 이서진 유승민 나윤성 </p>
-          <p>  </p>
+        <div className="footer-list">
+          <p className='producers'>홈</p>
+          <p className='producers'>개요</p>
+          <p className='producers'>도움말</p>
+          <p className='producers'>기능</p>
+        </div>
+        <div className='footer-logo'>
+          <img className="under-logo" src={underLogo} alt="underLogo" />
         </div>
       </div>
   );

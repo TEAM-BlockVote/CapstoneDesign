@@ -1,0 +1,24 @@
+.navbar-nav {
+  font-weight: bold;
+  cursor: pointer;
+  color: #0084ff;
+}
+
+.navbar-logo {
+  width: 200px;
+}
+
+@media screen and (max-width:767px) {
+  .navbar-logo {
+    width: 150px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .nav-link {
+    position: relative;
+    right: 20%;
+    font-weight: bold;
+    margin-left: 30px;
+  }
+}
