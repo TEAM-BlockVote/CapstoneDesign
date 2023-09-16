@@ -38,7 +38,7 @@ const Future = () => {
         <div className="future-info" key={index}>
           <img className="future-img" src={element.img} alt="logo" />
           <h5 className="future-title"> {element.title} </h5>
-          <div>{element.content}</div>
+          <div className="future-written">{element.content}</div>
         </div>
       ))}
     </div>
