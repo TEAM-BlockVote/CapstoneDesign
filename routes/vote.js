@@ -159,24 +159,7 @@ router.get('/hasVoteNumberVoting', async (req, res, next) => {
 router.get('/:voteCode', async (req, res, next) => {
   const voteCode = req.params.voteCode;
   const selectVoteInfoSql = `select title, type, startDate, endDate from vote where voteCode = ?;`;
-  const selectCandidatesInfoSql = `
-    SELECT
-      v.voteCode,
-      v.partyNumber,
-      c.partyimage,
-      c.partyName,
-      c.candidateName,
-      v.votes
-    FROM
-      votingResults v
-    INNER JOIN
-      candidates c
-    ON
-      v.voteCode = c.voteCode AND v.partyNumber = c.partyNumber
-    WHERE
-      v.voteCode = ?
-    ORDER BY c.partyNumber;
-  `;
+  const selectcandidatesInfoSql = `select partyNumber, partyimage, partyName, candidateName, promise from candidates where voteCode = ? order by partyNumber;`;
 
   try {
     const voteInfo = await new Promise((resolve, reject) => {
@@ -190,7 +173,7 @@ router.get('/:voteCode', async (req, res, next) => {
     });
 
     const candidatesInfo = await new Promise((resolve, reject) => {
-      pool.query(selectCandidatesInfoSql, [voteCode], (err, results, fields) => {
+      pool.query(selectcandidatesInfoSql, [voteCode], (err, results, fields) => {
         if (err) {
           reject(err);
         }
