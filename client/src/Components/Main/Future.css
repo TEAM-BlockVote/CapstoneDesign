@@ -2,11 +2,27 @@
   display: flex; 
 }
 
+@media screen and (max-width:1023px) {
+  .future-wrapper {
+    flex-direction: column;
+    padding: 10px;
+  }
+}
+
 .future-info {
   background-color: #f8f9fc;
   border: 10px #ffffff solid;
   padding: 3rem 2rem;
   width: 33.33%;
+  height: auto;
+}
+
+@media screen and (max-width:1023px) {
+  .future-info {
+    padding: 2rem 2rem;
+    width: auto;
+    height: 33.33%;
+  }
 }
 
 .future-img {
@@ -16,4 +32,9 @@
 .future-title {
   color: #5ebabc;
   margin: 1rem 0;
+  font-weight: bold;
+}
+
+.future-written {
+  font-weight: 500;
 }
