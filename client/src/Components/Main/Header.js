@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import React, { useContext } from 'react';
 import logo from '../Main/images/logo.png';
 import AuthContext from '../../Store/auth-context';
+import './NavigationBar.css';
 
 import { useState } from 'react';
 
@@ -12,13 +13,13 @@ const Header = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const showModal = () => {
     setModalOpen(true);
-  };  
+  };
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg" style={{margin: '0 5%'}}>
+      <nav className="navbar navbar-expand-lg" style={{ margin: '0 5%' }}>
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/"><img  style={{width:'200px'}} src={logo} alt="seoilLogo"/></Link>
+          <Link className="navbar-brand" to="/"><img className="navbar-logo" src={logo} alt="seoilLogo" /></Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -27,7 +28,7 @@ const Header = () => {
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
-            style={{marginLeft: 'auto', marginRight: '1rem'}}
+            style={{ marginLeft: 'auto', marginRight: '1rem' }}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -45,17 +46,17 @@ const Header = () => {
             </ul>
             <ul className="navbar-nav account">
               <li className="nav-item">
-                { ctx.isLoggedIn === null && " " }
-                { ctx.isLoggedIn === false && <Link className="nav-link" to="/signIn"> 로그인 </Link> }
+                {ctx.isLoggedIn === null && " "}
+                {ctx.isLoggedIn === false && <Link className="nav-link" to="/signIn"> 로그인 </Link>}
               </li>
             </ul>
           </div>
-          { ctx.isLoggedIn === true && (
-            <div className="navbar-nav" onClick={showModal} style={{cursor:'pointer', color: '#0084ff'}}>
+          {ctx.isLoggedIn === true && (
+            <div className="navbar-nav" onClick={showModal}>
               {ctx.userName}님
             </div>
           )}
-          </div>
+        </div>
       </nav>
       <div>
         {modalOpen && <InfoModal setModalOpen={setModalOpen} />}

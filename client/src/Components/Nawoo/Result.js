@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import "./NawooResult.css";
+import React, { useState, useEffect, useContext } from 'react';
+import Loding from '../Main/Loding';
+import "./Result.css";
 
-function Result({selectedPromises, candidates}) {
+const Result = ({selectedPromises, candidates}) => {
   const [ranking, setRanking] = useState();
   const [champions, setChampions] = useState();
 
@@ -30,37 +31,49 @@ function Result({selectedPromises, candidates}) {
     setChampions(champions);
     setRanking(winnerCandidate);
   }, [selectedPromises, candidates])
-  
-  if(!ranking) {
-    return "asd";
-  }
 
-  return(
-    <div className='nawoo_form'>
-      <div className='result'>
-        <div className='result_top'>
-          <div className="result_logo">
-            당신만을 위한 후보자는 누구?!
-            <br/>
-            사진을 클릭하세요!
-          </div>
-        </div>
-        <div className='result_middle'>
-          {champions.map((winner, index) => (
-            <div key={index}>
-              <div className='result_img'>
-                <img src={winner.partyimage} alt='후보자 사진' className='list_img'/>
-              </div>
-              <div>
-                {winner.partyName} <br/>
-                {winner.candidateName}
-              </div>
-            </div>
-          ))}
+  return (
+    <div className='nw_form'>
+      <div className='nw_top'>
+        <div className='result_title'>
+          나와 가장 잘 맞는 사람들
         </div>
       </div>
+      <div className='nw_middle'>
+        <div className='result_left'>
+          <div className='result_label1'>
+            우수한 분석 능력
+          </div>
+          <div className='result_label2'>
+            인공 지능을 활용한<br />
+            가장 정확한 테스트
+          </div>
+        </div>
+        <div className='result_list'>
+          <div className='img_div'>
+            {!ranking ? <Loding/> :
+              champions.map((winner, index) => (
+                <div key={index} className={`${index % 2 === 0 ? 'even' : 'odd'}`}>
+                  <div className='result_img'>
+                    <img
+                      src={winner.partyimage}
+                      alt='후보자 사진'
+                      className={`${index % 2 === 0 ? 'even_image' : 'odd_image'}`}
+                    />
+                  </div>
+                  <div className={`${index % 2 === 0 ? 'even_label' : 'odd_label'}`}>
+                    {winner.partyName} <br/>
+                    {winner.candidateName}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+      <div className='nw_bottom'>
+      </div>
     </div>
-  )
-};
-
+  );
+}
 export default Result;

@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&family=Roboto+Mono:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&family=Noto+Sans+KR:wght@100&family=Roboto+Mono:wght@100&display=swap');
+
+#wrap {
+  display: flex;
+  flex-direction: row;
+}
+
+#wrap #q_wrap {
+  min-width: 0;
+  width: 35%;
+  float: left;
+  margin-left: 23%;
+}
+
+#wrap #q_wrap p {
+  clear: both;
+}
+
+#wrap #q_wrap #q_writebtn {
+  float: right;
+}
+
+#wrap #q_wrap #q_writebtn button {
+  background-color: #0078FF;
+  height: 50px;
+  font-weight: 700;
+  padding: 0 20px;
+  color: #ffffff;
+  font-size: 16px;
+  border-radius: 4px;
+  gap: 4px;
+  border: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#wrap #q_wrap #q_nav {
+  height: 30px;
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+  margin-top: 1.5rem;
+  border-color: #e1e7eb;
+  width: 100%;
+  border-bottom: 3px solid #e1e7eb;
+}
+
+#wrap #q_wrap #q_nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+#wrap #q_wrap #q_nav ul li {
+  list-style: none;
+  float: left;
+  margin-bottom: -1px;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+
+#wrap #q_wrap #q_nav #candidate_qna {
+  text-decoration: none; 
+  transition: .16s;
+  padding:  0.6rem 1rem 0.5rem 1rem;
+  color: #90a4ae;
+  font-weight: 500;
+  border-radius: 0;
+  border: none;
+}
+
+#wrap #q_wrap #q_nav #candidate_qna:active {
+  color: #2979FF;
+  background-color: transparent;
+  box-shadow: inset 0 0.18rem #2979ff, inset 0.06rem 0 #e1e7eb, inset -0.06rem 0 #e1e7eb;
+}
+
+#wrap #q_wrap #q_nav #candidate_qna:hover {
+  color: #2979FF;
+  background-color: transparent;
+  box-shadow: inset 0 0.18rem #2979ff, inset 0.06rem 0 #e1e7eb, inset -0.06rem 0 #e1e7eb;
+}
+
+#wrap #q_wrap #q_table {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+#wrap #q_wrap #q_table #q_title {
+  margin-bottom: 10px;
+}
+
+#wrap #q_wrap #q_table #q_title a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+#wrap #q_wrap #q_table {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+} 
+
+#wrap #q_wrap #q_table #q_question {
+  margin-left: 20px;
+  width: 90%;
+}
+
+#wrap #q_wrap #q_table #q_question #q_name_date {
+  color: #90a4ae;
+}
+
+#wrap #q_wrap #q_table #q_view {
+  color: #90a4ae;
+}
+
+#wrap #q_wrap #q_table #q_view #q_viewnum {
+  font-family: 'Roboto Mono', "Source code Pro" , Monaco, monospace;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 2rem;
+}
+
+#wrap #q_wrap #q_table #q_view #q_views {
+  font-size: 0.75rem;
+}
+
+#wrap #side{
+  min-width: 0;
+  width: 20%;
+  float: right;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#wrap #side #side_banner1 {
+  background: #43785e;
+  margin-top: 120px;
+  border-radius: 8px;
+  padding: 7%;
+  font-family: Inter, "Noto Sans KR", sans-serif;
+  margin-bottom: 30px;
+}
+
+#wrap #side #side_banner1 a {
+  text-decoration: none;
+  color: white;
+}
+
+#wrap #side #side_banner1 h1 {
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: -0.8px;
+  padding-bottom: 12px;
+}
+
+#wrap #side #side_banner1 p {
+  font-size: 13px;
+  line-height: 140%;
+  letter-spacing: -0.8px;
+  font-weight: 400;
+  opacity: 0.8;
+  word-spacing: 0px;
+}
+
+#wrap #side #side_banner1 img {
+  width: 100%;
+}
+
+#wrap #side #side_banner2 {
+  background: #2979ff;
+  margin-top: 10px;
+  border-radius: 8px;
+  padding: 7%;
+  font-family: Inter, "Noto Sans KR", sans-serif;
+  margin-bottom: 30px;
+}
+
+#wrap #side #side_banner2 a {
+  text-decoration: none;
+  color: white;
+}
+
+#wrap #side #side_banner2 h1 {
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: -0.8px;
+  padding-bottom: 12px;
+}
+
+#wrap #side #side_banner2 p {
+  font-size: 13px;
+  line-height: 140%;
+  letter-spacing: -0.8px;
+  font-weight: 400;
+  opacity: 0.8;
+  word-spacing: 0px;
+}
+
+#wrap #side #side_banner2 img {
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {  
+  #wrap {
+    flex-direction: column;
+  }
+
+  #wrap #side {
+    width: 70%;
+    margin-left: 0;
+  }
+}
+
+
+

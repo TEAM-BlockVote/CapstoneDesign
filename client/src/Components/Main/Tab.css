@@ -16,4 +16,21 @@
 .tab_contnet_title {
   text-align: center;
   margin-top: 1rem;
+  font-weight: 500;
+}
+
+@media screen and (max-width:767px) {
+  .tab_contnet_title {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .tab_contnet_title {
+    font-size: 0.9rem;
+  }
+}
+
+.content_title {
+  font-weight: bold;
 }

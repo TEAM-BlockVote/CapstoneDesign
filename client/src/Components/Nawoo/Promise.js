@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "./NawooSelect.css";
+import './Promise.css';
 
 function Promise ({selectCategories, setCurrentPage, setPromises}) {
   const [index, setIndex] = useState(0);
@@ -42,7 +42,7 @@ function Promise ({selectCategories, setCurrentPage, setPromises}) {
   }
   
   return (
-    <div className='nawoo_form'>
+    <div className='nw_form'>
       <div className='category_top'>
         <div className="qna_category">
           <span className="select_label1">{categories[index].key}</span>
@@ -51,7 +51,7 @@ function Promise ({selectCategories, setCurrentPage, setPromises}) {
               categories[index].promises.map((data, index) => (
                 <button
                   key={index}
-                  className={selectedButtons[index] ? `select_label2_selected` : 'select_label2'}
+                  className={selectedButtons[index] ? `category_btn_selected` : 'category_btn'}
                   onClick={() => { handlePromiseSelect(data, index) }}
                 >
                   {data.promise}
@@ -59,8 +59,10 @@ function Promise ({selectCategories, setCurrentPage, setPromises}) {
               ))
             }
           </div>
+          <div style={{color: 'white'}}> 
           {`${index+1} / ${categories.length}`}
-          {index === categories.length-1 ? <button onClick={ handleShowResultsView }> 결과보기 </button> : <button onClick={handleButtonClick}> {currnetButtonValue} </button>}
+          </div>
+          {index === categories.length-1 ? <button className='result_button' onClick={ handleShowResultsView }> 결과보기 </button> : <button className='next_button' onClick={handleButtonClick}> {currnetButtonValue} </button>}
         </div>
       </div>
     </div>

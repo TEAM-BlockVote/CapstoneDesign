@@ -11,7 +11,7 @@ function InfoModal(props) {
   };
 
   return (
-      <div className="container22323">
+      <div className="modal_container">
         <div className="modal_header">
           <button className="close" onClick={closeModal}> X </button>
           <span className='modal_profile'> 내 프로필 </span>

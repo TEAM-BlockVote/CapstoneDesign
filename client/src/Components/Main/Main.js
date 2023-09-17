@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import HorizonLine from './HorizonLine';
 import './Main.css';
 import bannerLogo from './images/seoilLogo.png';
+import underLogo from '../Main/images/underLogo.png';
 import Team from './images/Team.png';
 import MakeVote from './images/makeVote.png';
 import Voting from './images/voting.png';
@@ -24,10 +25,10 @@ import 'swiper/components/navigation/navigation.min.css'
 import 'swiper/components/pagination/pagination.min.css'
 
 const Main = () => {
-  const [selectedTab, setSelectedTab] = useState(<Tab index={0}/>);
+  const [selectedTab, setSelectedTab] = useState(<Tab index={0} />);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleTabClick = (tab,index) => {
+  const handleTabClick = (tab, index) => {
     setSelectedTab(tab);
     setActiveIndex(index);
   };
@@ -40,20 +41,27 @@ const Main = () => {
   const handleResultModalClose = () => setShowResultModal(false);
   const handleResultModalShow = () => setShowResultModal(true);
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
-    {/* {<SignInModal/>} */}
-      <div className="main_content_wrapper">
+      {/* {<SignInModal/>} */}
+      <div id='home' className="main_content_wrapper">
         <div className="main_content">
           <div className="banner">
             <div className="banner_info">
               <div className="banner_left">
-                <h1 > 2023년 총학생회 투표 </h1>
-                <h5> 서일대학교의 미래를 위해 함께 이끌어나갈 당신을 찾습니다. </h5>
-                <h5> 투표기간: 04.17 - 04.30 </h5>
+                <p className='banner-vote'> 2023년 총학생회 투표 </p>
+                <p className='banner-written'> 서일대학교의 미래를 위해 함께 이끌어나갈 당신을 찾습니다. </p>
+                <p className='banner-date'> 투표기간: 04.17 - 04.30 </p>
               </div>
               <div className="banner_right">
-                <img className="banner_img" src={bannerLogo} alt="seoilLogo"/>
+                <img className="banner_img" src={bannerLogo} alt="seoilLogo" />
               </div>
             </div>
           </div>
@@ -89,23 +97,23 @@ const Main = () => {
             </div>
           </div> */}
           <div className="tab-wrapper">
-            <ul className="tabs-list" style={{margin: '0 10%'}}>
+            <ul className="tabs-list" style={{ margin: '0 10%' }}>
               <li className='go-link' onClick={handleVotingModalShow}>
-                <img src={Voting} alt='투표하기'></img>
-                <div> 투표하기 </div>
+                <img className='tab-img' src={Voting} alt='투표하기'></img>
+                <div className='tab-label'> 투표하기 </div>
               </li>
               <li className='go-link' onClick={handleResultModalShow}>
-                <img src={Result} alt='결과보기'></img>
-                <div> 결과보기 </div>
+                <img className='tab-img' src={Result} alt='결과보기'></img>
+                <div className='tab-label'> 결과보기 </div>
               </li>
               <li className='go-link'>
-                <img src={MakeVote} alt='투표 신청하기'></img>
-                <div> 투표 신청하기 </div>
+                <img className='tab-img' src={MakeVote} alt='투표 신청하기'></img>
+                <div className='tab-label'> 투표 신청하기 </div>
               </li>
             </ul>
           </div>
-          <HorizonLine/>
-          <div className="section-title">
+          <HorizonLine />
+          <div id='summary' className="section-title">
             <p className="main_title">특별함</p>
           </div>
           <div className="section-info">
@@ -113,31 +121,31 @@ const Main = () => {
               <div className="section-info-wrapper" >
                 <span className="section-info-title" > 온라인 전자투표 서비스 </span>
                 <div className="section-info-content" >
-                  세상에 좋은 온라인 투표는 많습니다.<br/>
-                  하지만, 내가 원하는 후보상이 누군지 모를때 <br/>
-                  내가 투표한 정보가 위변조 되진 않을까 고민될때 <br/>
-                  언제 어디서나 투표하고 싶을때<br/><br/>
+                  세상에 좋은 온라인 투표는 많습니다.<br />
+                  하지만, 내가 원하는 후보상이 누군지 모를때 <br />
+                  내가 투표한 정보가 위변조 되진 않을까 고민될때 <br />
+                  언제 어디서나 투표하고 싶을때<br /><br />
                   답은 하나입니다.
                 </div>
               </div>
             </div>
-            <Swiper navigation={true} modules={[Navigation]} className="mySwiper" style={{cursor: 'pointer'}}
+            <Swiper navigation={true} modules={[Navigation]} className="mySwiper" style={{ cursor: 'pointer' }}
               onClick={(swiper, e) => {
-                if(e.target.className === "swiper-button-prev") {
+                if (e.target.className === "swiper-button-prev") {
                   swiper.slidePrev();
-                } else if(e.target.className === "swiper-button-next") {
+                } else if (e.target.className === "swiper-button-next") {
                   swiper.slideNext();
                 }
               }}
             >
-              <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg"/></SwiperSlide>
-              <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg"/></SwiperSlide>
-              <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg"/></SwiperSlide>
-              <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg"/></SwiperSlide>
+              <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg" /></SwiperSlide>
+              <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg" /></SwiperSlide>
+              <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg" /></SwiperSlide>
+              <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg" /></SwiperSlide>
             </Swiper>
           </div>
-          <HorizonLine/>
-          <div className="section-title">
+          <HorizonLine />
+          <div id='help' className="section-title">
             <p className="main_title">지금까지</p>
             <p className="sub_title">이런 별거 없었던 문제들 해결해 드리겠습니다.</p>
           </div>
@@ -149,29 +157,33 @@ const Main = () => {
             </ul>
             {selectedTab}
           </div>
-          <HorizonLine/>
-          <div className="section-title">
+          <HorizonLine />
+          <div id='page_function' className="section-title">
             <p className="main_title">BlockVote와 함께한다면?</p>
-            <p className="sub_title">아래와 같은 결과를 함께 만들어 나갈수 있어요</p>
+            <p className="sub_title">아래와 같은 결과를 함께 만들어 나갈수 있습니다.</p>
           </div>
-          {<Future/>}
+          {<Future />}
         </div>
       </div>
       <div className="footer">
-        <div className="footer-content">
-          <p style={{color: '#adb5bd', fontSize: 2+'rem'}}> BlockVote </p>
-          <p style={{color: '#adb5bd'}}> 전준호 이서진 유승민 나윤성 </p>
-          <p>  </p>
+        <div className="footer-list">
+          <label className='producers' onClick={() => scrollToSection('home')}>홈</label>
+          <label className='producers' onClick={() => scrollToSection('summary')}>개요</label>
+          <label className='producers' onClick={() => scrollToSection('help')}>도움말</label>
+          <label className='producers' onClick={() => scrollToSection('page_function')}>기능</label>
+        </div>
+        <div className='footer-logo'>
+          <img className="under-logo" src={underLogo} alt="underLogo" />
         </div>
       </div>
-      <Modal show={showVotingModal} onHide={handleVotingModalClose} centered style={{textAlign: 'center'}}>
+      <Modal show={showVotingModal} onHide={handleVotingModalClose} centered style={{ textAlign: 'center' }}>
         <Modal.Header style={{ borderBottom: 'rgb(222,222,222)' }}>
           <CloseButton onClick={handleVotingModalClose} />
         </Modal.Header>
         <Modal.Body>
-        <form action='vote/hasVoteNumberVoting' method='get'>
-            {<VoteBox/>}
-            <input placeholder='발송 문자 7자리 숫자' name='voteCode'/>
+          <form action='vote/hasVoteNumberVoting' method='get'>
+            {<VoteBox />}
+            <input placeholder='발송 문자 7자리 숫자' name='voteCode' />
             <button className='votebox-submit' type='submit'>
               투표하러가기
             </button>
@@ -179,19 +191,19 @@ const Main = () => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={showResultModal} onHide={handleResultModalClose} centered style={{textAlign: 'center'}}>
+      <Modal show={showResultModal} onHide={handleResultModalClose} centered style={{ textAlign: 'center' }}>
         <Modal.Header style={{ borderBottom: 'rgb(222,222,222)' }}>
           <CloseButton onClick={handleResultModalClose} />
         </Modal.Header>
         <Modal.Body>
-          {<VoteBox/>}
-          <input placeholder='발송 문자 7자리 숫자' name='voteCode'/>
-          <button className='votebox-submit' onClick={() => {alert("아직 투표가 끝나지 않았습니다.")}}>
+          {<VoteBox />}
+          <input placeholder='발송 문자 7자리 숫자' name='voteCode' />
+          <button className='votebox-submit' onClick={() => { alert("아직 투표가 끝나지 않았습니다.") }}>
             결과보러가기
           </button>
         </Modal.Body>
       </Modal>
-    </> 
+    </>
   );
 };
 

@@ -1,30 +1,39 @@
-function Category({categories, selectedButtons, setCurrentPage, onCategorySelect}) {
+import React, { useState, useEffect, useContext } from 'react';
+import Loding from '../Main/Loding';
+import "./Category.css";
+
+const Category = ({categories, selectedButtons, setCurrentPage, onCategorySelect}) => {
   const handleCategorySelect = (category, index) => {
     onCategorySelect(category, index);
   }
   return (
-    <div className='nawoo_form'>
-      <div className='category_top'>
-        <label className='category_label1'>관심있는 분야를 선택해주세요.</label>
-        <div className='count_margin'>
-          <label className='category_label2'>항목 : </label>
-          <div className='category_count'>
-            {0}
-          </div>
+    <div className='nw_form'>
+      <div className='nw_top'>
+        <div className='nw_category_name'>
+          <p> 총학생회 선거 </p>
+        </div>
+        <div className='count_div'>
+          총 문항 수 : 30개
+        </div>
+        <div className='categories_explain'>
+          <p>유권자가 선택한 투표에 GPT기술을 접목하여 비슷한 공약끼리 카테고리를 생성했습니다.</p>
+          <p>여러 카테고리를 선택 할 수 있으며 한 가지 이상 선택해야 합니다.</p>
         </div>
       </div>
-      <div className='category_middle'>
-        {
-          Object.keys(categories).map((category, index) => (
-            <button
-              key={index}
-              className={ selectedButtons[index] ? `category_btn_selected` : 'category_btn'}
-              onClick={() => {handleCategorySelect(category, index)}}
-            >
-              {category}
-            </button>
-          ))
-        }
+      <div className='nw_middle'>
+        <div className='category_middle'>
+          {
+            !categories ? <Loding/> : Object.keys(categories).map((category, index) => (
+              <button
+                key={index}
+                className={ selectedButtons[index] ? `category_btn_selected` : 'category_btn'}
+                onClick={() => {handleCategorySelect(category, index)}}
+              >
+                {category}
+              </button>
+            ))
+          }
+        </div>
       </div>
       <div className='category_bottom'>
         <button className='category_next' onClick={ () => {setCurrentPage("promiseSelect")}}>
@@ -32,7 +41,6 @@ function Category({categories, selectedButtons, setCurrentPage, onCategorySelect
         </button>
       </div>
     </div>
-  )
+  );
 }
-
 export default Category;

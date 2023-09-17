@@ -1,144 +1,147 @@
 import React, { useState, useEffect } from 'react';
 import CloseButton from 'react-bootstrap/CloseButton';
 import Modal from 'react-bootstrap/Modal';
+import Loding from '../Main/Loding';
 import './VotingMain.css';
 import axios from 'axios';
 
 const VotingMain = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const voteCode = urlParams.get('voteCode');
-  
   const [voteInfo, setVoteInfo] = useState('');
   const [candidates, setCandidates] = useState(null);
-  const [totalVotes, setTotalVotes] = useState(0);  
+  const [totalVotes, setTotalVotes] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);  
   const [selectedCandidate, setSelectedCandidate] = useState(null);
-  const [opacityStyleState, setOpacityStyleState] = useState(Array(4).fill(true)); //하드코딩 바꿔야함
-  const [displayStyleState, setDisplayStyleState] = useState(Array(4).fill(false)); //하드코딩 바꿔야함
+  const [opacityStyleState, setOpacityStyleState] = useState(null);
 
   const [showVotingModal, setShowVotingModal] = useState(false);
   const handleVotingModalClose = () => setShowVotingModal(false);
   const handleVotingModalShow = () => setShowVotingModal(true);
   
-  const [remainingTime, setRemainingTime] = useState(4323);
+  const [remainingTime, setRemainingTime] = useState();
 
   useEffect(() => {
+    if (!isLoading) {
+      handleTimeDifference();
+    }
     const timer = setInterval(() => {
-      setRemainingTime(prevTime => prevTime - 1);
+      setRemainingTime(prevTime => {
+        if (prevTime > 0) {
+          return prevTime - 1000;
+        }  
+        return prevTime;
+      });
     }, 1000);
-
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [isLoading]);
 
   const formatTime = (time) => {
-    const days = Math.floor(time / 86400);
-    const hours = Math.floor((time % 86400) / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const seconds = time % 60;
+    let seconds = time / 1000;
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    let days = Math.floor(hours / 24);
+    seconds %= 60;
+    minutes %= 60;  
+    hours %= 24;
 
     return `${days}일 ${hours.toString().padStart(2, '0')}시 ${minutes.toString().padStart(2, '0')}분 ${seconds.toString().padStart(2, '0')}초`;
   };
+
   const handleChangeOpacity = (index) => {
+    setSelectedCandidate(index);
     setOpacityStyleState(prevStates => {
       const newState = prevStates.map((state, i) => i === index)
       return newState;
     });
-    setDisplayStyleState(prevStates => {
-      const newState = prevStates.map((state, i) => i === index);
-      return newState;
-    })
   };
 
   const handleVotingSubmit = () => {
-    const index = displayStyleState.findIndex(ele => ele === true);
-    if (index !== -1) {
+
+    if (selectedCandidate !== null) {
       // console.log("고름");
-      setSelectedCandidate(index);
+      setSelectedCandidate(selectedCandidate);
       handleVotingModalShow();
     } else {
       // console.log("안고름");
+      alert("후보를 골라주세요");
       setSelectedCandidate(null);
     }
-  }
-
-  const handleVotesUpdate = () => {
-    const totalVotes = candidates.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue.votes;
-    }, 0);
-
-    setTotalVotes(totalVotes);
   }
 
   useEffect(() => {
     axios.get(`/vote/${voteCode}`)
     .then((res) => {
+      const votes = res.data.candidatesInfo.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.votes;
+      }, 0);
+      setTotalVotes(votes);
       setVoteInfo(res.data.voteInfo);
       setCandidates(res.data.candidatesInfo);
-      // handleVotesUpdate();
+      setOpacityStyleState(Array(res.data.candidatesInfo.length).fill(true));
+      setIsLoading(false);
     })
     .catch((err) => {
-      if (err.response) {
-        if (err.response.status === 404) {
-          alert(err.response.data.error);
-          window.location.href = "/";
-        } else {
-          console.log("서버 에러");
-        }
-      } else {
-        console.log("네트워크 에러");
-      }
+      console.log(err + "투표 데이터를 가지고 올 수 없음.");
     });
   }, [voteCode]);
 
-
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = (e) => {
+    console.log(selectedCandidate);
     e.preventDefault();
-    const res = await axios.post(`/vote/voting`, {
-      "selectedCandidatedata": selectedCandidate,
+    const res = axios.post(`/vote/voting`, {
+      "selectedCandidatedata": selectedCandidate, //기호 1번은 인덱스 0으로 데이터를 보냅니다..
       "voteCode": voteCode,
     });
-    if (res.status === 200) {
-      handleVotingModalClose()
-      alert('투표 완료!');
-    } else {
-      handleVotingModalClose()
-    }
-    console.log();
   };
 
-  if (!candidates) {
-    return <div>데이터 로딩중...</div>;
+  const handleTimeDifference = () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+    const currentTime = new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}`);
+    const endTime = new Date(voteInfo[0].endDate + 'T18:00:00');
+    const timeDifference = endTime - currentTime;
+    setRemainingTime(timeDifference);
+  }
+
+  if(!voteInfo && !candidates) {
+    return <Loding/>
   }
 
   return (
-    <>
-      <div className='voting_wrapper'>
-        <div className='voting_main'>
-          {voteInfo.map((element, index) => (
-            <div key={index}>
-              <div className='voting_title'>
-                <span>{element.title} </span>
+    <div className='voting_wrapper'>
+      <div className='voting_main'>
+        { voteInfo.map((element, index) => (
+          <div key={index}>
+            <div className='voting_title'>
+              <span>{element.title} </span>
+            </div>
+            <div style={{display: 'flex', marginBottom: '3%', textAlign: 'left'}}>
+              <div style={{marginRight: '10%'}}>
+                <span style={{color: '#a5a5a5'}}>투표수</span> <span style={{display: 'block', fontSize: '30px'}}> {totalVotes}표 </span>
               </div>
-              <div style={{display: 'flex', marginBottom: '3%', textAlign: 'left'}}>
-                <div style={{marginRight: '10%'}}>
-                  <span style={{color: '#a5a5a5'}}>투표수</span> <span style={{display: 'block', fontSize: '30px'}}> {totalVotes}표 </span>
-                </div>
-                <div>
-                  <span style={{color: '#a5a5a5'}}>남은 시간</span> <span style={{display: 'block', fontSize: '30px'}}> {formatTime(remainingTime)} </span>
-                </div>
+              <div>
+                <span style={{color: '#a5a5a5'}}>남은 시간</span> <span style={{display: 'block', fontSize: '30px'}}> {formatTime(remainingTime)} </span>
               </div>
             </div>
-          ))}
-          <div>
-            <ul className="candidate_start" style={{cursor: 'pointer'}}>
-              {candidates.map((element, index) => (
-                <form key={index}>
+          </div>
+        ))}
+        <div>
+          <ul className="candidate_start" style={{cursor: 'pointer'}}>
+            {candidates.map((element, index) => (
+              <form key={index}>
                 <li
                   className='vote-candidate-list'
                   style={{ opacity: opacityStyleState[index] ? 1 : 0.3}}
                   onClick={() => { handleChangeOpacity(index) }}
-                >                  
+                >
                   <div>
                     <div>
                       <img src={element.partyimage} alt='후보자 사진' className='list_img'/>
@@ -151,27 +154,20 @@ const VotingMain = () => {
                       </div>
                     </div>
                     <div>
-                      <span className='vote_percent'> "10%" </span>
-                      <span> {element.votes}표</span>
+                      <span className='vote_percent'> { element.votes === 0 ? '0%' : `${ (element.votes / totalVotes * 100).toFixed(2)}%` } </span>
+                      <span> {element.votes}표 </span>
                       <div className='graph'>
-                        <p style={{width: element.votePercent, height: '3px', background: '#767edb'}}></p>
+                        <p style={{width: `${element.votes}` === 0 ? '0%' : `${(element.votes / totalVotes * 100).toFixed(2)}%` , height: '3px', background: '#767edb'}}></p>
                       </div>
                     </div>
                   </div>
                 </li>
-                <div style={{backgroundColor: '#f2f2f2', display: displayStyleState[index] ? '' : 'none'}}>
-                  {/* {element.promise.map((ele, index) => (
-                    <span style={{display: 'block'}} key={index}>{ele}</span>
-                  ))} */}
-                </div>
-                </form>
-              ))}
-            </ul>
-            <button onClick={handleVotingSubmit}> 투표하기 </button>
-          </div>
+              </form>
+            ))}
+          </ul>
+          <button onClick={handleVotingSubmit}> 투표하기 </button>
         </div>
       </div>
-
       <Modal show={showVotingModal} onHide={handleVotingModalClose} centered style={{textAlign: 'center'}}>
         <Modal.Header style={{ borderBottom: 'rgb(222,222,222)' }}>
           <CloseButton onClick={handleVotingModalClose} />
@@ -179,25 +175,25 @@ const VotingMain = () => {
         <Modal.Body>
           <form onSubmit={handleFormSubmit}>
             <div>
-            {candidates[selectedCandidate] && 
-            <div> 
-              <div>{candidates[selectedCandidate].id} 번 </div>
-              <div>{candidates[selectedCandidate].party} 팀 </div>
-              <div> {candidates[selectedCandidate].candidate} 후보</div> 
-              <div> 선택하신 후보자가 맞습니까? </div> 
-            </div>
-            }
-            <button className='candidate-info-modal' type='submit' style={{backgroundColor: '#fb7e75'}}>
+              {candidates[selectedCandidate] && 
+                <div>
+                  <div> 기호 {candidates[selectedCandidate].partyNumber} 번 </div>
+                  <div> {candidates[selectedCandidate].partyName} 팀 </div>
+                  <div> {candidates[selectedCandidate].candidateName} 후보</div> 
+                  <div> 선택하신 후보가 맞습니까? </div> 
+                </div>
+              }
+              <button className='candidate-info-modal' type='submit' style={{backgroundColor: '#fb7e75'}}>
                 예(투표)
-            </button>
-            <button type='button' className='candidate-info-modal' onClick={handleVotingModalClose}>
+              </button>
+              <button type='button' className='candidate-info-modal' onClick={handleVotingModalClose}>
                 아닙니다(취소)
-            </button>
+              </button>
             </div>
           </form>
         </Modal.Body>
       </Modal>
-    </>
+    </div>
   );
 };
 

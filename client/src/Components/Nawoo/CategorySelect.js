@@ -4,7 +4,7 @@ import axios from 'axios';
 import Category from './Category';
 import Promise from './Promise';
 import Result from './Result';
-import "./NawooCategory.css";
+import "./CategorySelect.css";
 
 function CategorySelect() {
   const { voteCode } = useParams();
@@ -51,12 +51,8 @@ function CategorySelect() {
     }
   };
 
-  if(!categories) {
-    return "gngngn";
-  }
-  
   return(
-    <div>
+    <div className='nawoo_site'>
       {
         (currentPage === "categorySelect") ?
         <Category
