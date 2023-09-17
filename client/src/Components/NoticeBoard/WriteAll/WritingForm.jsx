@@ -3,31 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import './WritingForm.css';
 import axios from 'axios';
 
-function WritingForm({ addPostToTable, selectedVoteTitle }) {
+function WritingForm({ addPostToTable, selectedVoteTitle, candidateData }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const navigate = useNavigate();
   const [isPostSubmitted, setIsPostSubmitted] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState(''); // 후보자 선택 상태 추가
-  const [candidates, setCandidates] = useState([]); // 후보자 목록을 관리하기 위한 상태
-
-  useEffect(() => {
-    fetchCandidates(selectedVoteTitle);
-  }, [selectedVoteTitle]);
-
-  const fetchCandidates = async (selectedVoteTitle) => {
-    try {
-      const response = await axios.get(`board/candidates/${selectedVoteTitle}`);
-      if (response.status === 200) {
-        setCandidates(response.data.candidates);
-      } else {
-        console.error('후보자 목록을 불러오는 데 실패했습니다.');
-      }
-    } catch (error) {
-      console.error('후보자 목록을 불러오는 데 실패했습니다.', error);
-    }
-  };
-  
 
   const handleCandidateChange = (event) => {
     setSelectedCandidate(event.target.value);
@@ -49,8 +30,6 @@ function WritingForm({ addPostToTable, selectedVoteTitle }) {
       return;
     }
 
-    console.log('Selected Candidate:', selectedCandidate);
-   
     const newPost = {
       title: title,
       content: content,
@@ -58,9 +37,6 @@ function WritingForm({ addPostToTable, selectedVoteTitle }) {
       candidate: selectedCandidate,
     };
     
-
-    console.log('New Post Object:', newPost);
-
     try {
       const response = await axios.post('/board/qnaposts', newPost);
 
@@ -112,26 +88,27 @@ function WritingForm({ addPostToTable, selectedVoteTitle }) {
               id="qna-form__vote"
               value={selectedVoteTitle}
               className="qna-form__input"
+              readOnly // 투표 항목은 읽기 전용으로 설정
             >
               <option value={selectedVoteTitle}>{selectedVoteTitle}</option>
             </select>
           </div>
           <div className="qna-write-form__label">
-              <label htmlFor="qna-form__candidate">후보자:</label>
-              <select
-                id="qna-form__candidate"
-                value={selectedCandidate}
-                onChange={handleCandidateChange}
-                className="qna-form__input"
-              >
-                <option value="">후보자를 선택하세요</option>
-                {candidates.map((candidate) => (
-                  <option key={candidate} value={candidate}>
-                    {candidate}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <label htmlFor="qna-form__candidate">후보자:</label>
+            <select
+              id="qna-form__candidate"
+              value={selectedCandidate}
+              onChange={handleCandidateChange}
+              className="qna-form__input"
+            >
+              <option value="">후보자를 선택하세요</option>
+              {candidateData.map((candidate) => (
+                <option key={candidate.id} value={candidate.candidateName}>
+                  {candidate.candidateName}
+                </option>
+              ))}
+            </select>
+          </div>
           <button type="submit" className="qna-write-form__button">
             작성완료
           </button>

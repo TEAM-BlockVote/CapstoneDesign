@@ -74,7 +74,6 @@ router.get('/qnaposts', async (req, res, next) => {
   const perPage = 5; // 페이지당 게시물 수
 
   try {
-    console.log(`Requested page: ${page}`); // 페이지 번호 로그 추가
     const offset = (page - 1) * perPage; // 오프셋 계산
     const selectQuery = `SELECT * FROM qna `; // LIMIT을 사용하여 범위 지정
 
@@ -184,7 +183,7 @@ router.get('/qnaposts', async (req, res, next) => {
   });
   
   router.get('/vote', async (req, res, next) => {
-    const selectVotesQuery = 'SELECT voteCode, title, name FROM vote'; 
+    const selectVotesQuery = 'SELECT voteCode, title FROM vote'; 
   
     try {
       const votes = await new Promise((resolve, reject) => {
@@ -209,32 +208,35 @@ router.get('/qnaposts', async (req, res, next) => {
     
   });
   
-  router.get('/candidates/:selectedVoteTitle', async (req, res, next) => {
-    const { selectedVoteTitle } = req.params;
-    const selectCandidatesQuery = 'SELECT name FROM vote WHERE title = ?';
+
+router.get('/candidates/:voteCode', async (req, res, next) => {
+  const { voteCode } = req.params;
   
-    try {
-      const candidates = await new Promise((resolve, reject) => {
-        pool.query(selectCandidatesQuery, [selectedVoteTitle], (err, results, fields) => {
-          if (err) {
-            reject(err);
-          } else {
-            const candidateNames = results.map((row) => row.name);
-            resolve(candidateNames);
-          }
-        });
+  // 데이터베이스에서 해당 투표의 후보자 정보 검색 (여기서는 partyNumber로 그룹화)
+  const selectCandidatesQuery = 'SELECT * FROM candidates WHERE voteCode = ? ORDER BY partyNumber';
+  
+  try {
+    const candidates = await new Promise((resolve, reject) => {
+      pool.query(selectCandidatesQuery, [voteCode], (err, results, fields) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
       });
+    });
   
-      if (candidates && candidates.length > 0) {
-        res.status(200).json({ candidates });
-      } else {
-        res.status(404).json({ error: '후보자 정보를 찾을 수 없습니다.' });
-      }
-    } catch (error) {
-      console.error('후보자 정보를 불러오는 중 오류가 발생했습니다.', error);
-      res.status(500).json({ error: '후보자 정보를 불러오는 중 오류가 발생했습니다.' });
+    if (candidates && candidates.length > 0) {
+      res.status(200).json(candidates);
+    } else {
+      res.status(404).json({ error: '후보자 정보를 찾을 수 없습니다.' });
     }
-  });
+  } catch (error) {
+    console.error('후보자 정보를 불러오는 중 오류가 발생했습니다.', error);
+    res.status(500).json({ error: '후보자 정보를 불러오는 중 오류가 발생했습니다.' });
+  }
+});
+
   
   router.post('/qnaposts/:id/increase-view', async (req, res, next) => {
     const { id } = req.params;
@@ -258,6 +260,110 @@ router.get('/qnaposts', async (req, res, next) => {
     }
   });
   
+  // 클라이언트 측에서 사용자의 dep 값을 전달받는 엔드포인트
+router.get('/userDepartment', async (req, res, next) => {
+  try {
+      // 사용자의 학번을 기반으로 사용자의 dep 정보 조회
+      const userDepartmentSql = 'SELECT dep FROM users WHERE studentNumber = ?';
+      pool.query(userDepartmentSql, [req.user.studentNumber], (err, results, fields) => {
+          if (err) {
+              return next(err);
+          }
+          if (results.length > 0) {
+              const userDepartment = results[0].dep;
+              // 사용자의 dep 정보를 클라이언트로 전송
+              res.json({ department: userDepartment });
+          } else {
+              res.json({ department: '' }); // 사용자 정보를 찾지 못한 경우 빈 문자열 전송
+          }
+      });
+  } catch (error) {
+      console.error(error);
+      next(error);
+  }
+});
+
+// 사용자의 학과 정보를 기반으로 사용자가 접근 가능한 voteCode를 가져오는 엔드포인트
+router.get('/voteCodeForUser', async (req, res, next) => {
+  try {
+    const userDep = req.user.dep;
+    const voteCodeSql = 'SELECT voteCode FROM voteDepartment WHERE department = ?';
+    pool.query(voteCodeSql, [userDep], (err, results, fields) => {
+      if (err) {
+        return next(err);
+      }
+      const voteCodes = results.map((row) => row.voteCode);
+      res.json({ voteCodes });
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+
+router.get('/allDepartmentVotes', async (req, res, next) => {
+  try {
+    // "ALL" 부서의 voteCode를 가져오는 쿼리
+    const selectVoteCodesQuery = 'SELECT voteCode FROM votedepartment WHERE department = "ALL"';
+    
+    const voteCodes = await new Promise((resolve, reject) => {
+      pool.query(selectVoteCodesQuery, (err, results, fields) => {
+        if (err) {
+          reject(err);
+        } else {
+          // voteCodes 배열에 voteCode를 담음
+          const voteCodes = results.map((result) => result.voteCode);
+          resolve(voteCodes);
+        }
+      });
+    });
+    
+    if (voteCodes && voteCodes.length > 0) { // voteCodes가 비어있지 않은 경우에만 진행
+      // 모든 "ALL" 부서의 voteCode를 가져옴
+      const votePromises = voteCodes.map((voteCode) => {
+        // 각 voteCode로 투표 정보를 가져오는 비동기 작업 생성
+        return new Promise((resolve, reject) => {
+          const selectVoteQuery = 'SELECT * FROM vote WHERE voteCode = ?';
+          pool.query(selectVoteQuery, [voteCode], (err, results, fields) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(results[0]);
+            }
+          });
+        });
+      });
+
+      // 모든 투표 정보를 병렬로 가져오기
+      const voteInfos = await Promise.all(votePromises);
+
+      // 투표 정보를 사용하여 버튼 생성
+      const voteButtons = voteInfos.map((voteInfo) => {
+        if (voteInfo && voteInfo.voteCode) { // voteInfo 객체와 voteCode 속성이 정의되어 있는지 확인
+          return {
+            voteCode: voteInfo.voteCode,
+            title: voteInfo.title,
+          };
+        }
+        return null; // voteCode 속성이 없는 경우 null 반환
+      });
+
+      // null이 아닌 요소만 필터링하여 반환
+      const validVoteButtons = voteButtons.filter((button) => button !== null);
+
+      res.status(200).json(validVoteButtons);
+    } else {
+      res.status(404).json({ error: '투표 정보를 찾을 수 없습니다.' });
+    }
+  } catch (error) {
+    console.error('투표 정보를 불러오는 중 오류가 발생했습니다.', error);
+    res.status(500).json({ error: '투표 정보를 불러오는 중 오류가 발생했습니다.' });
+  }
+});
+
+
+
   
 
   module.exports = router;
