@@ -14,7 +14,6 @@ const VotingMain = () => {
   const [isLoading, setIsLoading] = useState(true);  
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [opacityStyleState, setOpacityStyleState] = useState(null);
-  const [displayStyleState, setDisplayStyleState] = useState(null);
 
   const [showVotingModal, setShowVotingModal] = useState(false);
   const handleVotingModalClose = () => setShowVotingModal(false);
@@ -57,10 +56,6 @@ const VotingMain = () => {
       const newState = prevStates.map((state, i) => i === index)
       return newState;
     });
-    setDisplayStyleState(prevStates => {
-      const newState = prevStates.map((state, i) => i === index);
-      return newState;
-    })
   };
 
   const handleVotingSubmit = () => {
@@ -85,8 +80,7 @@ const VotingMain = () => {
       setTotalVotes(votes);
       setVoteInfo(res.data.voteInfo);
       setCandidates(res.data.candidatesInfo);
-      setOpacityStyleState(Array(res.data.candidatesInfo.length).fill(true)); 
-      setDisplayStyleState(Array(res.data.candidatesInfo.length).fill(false));
+      setOpacityStyleState(Array(res.data.candidatesInfo.length).fill(true));
       setIsLoading(false);
     })
     .catch((err) => {
@@ -101,13 +95,6 @@ const VotingMain = () => {
       "selectedCandidatedata": selectedCandidate, //기호 1번은 인덱스 0으로 데이터를 보냅니다..
       "voteCode": voteCode,
     });
-    if (res.status === 200) {
-      handleVotingModalClose()
-      alert('투표 완료!');
-    } else {
-      alert("투표 실패");
-      handleVotingModalClose()
-    }
   };
 
   const handleTimeDifference = () => {
