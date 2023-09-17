@@ -11,6 +11,7 @@ import NawooMain from "../Components/Nawoo/Main";
 import VotingMain from "../Components/Vote/VotingMain";
 import QnaPosted from "../Components/NoticeBoard/TableAll/QnaPosted";
 import CategorySelect from "../Components/Nawoo/CategorySelect";
+import QnaMain from "../Components/NoticeBoard/HomePage/QnaMain";
 const router = createBrowserRouter([
   {
     path: '/',
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       {path: '/AdminMain/view/:id', element: <SetVote/>},
       {path: '/post/:id', element: <QnaPosted/>},
       {path: '/voting', element: <VotingMain/>},
+      {path: '/qnadesign', element: <QnaMain />}
     ],
   },
   {path: '/additionalInfo', element: <AdditionalInfo/>},
