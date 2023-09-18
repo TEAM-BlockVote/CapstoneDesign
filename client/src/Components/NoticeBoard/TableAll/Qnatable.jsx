@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback,  useContext } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Qnatable.css';
 import axios from 'axios';
 import WritingForm from '../WriteAll/WritingForm';
 import AuthContext from '../../../Store/auth-context';
+import blockImage from "../HomePage/images/blockchain.png"
 
 function Qnatable() {
   const [showWritingForm, setShowWritingForm] = useState(false);
@@ -20,7 +21,6 @@ function Qnatable() {
   const [voteCodes, setVoteCodes] = useState([]);
   const [voteButtons, setVoteButtons] = useState([]);
 
-
   // 후보자 데이터를 React 상태로 관리
   const [candidateData, setCandidateData] = useState([]);
 
@@ -34,8 +34,7 @@ function Qnatable() {
       alert("로그인 후 이용해 주세요");
     }
   }, [ctx.isLoggedIn, navigate]);
-  
-  
+
   const fetchVoteData = useCallback(async () => {
     try {
       const voteResponse = await axios.get(`/board/vote`);
@@ -51,71 +50,63 @@ function Qnatable() {
     }
   }, []);
 
-  
-  
-  
   useEffect(() => {
-    
     fetchVoteData();
 
     // 사용자의 학과에 해당하는 voteCode 값을 서버에서 가져옴
     axios.get('/board/voteCodeForUser')
-    .then((userResponse) => {
-      const userVoteCodes = userResponse.data.voteCodes;
-  
-      // userVoteCodes를 사용하여 유저의 투표 버튼을 생성
-      const userVoteButtons = userVoteCodes.map((userVoteCode) => {
-        // userVoteCode와 일치하는 vote를 찾음
-        const vote = voteDataRef.current.find((v) => v.voteCode === userVoteCode);
-  
-        if (vote) {
-          // 해당 투표가 존재하면 버튼을 생성
-          return (
-            <button
-              key={vote.id}
-              onClick={() => handleVoteClick(vote.title)}
-              className={`category-button ${selectedVoteTitle === vote.title ? 'active' : ''}`}
-            >
-              {vote.title}
-            </button>
-          );
-        }
-        return null; // 존재하지 않는 투표의 경우 null 반환
-      });
-  
-      // 'ALL' 부서의 투표 버튼을 가져옴
-      axios.get('/board/allDepartmentVotes')
-        .then((allDepartmentResponse) => {
-          const allDepartmentVoteButtons = allDepartmentResponse.data;
-  
-          // userVoteButtons 배열에 'ALL' 부서의 투표 버튼을 추가
-          allDepartmentVoteButtons.forEach((voteButton) => {
-            const voteTitle = voteButton.title;
-            console.log(voteTitle);
-  
-            // userVoteButtons에 새로운 버튼 추가
-            userVoteButtons.push(
+      .then((userResponse) => {
+        const userVoteCodes = userResponse.data.voteCodes;
+
+        // userVoteCodes를 사용하여 유저의 투표 버튼을 생성
+        const userVoteButtons = userVoteCodes.map((userVoteCode) => {
+          // userVoteCode와 일치하는 vote를 찾음
+          const vote = voteDataRef.current.find((v) => v.voteCode === userVoteCode);
+
+          if (vote) {
+            // 해당 투표가 존재하면 버튼을 생성
+            return (
               <button
-                key={voteTitle}
-                onClick={() => handleVoteClick(voteTitle)}
-                className="category-button"
+                key={vote.id}
+                onClick={() => handleVoteClick(vote.title)}
+                className={`category-button ${selectedVoteTitle === vote.title ? 'active' : ''}`}
               >
-                {voteTitle}
+                {vote.title}
               </button>
             );
-          });
-  
-          // 생성한 버튼들을 화면에 렌더링
-          setVoteButtons(userVoteButtons);
-        })
-        .catch((error) => {
-          console.error('투표 정보를 가져오는 데 실패했습니다.', error);
+          }
+          return null; // 존재하지 않는 투표의 경우 null 반환
         });
-    })
-    
-  
-  
-  
+
+        // 'ALL' 부서의 투표 버튼을 가져옴
+        axios.get('/board/allDepartmentVotes')
+          .then((allDepartmentResponse) => {
+            const allDepartmentVoteButtons = allDepartmentResponse.data;
+
+            // userVoteButtons 배열에 'ALL' 부서의 투표 버튼을 추가
+            allDepartmentVoteButtons.forEach((voteButton) => {
+              const voteTitle = voteButton.title;
+              console.log(voteTitle);
+
+              // userVoteButtons에 새로운 버튼 추가
+              userVoteButtons.push(
+                <button
+                  key={voteTitle}
+                  onClick={() => handleVoteClick(voteTitle)}
+                  className="category-button"
+                >
+                  {voteTitle}
+                </button>
+              );
+            });
+
+            // 생성한 버튼들을 화면에 렌더링
+            setVoteButtons(userVoteButtons);
+          })
+          .catch((error) => {
+            console.error('투표 정보를 가져오는 데 실패했습니다.', error);
+          });
+      })
 
   }, [fetchVoteData]);
 
@@ -199,7 +190,6 @@ function Qnatable() {
 
   return (
     <>
-      
       {isLoading ? (
         <p>게시물을 불러오는 중입니다...</p>
       ) : showWritingForm ? (
@@ -210,62 +200,64 @@ function Qnatable() {
         />
       ) : isViewingPosts ? (
         <>
-          <div className="qna-container">
-            <div ref={(element) => (categoriesRef.current[selectedVoteTitle] = element)}>
-              {selectedVoteTitle !== null && <h2>{selectedVoteTitle}</h2>}
-              <table className="qnatable-table">
-                <thead>
-                  <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>날짜</th>
-                    <th>조회수</th>
-                  </tr>
-                </thead>
-                <tbody className="table-body qnatable-table">
-                  {getCurrentPagePosts().map((post, index) => (
-                    <tr key={post.id}>
-                      <td>{index + 1}</td>
-                      <td>
-                        <Link
-                          to={`/post/${post.id}`}
-                          onClick={() => handlePostClick(post.id)}
-                          style={{ textDecoration: 'none', color: 'inherit' }}
-                        >
-                          {post.title}
-                        </Link>
-                      </td>
-                      <td>{post.name}</td>
-                      <td>{post.date}</td>
-                      <td>{post.view}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          <div className="btn-write-parent">
+          <div ref={(element) => (categoriesRef.current[selectedVoteTitle] = element)}>
+              {selectedVoteTitle !== null && <h2>{selectedVoteTitle} 투표 게시판</h2>}
             </div>
-          </div>
-          <div className="write-button-container">
             {selectedVoteTitle !== null && (
-              <button onClick={handleWriteClick} className="btn btn-default btn-write">
+              <div className="candidates-container">
+                {candidateData.map((candidate, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleCandidateClick(candidate.candidateName)}
+                    className={`candidate-button ${selectedCandidate === candidate.candidateName ? 'active' : ''}`}
+                  >
+                    {candidate.candidateName}
+                  </button>
+                ))}
+              </div>
+            )}
+             {selectedVoteTitle !== null && (
+              <button onClick={handleWriteClick} className="btn-write">
                 글 작성하기
               </button>
             )}
           </div>
-          {selectedVoteTitle !== null && (
-            <div className="candidates-container">
-              {console.log('candidateData:', candidateData)}
-              {candidateData.map((candidate, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleCandidateClick(candidate.candidateName)}
-                  className={`candidate-button ${selectedCandidate === candidate.candidateName ? 'active' : ''}`}
-                >
-                  {candidate.candidateName}
-                </button>
-              ))}
+          <div id="q_table-container">
+            <div id="wrap">
+              <div id="side">
+                <div id="side_banner1">
+                  <a href="#">
+                    <h1>지금 어떤 후보자를 찾을지<br />
+                      고민이시라구요?</h1>
+                    <p>지금 '나후찾'을 이용해보세요!</p>
+                    <img src="https://grepp-programmers.s3.amazonaws.com/production/file_resource/3140/Community-Banner_cote.png" alt="Banner" />
+                  </a>
+                </div>
+              </div>
             </div>
-          )}
+            <table id="q_table">
+              <tbody className="table-body qnatable-table">
+                {getCurrentPagePosts().map((post, index) => (
+                  <tr key={post.id}>
+                    <td>
+                      <Link
+                        to={`/post/${post.id}`}
+                        onClick={() => handlePostClick(post.id)}
+                      >
+                        {post.title}
+                      </Link>
+                    </td>
+                    <td>{post.name}</td>
+                    <td>{post.date}</td>
+                    <td>{post.view}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div>
+          </div>
         </>
       ) : (
         <>
