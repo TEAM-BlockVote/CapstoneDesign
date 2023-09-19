@@ -2,23 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Makevote from './Makevote';
 import Viewvote from './Viewvote';
-import axios from 'axios';
 import Tab from '../Main/Tab';
 import AuthContext from '../../Store/auth-context';
 
 const AdminMain = () => {
-  const [data, setData] = useState('');
-  useEffect(() => {
-    axios.get('/vote/view')
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }, []);
-
-
   const [content, setContent] = useState(<Makevote />);
   const [selectedTab, setSelectedTab] = useState(<Tab index={0} />);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -39,7 +26,7 @@ const AdminMain = () => {
   }
 
   function setViewClick(tab, index) {
-    setContent(<Viewvote data={data} />);
+    setContent(<Viewvote/>);
     setSelectedTab(tab);
     setActiveIndex(index);
   }
