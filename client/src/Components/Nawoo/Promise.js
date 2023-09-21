@@ -40,12 +40,15 @@ function Promise ({selectCategories, setCurrentPage, setPromises}) {
     setCurrentPage("result");
     setPromises(selectedPromises);
   }
+
+  console.log(selectedPromises);
   
   return (
     <div className='nw_form'>
       <div className='category_top'>
         <div className="qna_category">
           <span className="select_label1">{categories[index].key}</span>
+          <p style={{color: 'white'}} > {`${index+1} / ${categories.length}`} </p>
           <div className="qna_select">
             {
               categories[index].promises.map((data, index) => (
@@ -56,13 +59,17 @@ function Promise ({selectCategories, setCurrentPage, setPromises}) {
                 >
                   {data.promise}
                 </button>
-              ))
+              )) 
             }
           </div>
           <div style={{color: 'white'}}> 
-          {`${index+1} / ${categories.length}`}
+          
           </div>
-          {index === categories.length-1 ? <button className='result_button' onClick={ handleShowResultsView }> 결과보기 </button> : <button className='next_button' onClick={handleButtonClick}> {currnetButtonValue} </button>}
+          {
+            index === categories.length-1 ? 
+            <button className='result_button' onClick={ handleShowResultsView }> 결과보기 </button> :
+            <button className='next_button' onClick={handleButtonClick}> {currnetButtonValue} </button>
+          }
         </div>
       </div>
     </div>

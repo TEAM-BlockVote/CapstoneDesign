@@ -57,7 +57,7 @@ function CategorySelect() {
         (currentPage === "categorySelect") ?
         <Category
           categories={categories}
-          selectedButtons={selectedButtons}
+          selectCategories={selectCategories}
           setCurrentPage={(page) => {setCurrentPage(page)}}
           onCategorySelect={(category, index) => {
             handleSelectCategory(category, index)

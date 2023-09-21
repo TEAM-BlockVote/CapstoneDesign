@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import Loding from '../Main/Loding';
 import "./Category.css";
 
-const Category = ({categories, selectedButtons, setCurrentPage, onCategorySelect}) => {
+const Category = ({categories, selectCategories, setCurrentPage, onCategorySelect}) => {
   const handleCategorySelect = (category, index) => {
     onCategorySelect(category, index);
   }
@@ -26,7 +26,7 @@ const Category = ({categories, selectedButtons, setCurrentPage, onCategorySelect
             !categories ? <Loding/> : Object.keys(categories).map((category, index) => (
               <button
                 key={index}
-                className={ selectedButtons[index] ? `category_btn_selected` : 'category_btn'}
+                className={ selectCategories[index] ? `category_btn_selected` : 'category_btn'}
                 onClick={() => {handleCategorySelect(category, index)}}
               >
                 {category}
@@ -36,7 +36,13 @@ const Category = ({categories, selectedButtons, setCurrentPage, onCategorySelect
         </div>
       </div>
       <div className='category_bottom'>
-        <button className='category_next' onClick={ () => {setCurrentPage("promiseSelect")}}>
+        <button className='category_next'
+          onClick={ () => { 
+            if(selectCategories.some(item => item !== false)) {
+              setCurrentPage("promiseSelect");
+            } else {
+              alert("카테고리를 선택해주세요");
+            }}}>
           테스트 하기
         </button>
       </div>
