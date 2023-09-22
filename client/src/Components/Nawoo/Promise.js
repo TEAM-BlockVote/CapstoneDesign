@@ -7,25 +7,37 @@ function Promise ({selectCategories, setCurrentPage, setPromises}) {
   const [selectedPromises, setSelectedPromises] = useState([]);
   const categories = selectCategories.filter((value) => value !== false);
   const [selectedButtons, setSelectedButtons] = useState([]);
+
+  const [maxChoices, setMaxChoices] = useState(0);
   
   useEffect(() => {
     setSelectedButtons(categories[index].promises.map(() => false));
+    setMaxChoices(Math.floor((categories[index]['promises'].length - 1) / 3) + 1);
   }, [index]);
 
   const handlePromiseSelect = (data, index) => {
     const newPromise = [...selectedPromises];
     const newButtons = [...selectedButtons];
-
+  
     if(!newPromise.some(seleteCategory => seleteCategory.promise === data.promise)) {
-      setSelectedPromises([...newPromise, data]);
-      newButtons[index] = true;
-      setSelectedButtons(newButtons);
+      if(maxChoices > 0) {
+        console.log(maxChoices);
+        setSelectedPromises([...newPromise, data]);
+        newButtons[index] = true;
+        setSelectedButtons(newButtons);
+        setMaxChoices((prevData) => 
+          prevData-1
+        )
+      }
     } else {
       const objIndex = newPromise.findIndex(item => item.promise === data.promise);
       newPromise.splice(objIndex, 1);
       setSelectedPromises(newPromise);
       newButtons[index] = false;
       setSelectedButtons(newButtons);
+      setMaxChoices((prevData) => 
+        prevData+1
+      )
     }
   };
 
@@ -34,6 +46,7 @@ function Promise ({selectCategories, setCurrentPage, setPromises}) {
       setCurrentButtonValue(`다음 공약 보기`);
       setIndex((prevIndex) => prevIndex + 1);
     }
+    setMaxChoices(Math.floor((categories[index]['promises'].length - 1) / 3) + 1);
   };
 
   const handleShowResultsView = () => {
@@ -41,8 +54,6 @@ function Promise ({selectCategories, setCurrentPage, setPromises}) {
     setPromises(selectedPromises);
   }
 
-  console.log(selectedPromises);
-  
   return (
     <div className='nw_form'>
       <div className='category_top'>
@@ -63,7 +74,9 @@ function Promise ({selectCategories, setCurrentPage, setPromises}) {
             }
           </div>
           <div style={{color: 'white'}}> 
-          
+          <span>
+            선택가능: { maxChoices }
+          </span>
           </div>
           {
             index === categories.length-1 ? 

@@ -23,7 +23,7 @@ router.get('/voteList', async (req, res, next) => {
   }
 });
 
-router.get('/CategorySelect/:voteCode', async (req, res, next) => {
+router.get('/CategorySelects/:voteCode', async (req, res, next) => {
   const voteCode = req.params.voteCode;
   try {
     const selectCategories = "select voteCode, category, candidateNumber, promise from categories where voteCode = ?;";

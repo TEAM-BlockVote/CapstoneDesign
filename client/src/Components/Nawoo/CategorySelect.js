@@ -13,11 +13,10 @@ function CategorySelect() {
   const [selectedButtons, setSelectedButtons] = useState([]);
   const [selectedPromises, setSelectedPromises] = useState([]);
   const [candidates, setCandidates] = useState();
-
   const [currentPage, setCurrentPage] = useState("categorySelect");
 
   useEffect(() => {
-    axios.get(`/nawoo/CategorySelect/${voteCode}`)
+    axios.get(`/nawoo/CategorySelects/${voteCode}`)
     .then((res) => {
       setCandidates(res.data.candidatesInfo);
       setCategories(res.data.categoriesData);

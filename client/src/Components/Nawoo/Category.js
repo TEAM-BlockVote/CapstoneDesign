@@ -13,7 +13,7 @@ const Category = ({categories, selectCategories, setCurrentPage, onCategorySelec
           <p> 총학생회 선거 </p>
         </div>
         <div className='count_div'>
-          총 문항 수 : 30개
+          {/* 총 문항 수 : 30개 */}
         </div>
         <div className='categories_explain'>
           <p>유권자가 선택한 투표에 GPT기술을 접목하여 비슷한 공약끼리 카테고리를 생성했습니다.</p>
