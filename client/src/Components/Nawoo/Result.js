@@ -36,7 +36,7 @@ const Result = ({selectedPromises, candidates}) => {
     <div className='nw_form'>
       <div className='nw_top'>
         <div className='result_title'>
-          나와 가장 잘 맞는 사람들
+          {/* 나와 가장 잘 맞는 사람들 */}
         </div>
       </div>
       <div className='nw_middle'>
@@ -46,7 +46,7 @@ const Result = ({selectedPromises, candidates}) => {
           </div>
           <div className='result_label2'>
             인공 지능을 활용한<br />
-            가장 정확한 테스트
+            가장 정확한 데이터
           </div>
         </div>
         <div className='result_list'>
