@@ -21,17 +21,12 @@ router.post('/write', async (req, res, next) => {
 
   try {
     const candidateList = req.body.candidateInfo.map(item => item.partyNumber);
+    const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
     const gasPrice = await req.web3.eth.getGasPrice();
-    const gasLimit = 150000; // 필요한 가스 양에 따라 조정합니다
+    const gasLimit = 1000000;
     const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
     req.web3.eth.accounts.wallet.add(userAccount);
-
-    const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
-    contractInstance.methods.createVote(voteCode, candidateList).send({ gasPrice, gas: gasLimit });
-
-    // const result22 = await contractInstance.methods.getVoteList(voteCode).call();
-    // console.log(`검색하신 투표 번호: ${voteCode}`)
-    // console.log(result22);
+    await contractInstance.methods.createVote(voteCode, candidateList).send({ gasPrice, gas: gasLimit });
 
     const createVoteSql = 'INSERT INTO vote (title, writer, type, startDate, endDate, makeDate, voteCode) VALUES (?, ?, ?, ?, ?, ?, ?)';
     await new Promise((resolve, reject) => {
@@ -122,7 +117,7 @@ router.get('/view', async (req, res, next) => {
     if (voteUser.length > 0) {
       res.send(voteUser);
     } else {
-      res.send(false);
+      res.status(500).send('비어있음!');
     }
   } catch (error) {
     console.log(error);
@@ -230,31 +225,17 @@ router.post("/voting", async(req, res, next) => {
   const candidateId = parseInt(req.body.selectedCandidatedata)+1;
   const voteCode = req.body.voteCode;
 
-  console.log(typeof voteCode, typeof candidateId);
-  console.log(req.user.walletAddr);
-  console.log(voteCode, candidateId);
-  const votesUpdateSql = "update candidates set votes = votes + 1 where id = ?"
-  const gasPrice = await req.web3.eth.getGasPrice();
-  const gasLimit = 300000; // 필요한 가스 양에 따라 조정합니다
-  const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
-  const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
-  req.web3.eth.accounts.wallet.add(userAccount);
-
-  // const result22 = await contractInstance.methods.getVoteList("5745409").call();
-  // console.log(`검색하신 투표 번호: ${voteCode}`)
-  // console.log(result22);
-
-  
-  // const result123 = await contractInstance.methods.submitVote("5745409", candidateId).send({ gasPrice, gas: gasLimit });
-  // console.log(result123);
-  // contractInstance.methods.submitVote(voteCode, candidateId+1).send({ gasPrice, gas: gasLimit });
-  // console.log(voingResult);
-
-
-
-  try {
-    const hasVoteInfo  = await new Promise((resolve, reject) => {
-      pool.query(votesUpdateSql, [candidateId+1], (err, results, fields) => {
+  try{
+    const gasPrice = await req.web3.eth.getGasPrice();
+    const gasLimit = 1000000; // 필요한 가스 양에 따라 조정합니다
+    const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
+    const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
+    req.web3.eth.accounts.wallet.add(userAccount);
+    await contractInstance.methods.submitVote(voteCode, candidateId).send({ gasPrice, gas: gasLimit });
+    
+    const votingDepartment = "insert into votingByDepartment(voteCode, department, voteTimeStamp) values(?, ?, NOW())";
+    await new Promise((resolve, reject) => {
+      pool.query(votingDepartment, [voteCode, req.user.dep], (err, results, fields) => {
         if (err) {
           reject(err);
         }
@@ -262,11 +243,7 @@ router.post("/voting", async(req, res, next) => {
           resolve(results);
       });
     });
-    if(hasVoteInfo.changedRows === 0) {
-      res.status(404).json({ error: '투표중 오류발생' });
-    } else {
-      res.status(200).json({ post: '성공' });
-    }
+    res.status(200).send('투표성공');
   } catch (error) {
     console.log(error);
     next(error);

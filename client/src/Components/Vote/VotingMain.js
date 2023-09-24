@@ -91,10 +91,19 @@ const VotingMain = () => {
   const handleFormSubmit = (e) => {
     console.log(selectedCandidate);
     e.preventDefault();
-    const res = axios.post(`/vote/voting`, {
+    axios.post(`/vote/voting`, {
       "selectedCandidatedata": selectedCandidate, //기호 1번은 인덱스 0으로 데이터를 보냅니다..
       "voteCode": voteCode,
-    });
+    })
+    .then((res) => {
+      if(res.status === 200) {
+        setShowVotingModal(false);
+        alert("투표완료");
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   };
 
   const handleTimeDifference = () => {
