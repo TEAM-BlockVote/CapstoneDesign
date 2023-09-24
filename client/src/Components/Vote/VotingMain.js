@@ -4,6 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import Loding from '../Main/Loding';
 import './VotingMain.css';
 import axios from 'axios';
+import help from '../Main/images/help.png';
+import { Tooltip } from 'react-tooltip'
 
 const VotingMain = () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -134,7 +136,15 @@ const VotingMain = () => {
             </div>
             <div style={{display: 'flex', marginBottom: '3%', textAlign: 'left'}}>
               <div style={{marginRight: '10%'}}>
-                <span style={{color: '#a5a5a5'}}>투표수</span> <span style={{display: 'block', fontSize: '30px'}}> {totalVotes}표 </span>
+                <span style={{color: '#a5a5a5', whiteSpace: 'pre-line'}}>
+                  투표수
+                  <img src={help} alt='helpImg' style={{width: '25px'}} data-tooltip-id="my-tooltip"
+                    data-tooltip-content={`3분마다 자동 업데이트 됩니다. \n 최근 업데이트 ${candidates[0].lastUpdate}`}
+                  />
+                  <Tooltip id="my-tooltip" />
+                </span>
+                <span style={{display: 'block', fontSize: '30px'}}>
+                  {totalVotes}표</span>
               </div>
               <div>
                 <span style={{color: '#a5a5a5'}}>남은 시간</span> <span style={{display: 'block', fontSize: '30px'}}> {formatTime(remainingTime)} </span>
@@ -192,7 +202,7 @@ const VotingMain = () => {
                   <div> 선택하신 후보가 맞습니까? </div> 
                 </div>
               }
-              <button className='candidate-info-modal' type='submit' style={{backgroundColor: '#fb7e75'}}>
+              <button className='candidate-info-modal' type='submit' style={{backgroundColor: '#fb7e75'}} onClick={handleVotingModalClose}>
                 예(투표)
               </button>
               <button type='button' className='candidate-info-modal' onClick={handleVotingModalClose}>

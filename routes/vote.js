@@ -161,7 +161,8 @@ router.get('/:voteCode', async (req, res, next) => {
       c.partyimage,
       c.partyName,
       c.candidateName,
-      v.votes
+      v.votes,
+      v.lastUpdate
     FROM
       votingResults v
     INNER JOIN
@@ -200,6 +201,13 @@ router.get('/:voteCode', async (req, res, next) => {
         const data = fs.readFileSync(path.join(__dirname, imagePath));
         const base64ImageData = Buffer.from(data).toString('base64');
         candidate.partyimage = `data:image/png;base64,${base64ImageData}`;
+
+        const date = new Date(candidate.lastUpdate);
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+        candidate.lastUpdate = `${day}일${hours}시${minutes}분${seconds}초`;
       } catch (err) {
         console.error(err);
       }
