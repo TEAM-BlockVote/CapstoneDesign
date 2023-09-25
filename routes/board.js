@@ -304,7 +304,12 @@ router.get('/voteCodeForUserAndAllDepartment', async (req, res, next) => {
   }
 });
 
+router.get('/CandidateSelect/:voteCode', async (req, res, next) => {
+  const voteCode = req.params.voteCode;
+  console.log(voteCode);
 
+  
+});
 
 
   

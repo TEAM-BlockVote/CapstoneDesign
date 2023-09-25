@@ -48,7 +48,7 @@
 
 .custom-wrap .custom-content .custom-left {
   width: 35%;
-  float: left;
+  /* float: left; */
   padding: 40px 16px 40px 16px;
   margin-top: 50px;
   margin-bottom: 50px;
