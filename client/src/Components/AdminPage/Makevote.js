@@ -169,8 +169,8 @@ function Makevote() {
               </button>
             </div>
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <button type="submit" className="btn btn-dark rounded-pill w-25">투표 등록</button>
+          <div className='vote_btn_margin'>
+            <button type="submit" className="vote_btn">투표 등록</button>
           </div>
         </form>
       </div>
