@@ -22,6 +22,7 @@ exports.categoryGeneratorService = async (voteCode) => {
   });
   
   const prompts = promiseDummies.map(item => `후보자 ${item.candidateNumber}이(가) 공약 "${item.promise}"을(를) 내놓았습니다.`);
+  prompts[prompts.length] = `후보자들은 ${prompts.length}개의 공약을 내놓았습니다 생성되는 json에도 ${prompts.length}개의 공약이 존재해야합니다.`;
   
   const fileContents = {};
   const fileNames = ['/user.txt', '/plan.txt', '/examine.txt', '/create.txt'];
@@ -46,7 +47,7 @@ exports.categoryGeneratorService = async (voteCode) => {
       const chatCompletion = await openai.chat.completions.create({
         model: 'gpt-4',
         max_tokens: 2000,
-        temperature: 0.7,
+        temperature: 0.5,
         messages: [
           {
             role: 'system',
