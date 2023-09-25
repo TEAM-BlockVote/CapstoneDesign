@@ -2,34 +2,19 @@
   const router = express.Router();
   const pool = require('../server/Router/pool');
 
-  
-
   router.post('/qnaposts', async (req, res, next) => {
-    const { title, content, voteTitle, candidate } = req.body; // voteTitle 값 받음
-    console.log('Received voteTitle:', voteTitle); // 로그로 voteTitle 값 출력
-  
-    if (!title || !content || !candidate) { // 후보자도 체크
+    const { voteCode, title, content, candidate, promise } = req.body;
+    
+    if (!title || !content || !candidate) {
       res.status(400).json({ error: '제목과 내용, 후보자를 모두 입력해주세요.' });
       return;
     }
   
-    // voteTitle을 그대로 voteName에 저장
-    const voteName = voteTitle;
-  
-    const name = '2019*****'; // 작성자 이름 일단 설정
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const hours = String(currentDate.getHours()).padStart(2, '0');
-    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
-    const date = `${year}-${month}-${day} ${hours}:${minutes}`;
-    const view = 0;
-    const insertQuery = 'INSERT INTO qna (title, name, date, view, content, candidate, voteName) VALUES (?, ?, ?, ?, ?, ?, ?)';
-  
+    const writer = '익명';
+    const insertQuery = 'INSERT INTO qna (voteCode, qnaTitle, writer, makeDate, content, candidate, promise )VALUES (?, ?, ?, now(), ?, ?, ?);';
     try {
       await new Promise((resolve, reject) => {
-        pool.query(insertQuery, [title, name, date, view, content, candidate, voteName], (err, results, fields) => {
+        pool.query(insertQuery, [voteCode, title, writer, content, candidate, promise], (err, results, fields) => {
           if (err) {
             reject(err);
           } else {
@@ -37,14 +22,12 @@
           }
         });
       });
-  
       res.status(200).json({ message: '글 작성이 완료되었습니다.' });
     } catch (error) {
       console.error('글 작성 중 오류가 발생했습니다.', error);
       res.status(500).json({ error: '글 작성 중 오류가 발생했습니다.' });
     }
   });
-  
 
   async function getVoteNameByCode(voteCode) {
     const selectVoteNameQuery = 'SELECT title FROM vote WHERE voteCode = ?';
@@ -67,15 +50,14 @@
     }
   }
 
-
-
    // 게시물 목록을 가져오는 API
-   router.get('/qnaposts', async (req, res, next) => {
-    const selectQuery = 'SELECT * FROM qna';
+   router.get('/qnaposts/:voteCode', async (req, res, next) => {
+    const voteCode = req.params.voteCode;
+    const selectQuery = 'SELECT * FROM qna WHERE voteCode = ?';
 
     try {
       const tableposts = await new Promise((resolve, reject) => {
-        pool.query(selectQuery, (err, results, fields) => {
+        pool.query(selectQuery, [voteCode], (err, results, fields) => {
           if (err) {
             reject(err);
           } else {
@@ -89,13 +71,11 @@
       res.status(500).json({ error: '게시물을 불러오는 중 오류가 발생했습니다.' });
     }
   });
-  
-
 
   // 게시물 클릭 시 가져오는 코드
-  router.get('/qnaposts/:id', async (req, res, next) => {
+  router.get('/qnapo/:id', async (req, res, next) => {
     const { id } = req.params;
-    const selectQuery = 'SELECT * FROM qna WHERE id = ?';
+    const selectQuery = 'SELECT * FROM qna WHERE qnaNumber = ?';
 
     try {
       const tablepost = await new Promise((resolve, reject) => {
@@ -103,7 +83,7 @@
           if (err) {
             reject(err);
           } else {
-            resolve(results[0]);
+            resolve(results );
           }
         });
       });
@@ -139,6 +119,31 @@
       res.status(500).json({ error: '댓글을 저장하는 중 오류 발생.' });
     }
   });
+  router.get('/qnapostss/:id', async (req, res, next) => {
+    const { id } = req.params;
+    const selectQuery = 'SELECT * FROM qna WHERE qnaNumber = ?';
+
+    try {
+      const tablepost = await new Promise((resolve, reject) => {
+        pool.query(selectQuery, [id], (err, results, fields) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(results[0]);
+          }
+        });
+      });
+
+      if (tablepost) {
+        res.status(200).json({ post: tablepost });
+      } else {
+        res.status(404).json({ error: '게시물을 찾을 수 없습니다.' });
+      }
+    } catch (error) {
+      console.error('게시물을 불러오는 중 오류가 발생했습니다.', error);
+      res.status(500).json({ error: '게시물을 불러오는 중 오류가 발생했습니다.' });
+    }
+  });
 
   router.get('/receivedComments/:id', async (req, res, next) => {
     const id = parseInt(req.params.id, 10);
@@ -163,7 +168,9 @@
     }
   });
   
-  router.get('/vote', async (req, res, next) => {
+  router.get('/vote/:voteCode', async (req, res, next) => {
+    
+    const voteCode = req.params.voteCode;
     const selectVotesQuery = 'SELECT voteCode, title FROM vote'; 
   
     try {
@@ -192,8 +199,6 @@
 
 router.get('/candidates/:voteCode', async (req, res, next) => {
   const { voteCode } = req.params;
-  
-  // 데이터베이스에서 해당 투표의 후보자 정보 검색 (여기서는 partyNumber로 그룹화)
   const selectCandidatesQuery = 'SELECT * FROM candidates WHERE voteCode = ? ORDER BY partyNumber';
   
   try {
@@ -205,6 +210,10 @@ router.get('/candidates/:voteCode', async (req, res, next) => {
           resolve(results);
         }
       });
+    });
+
+    candidates.map((candidate, index) => {
+      candidate.promise = candidate.promise.split(';')
     });
   
     if (candidates && candidates.length > 0) {
@@ -218,28 +227,27 @@ router.get('/candidates/:voteCode', async (req, res, next) => {
   }
 });
 
-  
-  router.post('/qnaposts/:id/increase-view', async (req, res, next) => {
-    const { id } = req.params;
-    const updateViewQuery = 'UPDATE qna SET view = view + 1 WHERE id = ?';
-  
-    try {
-      await new Promise((resolve, reject) => {
-        pool.query(updateViewQuery, [id], (err, results, fields) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(results);
-          }
-        });
+router.post('/qnaposts/:id/increase-view', async (req, res, next) => {
+  const { id } = req.params;
+  const updateViewQuery = 'UPDATE qna SET view = view + 1 WHERE qnaNumber = ?';
+
+  try {
+    await new Promise((resolve, reject) => {
+      pool.query(updateViewQuery, [id], (err, results, fields) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
       });
-  
-      res.status(200).json({ message: '조회수가 증가되었습니다.' });
-    } catch (error) {
-      console.error('조회수 증가에 실패했습니다.', error);
-      res.status(500).json({ error: '조회수 증가에 실패했습니다.' });
-    }
-  });
+    });
+
+    res.status(200).json({ message: '조회수가 증가되었습니다.' });
+  } catch (error) {
+    console.error('조회수 증가에 실패했습니다.', error);
+    res.status(500).json({ error: '조회수 증가에 실패했습니다.' });
+  }
+});
   
   // 클라이언트 측에서 사용자의 dep 값을 전달받는 엔드포인트
 router.get('/userDepartment', async (req, res, next) => {
@@ -306,13 +314,6 @@ router.get('/voteCodeForUserAndAllDepartment', async (req, res, next) => {
 
 router.get('/CandidateSelect/:voteCode', async (req, res, next) => {
   const voteCode = req.params.voteCode;
-  console.log(voteCode);
-
-  
 });
 
-
-  
-
   module.exports = router;
-

@@ -12,8 +12,18 @@ function QnaPosted() {
 
 
   useEffect(() => {
-    fetchPost();
-  }, []);
+    try {
+      axios.get(`/board/qnapostss/${id}`)
+      .then((res) => {
+        setPost(res.data.post);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    } catch (error) {
+      console.error('게시물을 불러오는 데 실패했습니다.', error);
+    }
+  }, [id]);
 
   useEffect(() => {
     axios.get(`/board/receivedComments/${id}`)
@@ -27,32 +37,13 @@ function QnaPosted() {
       .catch((error) => {
         console.error('게시물을 불러오는 데 실패했습니다.', error);
       });
-  }, [receivedComments]);
-
-  const fetchPost = async () => {
-    try {
-      const response = await axios.get(`/board/qnaposts/${id}`);
-      if (response.status === 200) {
-        setPost(response.data.post);
-      } else {
-        console.error('게시물을 불러오는 데 실패했습니다.');
-      }
-    } catch (error) {
-      console.error('게시물을 불러오는 데 실패했습니다.', error);
-    }
-  };
+  }, [id]);
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
 
     if (commentContent === '') return alert("댓글을 작성해주세요");
     setCommentContent('');
-
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log('요청이 타임아웃되었습니다.');
-    }, 2000);
 
     try {
       const response = await axios.post(`/board/qnaposts/${id}/comments`, {

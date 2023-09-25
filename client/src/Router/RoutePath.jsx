@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     children: [
       {path: '/', element: <Main/>},
       {path: '/notice', element: <NoticeHome/>},
-      {path: '/qnatable/:voteTitle', element: <Qnatable/>},
+      {path: '/qnatable/:voteCode', element: <Qnatable/>},
       {path: '/signIn', element: <SignIn/>},
       {path: '/WritingForm', element: <WritingForm/>},
       {path: '/AdminMain', element: <AdminMain/>},
