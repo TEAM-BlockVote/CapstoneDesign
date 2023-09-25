@@ -11,17 +11,16 @@ function Qnatable() {
   const [showWritingForm, setShowWritingForm] = useState(false);
   const { voteTitle, voteCode } = useParams();
   const [tableposts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // 초기값 변경
-  const [selectedVoteTitle, setSelectedVoteTitle] = useState(voteTitle);
-  const [selectedCandidate, setSelectedCandidate] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedVoteTitle, setSelectedVoteTitle] = useState(voteTitle || '');
+  const [selectedCandidate, setSelectedCandidate] = useState(null); 
   const [perPage] = useState(8);
   const voteDataRef = useRef([]);
   const categoriesRef = useRef([]);
   const [userDepartment, setUserDepartment] = useState('');
   const [voteCodes, setVoteCodes] = useState([]);
   const [voteButtons, setVoteButtons] = useState([]);
-  const [candidateData, setCandidateData] = useState([]);
+ const [candidateData, setCandidateData] = useState([]);
   const [isViewingPosts, setIsViewingPosts] = useState(true);
   const ctx = useContext(AuthContext);
 
@@ -33,52 +32,62 @@ function Qnatable() {
   }, [ctx.isLoggedIn, navigate]);
   
   useEffect(() => {
-    
-    if (voteTitle && voteDataRef.current) {
-      // 선택한 투표의 이름을 사용하여 해당 투표의 voteCode를 찾음
-      const selectedVote = voteDataRef.current.find((vote) => vote.title === voteTitle);
-      if (selectedVote) {
-        const selectedVoteCode = selectedVote.voteCode;
-        console.log('선택한 투표의 voteCode:', selectedVoteCode);
-  
-        // 선택한 투표의 voteCode를 사용하여 후보자 정보를 가져옴
-        axios
-          .get(`/board/candidates/${selectedVoteCode}`)
-          .then((response) => {
-            // response.data에 후보자 정보가 포함됨
-            const candidates = response.data;
-            console.log('후보자 정보:', candidates);
-  
-            // 후보자 정보를 candidateData 상태 변수에 설정
-            setCandidateData(candidates);
-          })
-          .catch((error) => {
-            console.error('후보자 정보를 가져오는 데 실패했습니다.', error);
-          });
-      }
-    }
-  }, [voteTitle, voteCode]);
-  
-  const fetchVoteData = useCallback(async () => {
-    try {
-      const voteResponse = await axios.get(`/board/vote`);
-      if (voteResponse.status === 200) {
-        voteDataRef.current = voteResponse.data;
-      } else {
-        console.error('투표 정보를 불러오는 데 실패했습니다.');
-      }
-    } catch (error) {
-      console.error('투표 정보를 불러오는 데 실패했습니다.', error);
-    }
-  }, []);
+    setSelectedVoteTitle(voteTitle);  
+
+  }, [voteTitle]);
   
   useEffect(() => {
-    fetchVoteData();
-  }, [fetchVoteData]);
+    const fetchVoteData = async () => {
+      try {
+        const voteResponse = await axios.get(`/board/vote`);
+        if (voteResponse.status === 200) {
+          voteDataRef.current = voteResponse.data;
+          console.log('투표 데이터:', voteDataRef.current);
   
-  const fetchPosts = useCallback(async () => { // fetchPosts 함수를 useCallback으로 감싸서 의존성 배열에 추가
+          
+          setSelectedVoteTitle(voteTitle);
+  
+          console.log('selectedVoteTitle:', selectedVoteTitle);
+          console.log('voteDataRef.current:', voteDataRef.current);
+  
+          const selectedVote = voteDataRef.current.find((vote) => vote.title == selectedVoteTitle);
+          console.log('selectedVote:', selectedVote);
+  
+          if (selectedVote) {
+            const selectedVoteCode = selectedVote.voteCode;
+            console.log('선택한 투표의 voteCode:', selectedVoteCode);
+  
+            axios
+              .get(`/board/candidates/${selectedVoteCode}`)
+              .then((response) => {
+                const candidates = response.data;
+                console.log('후보자 정보:', candidates);
+  
+                console.log('selectedVoteTitle:', voteTitle);
+                console.log('candidateData:', candidates);
+  
+                setCandidateData(candidates);
+              })
+              .catch((error) => {
+                console.error('후보자 정보를 가져오기 실패했습니다.', error);
+              });
+          }
+        } else {
+          console.error('투표 정보를 불러오는 데 실패했습니다.');
+        }
+      } catch (error) {
+        console.error('투표 정보를 불러오는 데 실패했습니다.', error);
+      }
+    };
+  
+    fetchVoteData();
+  }, [voteTitle]);
+  
+
+
+  const fetchPosts = useCallback(async () => {
     try {
-      setIsLoading(true); // 데이터 로딩 시작
+      setIsLoading(true);
       const response = await axios.get(`/board/qnaposts`);
       if (response.status === 200) {
         setPosts(response.data.tableposts);
@@ -88,16 +97,16 @@ function Qnatable() {
     } catch (error) {
       console.error('게시물을 불러오는 데 실패했습니다.', error);
     } finally {
-      setIsLoading(false); // 데이터 로딩 완료
+      setIsLoading(false);
     }
   }, []);
-  
+
   useEffect(() => {
-    fetchPosts(); // 컴포넌트가 처음 마운트될 때 데이터를 가져오도록 호출
+    fetchPosts();
   }, [fetchPosts]);
 
   const handleWriteClick = () => {
-    setShowWritingForm(true); // "글 작성하기" 버튼을 누를 때 글 작성 폼을 보이도록 상태 변경
+    setShowWritingForm(true);
   };
 
   const handlePostClick = async (postId) => {
@@ -114,20 +123,26 @@ function Qnatable() {
   };
 
   const handleCandidateClick = (candidateName) => {
-    setSelectedCandidate(candidateName);
-    setCurrentPage(1);
-    };
+    
+    if (selectedCandidate === candidateName) {
+      setSelectedCandidate(null);
+    } else {
+      setSelectedCandidate(candidateName);
+    }
+  
+    
+  };
 
   const getCurrentPagePosts = () => {
     if (selectedVoteTitle) {
-      // 선택한 투표의 title 값과 일치하는 게시글만 필터링
       let filteredPosts = tableposts.filter((post) => post.voteName === selectedVoteTitle);
-
-      // 선택한 후보자의 candidate 값과 일치하는 게시글만 필터링
-      if (selectedCandidate) {
+      if (selectedCandidate) { 
         filteredPosts = filteredPosts.filter((post) => post.candidate === selectedCandidate);
       }
       return filteredPosts;
+    } else {
+      // selectedVoteTitle이 없을 때 (게시판이 선택되지 않았을 때) 모든 게시물 반환
+      return tableposts;
     }
   };
 
@@ -155,21 +170,21 @@ function Qnatable() {
                   <div ref={(element) => (categoriesRef.current[selectedVoteTitle] = element)}>
                     {selectedVoteTitle !== null && <h2>{selectedVoteTitle} 투표 게시판</h2>}
                   </div>
-                  {selectedVoteTitle && (
-                      <div className="candidates-container">
-                        {candidateData.map((candidate) => (
-                          <button
-                            key={candidate.id}
-                            onClick={() => handleCandidateClick(candidate.candidateName)}
-                            className={`candidate-button ${selectedCandidate === candidate.candidateName ? 'active' : ''}`}
-                          >
-                            {candidate.candidateName}
-                          </button>
-                        ))}
-                      </div>
-                    )}
+                  <div className="candidates-container">
+                  {candidateData.length > 0 ? (
+                    candidateData.map((candidate) => (
+                      <button
+                        key={candidate.id}
+                        onClick={() => handleCandidateClick(candidate.candidateName)}
+                        className={`candidate-button ${selectedCandidate === candidate.candidateName ? 'active' : ''}`}
+                      >
+                        {candidate.candidateName}
+                      </button>
+                    ))
+                  ) : null } {/* 후보자 버튼은 데이터가 있을 때만 렌더링 */}
                 </div>
-                <div id="q_table-container" className={`qnatable-table-container ${showWritingForm ? 'hidden' : ''}`}>  
+              </div>
+                <div id="q_table-container" className={`qnatable-table-container ${showWritingForm ? 'hidden' : ''}`}>
                   <div id="qna-wrap">
                   <div id="side">
                     <div id="side_banner1">
@@ -204,7 +219,7 @@ function Qnatable() {
                    </div>
                   </div>
             ) : (
-              <p>선택한 투표 게시판이 없거나 후보자가 없습니다.</p>
+              <p>선택한 투표 게시판이 없거나 후보자가 없습니다</p>
             )
           )}
         </>

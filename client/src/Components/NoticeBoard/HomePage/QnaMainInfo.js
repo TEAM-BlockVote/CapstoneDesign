@@ -50,11 +50,6 @@ function QnaMainInfo() {
               이 페이지를 이용할 수 있게 운영됩니다.
             </p>
           </div>
-          <div className="custom-right">
-            {btnData.map((data, index) => (
-              <VoteBtn key={index} {...data} />
-            ))}
-          </div>
         </div>
       </div>
 

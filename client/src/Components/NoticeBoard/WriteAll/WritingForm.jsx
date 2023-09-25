@@ -47,9 +47,10 @@ function WritingForm({ addPostToTable, selectedVoteTitle, candidateData }) {
         setSelectedCandidate('');
         setIsPostSubmitted(true);
         addPostToTable(newPost);
+        window.location.reload();
       }
     } catch (error) {
-      console.error('글 작성 중 오류가 발생했습니다.', error);
+      console.error('글 작성  오류가 발생했습니다.', error);
       alert('글 작성 중 오류가 발생했습니다.');
     }
   };

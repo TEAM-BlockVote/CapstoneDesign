@@ -161,10 +161,10 @@
   text-decoration: none;
   color: #000;
   font-weight: bold;
-  white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
-  overflow: hidden; /* 내용이 넘칠 경우 가려짐 */
-  text-overflow: ellipsis; /* 넘치는 텍스트는 ...으로 표시 */
-  max-width: 200px; /* 최대 너비 설정 */
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  max-width: 200px; 
 }
 
 
@@ -243,4 +243,11 @@
 
 #side #side_banner1 img {
   width: 100%;
+}
+
+#wrap #side #side_banner2 h1 {
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: -0.8px;
+  padding-bottom: 12px;
 }
