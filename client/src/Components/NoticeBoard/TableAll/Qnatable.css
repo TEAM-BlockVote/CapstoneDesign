@@ -51,7 +51,7 @@
       position: relative;
       text-align: center;
       margin-top: 40px; /* 위쪽 간격 추가 */
-      margin-left: 340px;
+      margin-left: 440px;
     }
     
     .candidates-container button {
@@ -95,6 +95,7 @@
     transition: background-color 0.3s ease;
     float: right; /* 오른쪽으로 이동 */
     margin-right: 50px; /* 원하는 간격 설정 */
+    margin-top: 30px;
   }
   
   .btn-write:hover {
@@ -119,7 +120,7 @@
   #q_table-container {
     display: flex;
     justify-content: center; /* 수평 가운데 정렬 */
-    margin-right: 50px; /* 테이블 오른쪽 간격 추가 */
+    margin-right: 180px; /* 테이블 오른쪽 간격 추가 */
     margin-top: 20px; /* 위쪽 간격 추가 */
   }
   
@@ -187,9 +188,10 @@
 
 
 
-#wrap {
+#qna-wrap {
   
   flex-direction: row;
+  width:30%;
   
 }
 

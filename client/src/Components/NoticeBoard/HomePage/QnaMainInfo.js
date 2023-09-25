@@ -34,26 +34,30 @@ function QnaMainInfo() {
 
   return (
     <>
-      <div id="wrap">
-        <div id="content">
-          <div id="left">
-            <h1 id="title"><span id="qna">Q&A</span> 페이지</h1>
-            <span id="h2">당신이 질문할 후보자가 있는 투표를 선택하세요!</span>
-            <p>저희 'Blockvote'는 유권자들에게 Q&A페이지를 제공합니다.<br />
+     <div className="custom-wrap">
+        <div className="custom-content">
+          <div className="custom-left">
+            <h1 className="custom-title">
+              <span className="custom-qna">Q&A</span> 페이지
+            </h1>
+            <span className="custom-h2">당신이 질문할 후보자가 있는 투표를 선택하세요!</span>
+            <p>
+              저희 'Blockvote'는 유권자들에게 Q&A페이지를 제공합니다.<br />
               많은 투표 플랫폼들은 Q&A페이지를 제공하지 않습니다<br />
               투표 플랫폼에서 Q&A페이지가 주는 여러가지 부정적인 작용<br />
               익명 사용자의 무분별한 도배, 광고성 게시글 등의 문제를 <br />
-              'Blockvote'에서는 인증된 사용자만이<br/> 
+              'Blockvote'에서는 인증된 사용자만이<br />
               이 페이지를 이용할 수 있게 운영됩니다.
             </p>
           </div>
-          <div id="right">
+          <div className="custom-right">
             {btnData.map((data, index) => (
               <VoteBtn key={index} {...data} />
             ))}
           </div>
         </div>
       </div>
+
     </>
   );
 

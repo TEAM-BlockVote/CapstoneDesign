@@ -1,4 +1,40 @@
-/* .custom-wrap {
+.categories {
+  display: flex;
+  flex-direction: column; /* 세로로 정렬 */
+  align-items: center; /* 가운데 정렬 */
+  margin-bottom: 20px;
+  margin-right: 200px;
+  
+}
+
+.category-button {
+  background-color: #3654dd;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  width: 650px;
+  padding: 20px 0;
+  margin: 10px 0; /* 버튼 간격 추가 */
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+  margin-top: 10%;
+}
+
+
+.category-button:hover {
+  background-color: #ffcc33;
+}
+
+.category-button.active {
+  background-color: #ffcc33;
+  color: #fff;
+}
+
+.custom-wrap {
   width: 100%;
 }
 
@@ -14,10 +50,8 @@
   width: 35%;
   float: left;
   padding: 40px 16px 40px 16px;
-  margin-left: 15%;
   margin-top: 50px;
-  margin-bottom: auto;
-  margin-right: 10%;
+  margin-bottom: 50px;
 }
 
 .custom-wrap .custom-content .custom-left .custom-qna {
@@ -99,4 +133,4 @@
   .custom-wrap .custom-content .custom-left p {
     display: none;
   }
-} */
+}

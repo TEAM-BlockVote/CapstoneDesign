@@ -13,6 +13,7 @@ import QnaPosted from "../Components/NoticeBoard/TableAll/QnaPosted";
 import CategorySelect from "../Components/Nawoo/CategorySelect";
 import QnaMain from "../Components/NoticeBoard/HomePage/QnaMain";
 import QnaMainInfo from "../Components/NoticeBoard/HomePage/QnaMainInfo";
+import Qnatable from '../Components/NoticeBoard/TableAll/Qnatable';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     children: [
       {path: '/', element: <Main/>},
       {path: '/notice', element: <NoticeHome/>},
+      {path: '/qnatable/:voteTitle', element: <Qnatable/>},
       {path: '/signIn', element: <SignIn/>},
       {path: '/WritingForm', element: <WritingForm/>},
       {path: '/AdminMain', element: <AdminMain/>},
