@@ -23,7 +23,7 @@ router.post('/write', async (req, res, next) => {
     const candidateList = req.body.candidateInfo.map(item => item.partyNumber);
     const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
     const gasPrice = await req.web3.eth.getGasPrice();
-    const gasLimit = 1000000;
+    const gasLimit = 5000000;
     const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
     req.web3.eth.accounts.wallet.add(userAccount);
     await contractInstance.methods.createVote(voteCode, candidateList).send({ gasPrice, gas: gasLimit });
@@ -235,7 +235,7 @@ router.post("/voting", async(req, res, next) => {
 
   try{
     const gasPrice = await req.web3.eth.getGasPrice();
-    const gasLimit = 1000000; // 필요한 가스 양에 따라 조정합니다
+    const gasLimit = 5000000; // 필요한 가스 양에 따라 조정합니다
     const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
     const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
     req.web3.eth.accounts.wallet.add(userAccount);
