@@ -1,16 +1,16 @@
-#wrap {
+/* .custom-wrap {
   width: 100%;
 }
 
-#wrap #content {
+.custom-wrap .custom-content {
   place-items: center;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   margin-top: 30px;
   margin-left: 10%;
 }
 
-#wrap #content #left {
+.custom-wrap .custom-content .custom-left {
   width: 35%;
   float: left;
   padding: 40px 16px 40px 16px;
@@ -20,11 +20,11 @@
   margin-right: 10%;
 }
 
-#wrap #content #left #qna {
+.custom-wrap .custom-content .custom-left .custom-qna {
   color: #47c880;
 }
 
-#wrap #content #left #title {
+.custom-wrap .custom-content .custom-left .custom-title {
   color: #242424;
   font-weight: 700;
   text-align: center;
@@ -32,7 +32,7 @@
   padding-right: 5px;
 }
 
-#h2 {
+.custom-h2 {
   margin-bottom: 30px;
   font-size: 1.5em;
   margin-block-start: 0.83em;
@@ -42,23 +42,23 @@
   font-weight: bold;
 }
 
-#wrap #content #left p {
+.custom-wrap .custom-content .custom-left p {
   color: #757575;
   margin-top: 20px;
 }
 
-#wrap #content #right {
+.custom-wrap .custom-content .custom-right {
   height: 480px;
   padding: 40px 16px 40px 16px;
   overflow: auto;
   width: 40%;
 }
 
-#right::-webkit-scrollbar {
+.custom-wrap .custom-content .custom-right::-webkit-scrollbar {
   display: none;
 }
 
-#wrap #content #right #btn {
+.custom-wrap .custom-content .custom-right #btn {
   width: 100%;
   height: auto;
   background-color: #f5f5f5;
@@ -74,7 +74,7 @@
   color: #333;
 }
 
-#wrap #content #right #btn #vote_title {
+.custom-wrap .custom-content .custom-right #btn .vote_title {
   display: flex;
   align-items: center;
   color: #333;
@@ -83,25 +83,20 @@
   font-weight: 700;
 }
 
-
-
 @media screen and (max-width: 767px) {
-
-  #wrap #content #left {
+  .custom-wrap .custom-content .custom-left {
     float: none;
   }
 
-  #wrap #content #right {
-    margin-left: 10%
+  .custom-wrap .custom-content .custom-right {
+    margin-left: 10%;
   }
 
-  #left h2 {
+  .custom-wrap .custom-content .custom-left h2 {
     display: none;
   }
 
-  #left p {
+  .custom-wrap .custom-content .custom-left p {
     display: none;
   }
-
-}
-
+} */

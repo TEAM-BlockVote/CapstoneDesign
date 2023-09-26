@@ -1,18 +1,25 @@
+/* Bottom.css */
+
 .footer {
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow-x: hidden;
-  height: auto;
   background: #202942;
-  padding: 30px;
+  padding: 0.01px;
+  position: fixed; /* 화면에 고정 */
+  bottom: 0; /* 페이지 하단에 고정 */
+  height: 100px; /* 높이 조절 */
+  z-index: 1; /* 다른 컴포넌트 위로 표시되도록 설정 */
 }
 
 .footer-list {
   display: flex;
   flex-direction: row;
+  justify-content: center; /* 가운데 정렬 */
   text-align: center;
   margin: auto;
+  padding: 10px 0; /* 위아래 여백을 추가 */
 }
 
 .producers {

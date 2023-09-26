@@ -1,9 +1,11 @@
 CREATE TABLE `qna` (
-  `title` VARCHAR(45) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `date` VARCHAR(45) NOT NULL,
+  `qnaNumber` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  `voteCode` VARCHAR(45) NOT NULL,
+  `qnaTitle` VARCHAR(300) NOT NULL,
+  `writer` VARCHAR(45) NOT NULL,
+  `makeDate` VARCHAR(45) NOT NULL,
   `view` int DEFAULT '0' NOT NULL,
-  `content` VARCHAR(500) NOT NULL,
-  `candidate` INT NOT NULL,
-  `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL
+  `content` VARCHAR(3000) NOT NULL,
+  `candidate` VARCHAR(100) NOT NULL,
+  `promise` VARCHAR(500) NOT NULL
 );
