@@ -54,3 +54,18 @@
   .allowed_dep_card {
     margin-bottom: 3%;
   }
+
+  .vote_btn_margin {
+    margin: 5% 0;
+    text-align: center
+  }
+
+  .vote_btn {
+    border: 0px;
+    border-radius: 3px;
+    padding: 10px 20px;
+    font-weight: 600;
+    background-color: #002147;
+    color: white;
+    transition: 0.5s;
+  }
