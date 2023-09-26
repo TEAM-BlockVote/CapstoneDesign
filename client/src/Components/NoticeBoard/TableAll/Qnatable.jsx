@@ -4,6 +4,7 @@ import './Qnatable.css';
 import axios from 'axios';
 import WritingForm from '../WriteAll/WritingForm';
 import AuthContext from '../../../Store/auth-context';
+import Loding from '../../Main/Loding';
 
 function Qnatable() {
   const navigate = useNavigate();
@@ -96,7 +97,7 @@ function Qnatable() {
       ) : (
         <>
           {isLoading ? (
-            <p>게시물을 불러오는 중입니다...</p>
+            <Loding/>
           ) : (
             isViewingPosts && selectedVoteTitle !== null ? (
               <div className="qnatable-content">
@@ -108,7 +109,7 @@ function Qnatable() {
                         onClick={() => handleCandidateClick(candidate.candidateName)}
                         className={`candidate-button ${selectedCandidate === candidate.candidateName ? 'active' : ''}`}
                       >
-                        {candidate.candidateName}
+                        {`기호 ${index+1}번 ${candidate.candidateName}`}
                       </button>
                     ))}
                   </div>

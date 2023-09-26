@@ -6,7 +6,7 @@ import axios from 'axios';
 import './QnaMainPage.css';
 
 function QnaMainPage() {
-  const [voteList, setVoteList] = useState([]);
+  const [voteList, setVoteList] = useState();
   const ctx = useContext(AuthContext);
   const navigate = useNavigate();
 

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Loding from '../Main/Loding';
 import "./Result.css";
 
-const Result = ({selectedPromises, candidates}) => {
+const Result = ({ voteCode, selectedPromises, candidates }) => {
   const [ranking, setRanking] = useState();
   const [champions, setChampions] = useState();
 
@@ -53,19 +54,21 @@ const Result = ({selectedPromises, candidates}) => {
           <div className='img_div'>
             {!ranking ? <Loding/> :
               champions.map((winner, index) => (
-                <div key={index} className={`${index % 2 === 0 ? 'even' : 'odd'}`}>
-                  <div className='result_img'>
-                    <img
-                      src={winner.partyimage}
-                      alt='후보자 사진'
-                      className={`${index % 2 === 0 ? 'even_image' : 'odd_image'}`}
-                    />
+                <Link to={`/qnatable/${voteCode}`} key={index} target="_blank">
+                  <div className={`${index % 2 === 0 ? 'even' : 'odd'}`}>
+                    <div className='result_img'>
+                      <img
+                        src={winner.partyimage}
+                        alt='후보자 사진'
+                        className={`${index % 2 === 0 ? 'even_image' : 'odd_image'}`}
+                      />
+                    </div>
+                    <div className={`${index % 2 === 0 ? 'even_label' : 'odd_label'}`}>
+                      {winner.partyName} <br/>
+                      {winner.candidateName}
+                    </div>
                   </div>
-                  <div className={`${index % 2 === 0 ? 'even_label' : 'odd_label'}`}>
-                    {winner.partyName} <br/>
-                    {winner.candidateName}
-                  </div>
-                </div>
+                </Link>
               ))
             }
           </div>

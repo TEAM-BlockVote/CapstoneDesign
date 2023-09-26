@@ -70,6 +70,7 @@ function CategorySelect() {
         />
         :
         <Result
+          voteCode={voteCode}
           candidates={candidates}
           selectedPromises={selectedPromises}
         />
