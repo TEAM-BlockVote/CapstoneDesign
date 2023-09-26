@@ -4,6 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import Loding from '../Main/Loding';
 import './VotingMain.css';
 import axios from 'axios';
+import help from '../Main/images/help.png';
+import { Tooltip } from 'react-tooltip'
 
 const VotingMain = () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -99,10 +101,19 @@ const VotingMain = () => {
   const handleFormSubmit = (e) => {
     console.log(selectedCandidate);
     e.preventDefault();
-    const res = axios.post(`/vote/voting`, {
+    axios.post(`/vote/voting`, {
       "selectedCandidatedata": selectedCandidate, //기호 1번은 인덱스 0으로 데이터를 보냅니다..
       "voteCode": voteCode,
-    });
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setShowVotingModal(false);
+          alert("투표완료");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   const handleTimeDifference = () => {
@@ -170,7 +181,7 @@ const VotingMain = () => {
                       </div>
                       <div>
                         <span className='vote_percent'> {element.votes === 0 ? '0%' : `${(element.votes / totalVotes * 100).toFixed(2)}%`} </span>
-                        <span style={{fontWeight:'bold'}}> {element.votes}표 </span>
+                        <span style={{ fontWeight: 'bold' }}> {element.votes}표 </span>
                         <div className='graph'>
                           <p style={{ width: `${element.votes}` === 0 ? '0%' : `${(element.votes / totalVotes * 100).toFixed(2)}%`, height: '5px', background: '#767edb' }}></p>
                         </div>
@@ -203,36 +214,52 @@ const VotingMain = () => {
               <button className='voting_categories'>각종 행사</button>
               <button className='voting_categories'>교통 시설</button>
               <button className='voting_categories'>보건 복지</button>
+              <div style={{ display: 'flex', marginBottom: '3%', textAlign: 'left' }}>
+                <div style={{ marginRight: '10%' }}>
+                  <span style={{ color: '#a5a5a5', whiteSpace: 'pre-line' }}>
+                    투표수
+                    <img src={help} alt='helpImg' style={{ width: '25px' }} data-tooltip-id="my-tooltip"
+                      data-tooltip-content={`3분마다 자동 업데이트 됩니다. \n 최근 업데이트 ${candidates[0].lastUpdate}`}
+                    />
+                    <Tooltip id="my-tooltip" />
+                  </span>
+                  <span style={{ display: 'block', fontSize: '30px' }}>
+                    {totalVotes}표</span>
+                </div>
+                <div>
+                  <span style={{ color: '#a5a5a5' }}>남은 시간</span> <span style={{ display: 'block', fontSize: '30px' }}> {formatTime(remainingTime)} </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <Modal show={showVotingModal} onHide={handleVotingModalClose} centered style={{ textAlign: 'center' }}>
-        <Modal.Header style={{ borderBottom: 'rgb(222,222,222)' }}>
-          <CloseButton onClick={handleVotingModalClose} />
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleFormSubmit}>
-            <div>
-              {candidates[selectedCandidate] &&
-                <div>
-                  <div> 기호 {candidates[selectedCandidate].partyNumber} 번 </div>
-                  <div> {candidates[selectedCandidate].partyName} 팀 </div>
-                  <div> {candidates[selectedCandidate].candidateName} 후보</div>
-                  <div> 선택하신 후보가 맞습니까? </div>
-                </div>
-              }
-              <button className='candidate-info-modal' type='submit' style={{ backgroundColor: '#fb7e75' }}>
-                예(투표)
-              </button>
-              <button type='button' className='candidate-info-modal' onClick={handleVotingModalClose}>
-                아닙니다(취소)
-              </button>
-            </div>
-          </form>
-        </Modal.Body>
-      </Modal>
+        <Modal show={showVotingModal} onHide={handleVotingModalClose} centered style={{ textAlign: 'center' }}>
+          <Modal.Header style={{ borderBottom: 'rgb(222,222,222)' }}>
+            <CloseButton onClick={handleVotingModalClose} />
+          </Modal.Header>
+          <Modal.Body>
+            <form onSubmit={handleFormSubmit}>
+              <div>
+                {candidates[selectedCandidate] &&
+                  <div>
+                    <div> 기호 {candidates[selectedCandidate].partyNumber} 번 </div>
+                    <div> {candidates[selectedCandidate].partyName} 팀 </div>
+                    <div> {candidates[selectedCandidate].candidateName} 후보</div>
+                    <div> 선택하신 후보가 맞습니까? </div>
+                  </div>
+                }
+                <button className='candidate-info-modal' type='submit' style={{ backgroundColor: '#fb7e75' }} onClick={handleVotingModalClose}>
+                  예(투표)
+                </button>
+                <button type='button' className='candidate-info-modal' onClick={handleVotingModalClose}>
+                  아닙니다(취소)
+                </button>
+              </div>
+            </form>
+          </Modal.Body>
+        </Modal>
+      </div>
     </div>
   );
 };

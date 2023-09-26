@@ -12,7 +12,7 @@ function Viewvote() {
         setVoteList(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        setVoteList("404");
       })
   }, []);
 
@@ -38,7 +38,7 @@ function Viewvote() {
             </tr>
           </thead>
           <tbody className="table_body">
-            {voteList.map((item) => (
+            {voteList === "404" ? "" : voteList.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>
