@@ -29,7 +29,9 @@ exports.updateVoteDataScheduler = async(contractInstance, web3) => {
     }
     updateQuery = updateQuery.slice(0, -1);
     updateQuery += `);`;
-    await pool.execute(updateQuery);
+    if(voteCodes.length !== 0) {
+      await pool.execute(updateQuery);
+    }
   } catch (error) {
     console.log(error);
   }

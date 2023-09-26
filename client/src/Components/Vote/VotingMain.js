@@ -143,12 +143,20 @@ const VotingMain = () => {
               <div className='voting_title'>
                 <span>{element.title} </span>
               </div>
-              <div className='voting_total'>
-                <div className='voting_count'>
-                  <span className='count_span'>투표수</span> <span className='total_span'> {totalVotes}표 </span>
+              <div style={{ display: 'flex', marginBottom: '3%', textAlign: 'left' }}>
+                <div style={{ marginRight: '10%' }}>
+                  <span style={{ color: '#a5a5a5', whiteSpace: 'pre-line' }}>
+                    투표수
+                    <img src={help} alt='helpImg' style={{ width: '25px' }} data-tooltip-id="my-tooltip"
+                      data-tooltip-content={`3분마다 자동 업데이트 됩니다. \n 최근 업데이트 ${candidates[0].lastUpdate}`}
+                    />
+                    <Tooltip id="my-tooltip" />
+                  </span>
+                  <span style={{ display: 'block', fontSize: '30px' }}>
+                    {totalVotes}표</span>
                 </div>
-                <div className='voting_time'>
-                  <span className='count_span'>남은 시간</span> <span className='total_span'> {formatTime(remainingTime)} </span>
+                <div>
+                  <span style={{ color: '#a5a5a5' }}>남은 시간</span> <span style={{ display: 'block', fontSize: '30px' }}> {formatTime(remainingTime)} </span>
                 </div>
               </div>
             </div>
@@ -214,22 +222,7 @@ const VotingMain = () => {
               <button className='voting_categories'>각종 행사</button>
               <button className='voting_categories'>교통 시설</button>
               <button className='voting_categories'>보건 복지</button>
-              <div style={{ display: 'flex', marginBottom: '3%', textAlign: 'left' }}>
-                <div style={{ marginRight: '10%' }}>
-                  <span style={{ color: '#a5a5a5', whiteSpace: 'pre-line' }}>
-                    투표수
-                    <img src={help} alt='helpImg' style={{ width: '25px' }} data-tooltip-id="my-tooltip"
-                      data-tooltip-content={`3분마다 자동 업데이트 됩니다. \n 최근 업데이트 ${candidates[0].lastUpdate}`}
-                    />
-                    <Tooltip id="my-tooltip" />
-                  </span>
-                  <span style={{ display: 'block', fontSize: '30px' }}>
-                    {totalVotes}표</span>
-                </div>
-                <div>
-                  <span style={{ color: '#a5a5a5' }}>남은 시간</span> <span style={{ display: 'block', fontSize: '30px' }}> {formatTime(remainingTime)} </span>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
