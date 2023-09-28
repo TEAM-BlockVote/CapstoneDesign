@@ -16,6 +16,7 @@ import QnaMainInfo from "../Components/NoticeBoard/HomePage/QnaMainInfo";
 import Qnatable from '../Components/NoticeBoard/TableAll/Qnatable';
 import TestQna from '../Components/NoticeBoard/TableAll/TestQna';
 import TestCandidateSelect from '../Components/NoticeBoard/TableAll/TestCandidateSelect';
+import Graph from "../Components/Graph/Graph";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       {path: '/qnaMainInfo', element: <QnaMainInfo />},
       {path: '/TestQna', element: <TestQna />},
       {path: '/TestQna/qnaCandidate/:voteCode', element: <TestCandidateSelect />},
+      {path: '/graph', element: <Graph />}
     ],
   },
   {path: '/additionalInfo', element: <AdditionalInfo/>},

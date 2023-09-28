@@ -126,10 +126,9 @@ router.get('/view', async (req, res, next) => {
 });
 
 router.get('/hasVoteNumberVoting', async (req, res, next) => {
-  const voteCode = req.query.voteCode;
-  const selectvoteCodeSql =  'select * from vote where voteCode = ?';
-
   try {
+    const voteCode = req.query.voteCode;
+    const selectvoteCodeSql =  'select * from vote where voteCode = ?';
     const hasVoteCode  = await new Promise((resolve, reject) => {
       pool.query(selectvoteCodeSql, [voteCode], (err, results, fields) => {
         if (err) {
@@ -141,7 +140,11 @@ router.get('/hasVoteNumberVoting', async (req, res, next) => {
     });
 
     if (hasVoteCode.length > 0) {
-      return res.redirect(`/voting?voteCode=${voteCode}`)
+      if(req.query.type === 'voting') 
+        return res.redirect(`/voting?voteCode=${voteCode}`)
+      else if(req.query.type === 'graph') {
+        return res.redirect(`/graph?voteCode=${voteCode}`)
+      }
     } else {
       return res.send("<script>alert('존재하지 않는 번호입니다 다시 확인해주세요');location.href='/';</script>");
     }
@@ -235,11 +238,16 @@ router.post("/voting", async(req, res, next) => {
 
   try{
     const gasPrice = await req.web3.eth.getGasPrice();
-    const gasLimit = 5000000; // 필요한 가스 양에 따라 조정합니다
+    const gasLimit = 150000; // 필요한 가스 양에 따라 조정합니다
     const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
+    
     const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
-    req.web3.eth.accounts.wallet.add(userAccount);
-    await contractInstance.methods.submitVote(voteCode, candidateId).send({ gasPrice, gas: gasLimit });
+    const isUser = req.web3.eth.accounts.wallet.some((wallet) => (
+      wallet.address === userAccount.address
+    ))
+    
+    if(!isUser) req.web3.eth.accounts.wallet.add(userAccount);
+    await contractInstance.methods.submitVote(voteCode, candidateId).send({ gasLimit, gas: gasPrice });
     
     const votingDepartment = "insert into votingByDepartment(voteCode, department, voteTimeStamp) values(?, ?, NOW())";
     await new Promise((resolve, reject) => {
@@ -260,7 +268,7 @@ router.post("/voting", async(req, res, next) => {
 
 router.post('/candidates', async (req, res, next) => {
   const voteCode = parseInt(req.body.voteCode);
-  console.log(voteCode);
+  
   const selectCandidatesSql = 'select vote.voteCode, partyName, candidateName, promise from vote  LEFT OUTER JOIN candidates on vote.voteCode = candidates.voteCode where vote.voteCode = ?';
 
   try {
