@@ -143,7 +143,7 @@ router.get('/hasVoteNumberVoting', async (req, res, next) => {
       if(req.query.type === 'voting') 
         return res.redirect(`/voting?voteCode=${voteCode}`)
       else if(req.query.type === 'graph') {
-        return res.redirect(`/graph?voteCode=${voteCode}`)
+        return res.redirect(`/Graph?voteCode=${voteCode}`)
       }
     } else {
       return res.send("<script>alert('존재하지 않는 번호입니다 다시 확인해주세요');location.href='/';</script>");

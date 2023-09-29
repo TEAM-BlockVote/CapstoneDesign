@@ -37,7 +37,7 @@ module.exports = function (app) {
   );
 
   app.use(
-    createProxyMiddleware('/nawoo', {
+    createProxyMiddleware('/graph', {
       target: 'http://localhost:5000/',
       changeOrigin: true,
     })
