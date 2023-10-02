@@ -94,6 +94,10 @@ const VotingMain = () => {
         setIsLoading(false);
       })
       .catch((err) => {
+        if(err.response.status === 707) {
+          alert('투표시간을 확인 해주세요')
+          window.location.href='/';
+        }
         console.log(err + "투표 데이터를 가지고 올 수 없음.");
       });
   }, [voteCode]);
