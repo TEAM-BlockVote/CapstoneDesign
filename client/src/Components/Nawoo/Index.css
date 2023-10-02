@@ -7,16 +7,18 @@
   background-color: #1e2029;
   flex-direction: column;
   margin: auto;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media screen and (max-width:767px) {
+  .nw_form {
+    overflow-x: hidden;
+  }
 }
 
 .nw_form p {
   margin-bottom: 0rem;
-}
-
-.nw_top {
-  
-  
 }
 
 .nw_wrapper {
@@ -42,7 +44,6 @@
   position: absolute;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   left: 0px;
-  top: 110px;
   width: 100%;
   clip: rect(0px,300px,300px,0px);
   color: #fff;
@@ -74,12 +75,24 @@
 
 .nw_label2 {
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  margin: 10% 0% 8% 0%;
+  margin: 10% 0% 8% 10%;
   text-align: left;
   font-size: 1rem;
   white-space: nowrap;
   color: transparent;
   line-height: 2;
+}
+
+@media screen and (max-width:767px) {
+  .nw_label2 {
+    margin-left: 20px;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .nw_label2 {
+    margin-left: 50px;
+  }
 }
 
 /* .svg_button {
@@ -152,14 +165,13 @@
   line-height: 2;
 }
 
+.start_button_margin {
+  display: flex;
+}
+
 .touch_button {
-  position: absolute;
-  bottom: 7%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 50px auto;
   height: 25px;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 @media (max-height: 600px) {

@@ -14,3 +14,10 @@
   margin: 0.3rem 0px;
 }
 
+@media screen and (max-width:767px) {
+  .candidate-img-wrapper .candidate-name-input {
+    width: 80%;
+    margin-bottom: 10px;
+  }
+}
+
