@@ -1,17 +1,68 @@
 .graph-wrap {
   margin: 0% 20%;
+  height: 100%;
 }
 
 .graph-header {
   text-align: center;
 }
 
+.graph-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 5%;
+  padding-bottom: 3%;
+  border-bottom: solid black 1px;
+}
+
 .graph-container {
   display: flex;
   justify-content: space-around;
   text-align: center;
+  margin-top: 5%;
+}
+
+.graph-property {
+  color: #878787;
+}
+
+.graph-property p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.graph-property span {
+  color: #b1b1b1;
+  font-weight: 400;
 }
 
 .graph-middle {
   margin-top: 10%;
+}
+
+.graph-middle h1 {
+  font-size: 2.3rem;
+  font-weight: bold;
+}
+
+.graph-middle_buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 2rem 0rem;
+}
+
+.graph-middle_button {
+  background: #62bcbe;
+  color: white;
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+  border: 1px solid white;
+}
+
+.graph-middle_button:hover {
+  background: #2b9c9f;
+}
+
+.graph-footer {
+  margin-top: 7%;
 }
