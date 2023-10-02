@@ -17,10 +17,16 @@
 
 .categories_explain {
   color: white;
-  margin-left: 1rem;
+  margin: 0 1rem;
   line-height: 2;
   font-size: 14px;
   font-weight: bold;
+}
+
+@media screen and (max-width:767px) {
+  .categories_explain {
+    font-size: 16px;
+  }
 }
 
 .category_middle {
@@ -69,14 +75,19 @@
 .category_next {
   width: 50%;
   height: auto;
-  background: white;
-  border: 2px solid rgb(13, 13, 81);
+  background: #1e2029;
+  border: 2px solid #abc1a7;
   border-radius: 0.3rem;
   cursor: pointer;
-  align-items: center;
-  margin: auto;
+  margin: 0px auto 50px auto;
   font-size: 1.3rem;
   font-weight: bold;
-  color: rgb(13, 13, 81);
+  color: #abc1a7;
   transition: 0.5s ease-out;
+}
+
+.category_next:hover {
+  background: #abc1a7;
+  border: 2px solid white;
+  color: #1e2029;
 }

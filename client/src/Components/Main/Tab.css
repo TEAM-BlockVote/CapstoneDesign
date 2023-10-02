@@ -10,7 +10,19 @@
 }
 
 .tab_contnet_img {
-  width: 15%;
+  width: 100px;
+}
+
+@media screen and (max-width:767px) {
+  .tab_contnet_img {
+    width: 60px;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .tab_contnet_img {
+    width: 80px;
+  }
 }
 
 .tab_contnet_title {
