@@ -23,9 +23,20 @@ router.get('/voteList', async (req, res, next) => {
   }
 });
 
-router.get('/CategorySelect/:voteCode', async (req, res, next) => {
+router.get('/CategorySelects/:voteCode', async (req, res, next) => {
   const voteCode = req.params.voteCode;
   try {
+    const voteTitleSelect = "select title from vote where voteCode = ?";
+    const voteTitle = await new Promise((resolve, reject) => {
+      pool.query(voteTitleSelect, [voteCode], (err, results, fields) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+
     const selectCategories = "select voteCode, category, candidateNumber, promise from categories where voteCode = ?;";
     const categories = await new Promise((resolve, reject) => {
       pool.query(selectCategories, [voteCode], (err, results, fields) => {
@@ -71,7 +82,8 @@ router.get('/CategorySelect/:voteCode', async (req, res, next) => {
     });
     const nawooData = {
       categoriesData,
-      candidatesInfo
+      candidatesInfo,
+      voteTitle
     };
     
     res.json(nawooData);

@@ -7,6 +7,7 @@ const session = require('express-session');
 const passport = require('passport');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
+const schedule = require('node-schedule');
 const path = require('path');
 const { Web3 } = require('web3');
 
@@ -30,6 +31,9 @@ const boardRouter = require('./routes/board');
 const smsRouter = require('./routes/sms');
 const passportConfig = require('./passport');
 const nawooRouter = require('./routes/nawoo');
+const graphRouter = require('./routes/graph');
+const { updateVoteDataScheduler } = require('./scheduler/updateVoteDataScheduler');
+const { abi } = require('./artifacts/contracts/Voting.sol/Voting.json');
 
 passportConfig();
 const fs = require('fs');
@@ -69,6 +73,7 @@ app.use('/vote', voteRouter);
 app.use('/board', boardRouter);
 app.use('/sms', smsRouter);
 app.use('/nawoo', nawooRouter);
+app.use('/graph', graphRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build/index.html"));
@@ -76,4 +81,9 @@ app.get("*", (req, res) => {
 
 app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기 중 ');
+  
+  const contractInstance = new web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: web3.adminWallet.address });
+  schedule.scheduleJob('*/3 * * * *', function() { //3분마다 블록체인 정보를 가져와서 DB에 업데이트시킴.
+    updateVoteDataScheduler(contractInstance, web3);
+  });
 });

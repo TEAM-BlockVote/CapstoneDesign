@@ -255,6 +255,7 @@
     text-align: center;
     color: #444;
     font-family: 'Rix고딕', 'Spoqa Han Sans Neo', sans-serif;
+    margin-bottom: 30px;
 }
 
 .set_title {
@@ -318,15 +319,18 @@
     background-color: #f1f1f1;
     border: 1px white solid;
     margin: 0 auto;
-    color: #333333;
+    color: #010103;
     line-height: 4rem;
+    font-weight: 600;
+    transition: 0.5s;
 }
 
 .tab.active2 {
     width: 50%;
-    background-color: #AAC4FF;
+    background-color: #6C7AE0;
     color: #fff;
     line-height: 4rem;
+    font-weight: 600;
 }
 
 .set_table {

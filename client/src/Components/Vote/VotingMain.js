@@ -4,6 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import Loding from '../Main/Loding';
 import './VotingMain.css';
 import axios from 'axios';
+import help from '../Main/images/help.png';
+import { Tooltip } from 'react-tooltip'
 
 const VotingMain = () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -11,14 +13,17 @@ const VotingMain = () => {
   const [voteInfo, setVoteInfo] = useState('');
   const [candidates, setCandidates] = useState(null);
   const [totalVotes, setTotalVotes] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);  
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [opacityStyleState, setOpacityStyleState] = useState(null);
+
+  const [isCategoriesVisible, setIsCategoriesVisible] = useState(false);
+  const [isPromiseButtonClicked, setIsPromiseButtonClicked] = useState(false);
 
   const [showVotingModal, setShowVotingModal] = useState(false);
   const handleVotingModalClose = () => setShowVotingModal(false);
   const handleVotingModalShow = () => setShowVotingModal(true);
-  
+
   const [remainingTime, setRemainingTime] = useState();
 
   useEffect(() => {
@@ -29,7 +34,7 @@ const VotingMain = () => {
       setRemainingTime(prevTime => {
         if (prevTime > 0) {
           return prevTime - 1000;
-        }  
+        }
         return prevTime;
       });
     }, 1000);
@@ -44,7 +49,7 @@ const VotingMain = () => {
     let hours = Math.floor(minutes / 60);
     let days = Math.floor(hours / 24);
     seconds %= 60;
-    minutes %= 60;  
+    minutes %= 60;
     hours %= 24;
 
     return `${days}일 ${hours.toString().padStart(2, '0')}시 ${minutes.toString().padStart(2, '0')}분 ${seconds.toString().padStart(2, '0')}초`;
@@ -71,30 +76,44 @@ const VotingMain = () => {
     }
   }
 
+  const handlePromiseButtonClick = () => {
+    setIsCategoriesVisible(!isCategoriesVisible);
+    setIsPromiseButtonClicked(!isPromiseButtonClicked);
+  };
+
   useEffect(() => {
     axios.get(`/vote/${voteCode}`)
-    .then((res) => {
-      const votes = res.data.candidatesInfo.reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.votes;
-      }, 0);
-      setTotalVotes(votes);
-      setVoteInfo(res.data.voteInfo);
-      setCandidates(res.data.candidatesInfo);
-      setOpacityStyleState(Array(res.data.candidatesInfo.length).fill(true));
-      setIsLoading(false);
-    })
-    .catch((err) => {
-      console.log(err + "투표 데이터를 가지고 올 수 없음.");
-    });
+      .then((res) => {
+        const votes = res.data.candidatesInfo.reduce((accumulator, currentValue) => {
+          return accumulator + currentValue.votes;
+        }, 0);
+        setTotalVotes(votes);
+        setVoteInfo(res.data.voteInfo);
+        setCandidates(res.data.candidatesInfo);
+        setOpacityStyleState(Array(res.data.candidatesInfo.length).fill(true));
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err + "투표 데이터를 가지고 올 수 없음.");
+      });
   }, [voteCode]);
 
   const handleFormSubmit = (e) => {
     console.log(selectedCandidate);
     e.preventDefault();
-    const res = axios.post(`/vote/voting`, {
+    axios.post(`/vote/voting`, {
       "selectedCandidatedata": selectedCandidate, //기호 1번은 인덱스 0으로 데이터를 보냅니다..
       "voteCode": voteCode,
-    });
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setShowVotingModal(false);
+          alert("투표완료");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   const handleTimeDifference = () => {
@@ -111,88 +130,129 @@ const VotingMain = () => {
     setRemainingTime(timeDifference);
   }
 
-  if(!voteInfo && !candidates) {
-    return <Loding/>
+  if (!voteInfo && !candidates) {
+    return <Loding />
   }
 
   return (
     <div className='voting_wrapper'>
       <div className='voting_main'>
-        { voteInfo.map((element, index) => (
-          <div key={index}>
-            <div className='voting_title'>
-              <span>{element.title} </span>
+        <div className='voting_left'>
+          {voteInfo.map((element, index) => (
+            <div className='voting_left_top' key={index}>
+              <div className='voting_title'>
+                <span>{element.title} </span>
+              </div>
+              <div style={{ display: 'flex', marginBottom: '3%', textAlign: 'left' }}>
+                <div style={{ marginRight: '10%' }}>
+                  <span style={{ color: '#a5a5a5', whiteSpace: 'pre-line' }}>
+                    투표수
+                    <img src={help} alt='helpImg' style={{ width: '25px' }} data-tooltip-id="my-tooltip"
+                      data-tooltip-content={`3분마다 자동 업데이트 됩니다. \n 최근 업데이트 ${candidates[0].lastUpdate}`}
+                    />
+                    <Tooltip id="my-tooltip" />
+                  </span>
+                  <span style={{ display: 'block', fontSize: '30px' }}>
+                    {totalVotes}표</span>
+                </div>
+                <div>
+                  <span style={{ color: '#a5a5a5' }}>남은 시간</span> <span style={{ display: 'block', fontSize: '30px' }}> {formatTime(remainingTime)} </span>
+                </div>
+              </div>
             </div>
-            <div style={{display: 'flex', marginBottom: '3%', textAlign: 'left'}}>
-              <div style={{marginRight: '10%'}}>
-                <span style={{color: '#a5a5a5'}}>투표수</span> <span style={{display: 'block', fontSize: '30px'}}> {totalVotes}표 </span>
-              </div>
-              <div>
-                <span style={{color: '#a5a5a5'}}>남은 시간</span> <span style={{display: 'block', fontSize: '30px'}}> {formatTime(remainingTime)} </span>
-              </div>
+          ))}
+          <div className='voting_left_middle'>
+            <ul className="candidate_start">
+              {candidates.map((element, index) => (
+                <form key={index}>
+                  <li
+                    className='vote-candidate-list'
+                    style={{ opacity: opacityStyleState[index] ? 1 : 0.3 }}
+                    onClick={() => { handleChangeOpacity(index) }}
+                  >
+                    <div className='candidate_margin'>
+                      <div>
+                        <img src={element.partyimage} alt='후보자 사진' className='list_img' />
+                      </div>
+                      <div className='candidate_info'>
+                        <div className='info_top'>
+                          <div className='candidate_num'>
+                            <span>{element.partyNumber}</span>
+                          </div>
+                          <div className='candidate_title'>
+                            <strong className='party_name' > {element.partyName} </strong>
+                          </div>
+                        </div>
+                        <div className='info_bottom'>
+                          <h4 className='candidates_name' >{element.candidateName}</h4>
+                        </div>
+                      </div>
+                      <div>
+                        <span className='vote_percent'> {element.votes === 0 ? '0%' : `${(element.votes / totalVotes * 100).toFixed(2)}%`} </span>
+                        <span style={{ fontWeight: 'bold' }}> {element.votes}표 </span>
+                        <div className='graph'>
+                          <p style={{ width: `${element.votes}` === 0 ? '0%' : `${(element.votes / totalVotes * 100).toFixed(2)}%`, height: '5px', background: '#767edb' }}></p>
+                        </div>
+                      </div>
+                      <div className='voting_promise'>
+                        <p>통학 버스 운행 시간 연장</p>
+                        <p>학생 식당 메뉴 추가</p>
+                        <p>교수 온라인 상담</p>
+                      </div>
+                    </div>
+                  </li>
+                </form>
+              ))}
+            </ul>
+          </div>
+          <div className='voting_left_bottom'>
+            <button className='vote_button' onClick={handleVotingSubmit}> 투표하기 </button>
+          </div>
+        </div>
+        <div className='voting_right'>
+          <div className='voting_right_top'>
+            <div className='voting_right_title'>
+              <span className='promise_title'>공약 카테고리</span>
+              <button className={`promise_button ${isPromiseButtonClicked ? 'clicked' : ''}`} onClick={handlePromiseButtonClick}>공약</button>
+            </div>
+            <div className={`categories_group ${isCategoriesVisible ? 'visible' : 'hidden'}`}>
+              <button className='voting_categories'>강의실 시설</button>
+              <button className='voting_categories'>화장실 시설</button>
+              <button className='voting_categories'>학생식당 개선</button>
+              <button className='voting_categories'>각종 행사</button>
+              <button className='voting_categories'>교통 시설</button>
+              <button className='voting_categories'>보건 복지</button>
+              
             </div>
           </div>
-        ))}
-        <div>
-          <ul className="candidate_start" style={{cursor: 'pointer'}}>
-            {candidates.map((element, index) => (
-              <form key={index}>
-                <li
-                  className='vote-candidate-list'
-                  style={{ opacity: opacityStyleState[index] ? 1 : 0.3}}
-                  onClick={() => { handleChangeOpacity(index) }}
-                >
-                  <div>
-                    <div>
-                      <img src={element.partyimage} alt='후보자 사진' className='list_img'/>
-                    </div>
-                    <div className='candidate_info'>
-                      <span className='candidate_num'> {element.partyNumber} </span>
-                      <div className='candidate_title'>
-                        <strong className='party_name' > {element.partyName} </strong>
-                        <h4 className='candidates_name' >{element.candidateName}</h4>
-                      </div>
-                    </div>
-                    <div>
-                      <span className='vote_percent'> { element.votes === 0 ? '0%' : `${ (element.votes / totalVotes * 100).toFixed(2)}%` } </span>
-                      <span> {element.votes}표 </span>
-                      <div className='graph'>
-                        <p style={{width: `${element.votes}` === 0 ? '0%' : `${(element.votes / totalVotes * 100).toFixed(2)}%` , height: '3px', background: '#767edb'}}></p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </form>
-            ))}
-          </ul>
-          <button onClick={handleVotingSubmit}> 투표하기 </button>
         </div>
+
+        <Modal show={showVotingModal} onHide={handleVotingModalClose} centered style={{ textAlign: 'center' }}>
+          <Modal.Header style={{ borderBottom: 'rgb(222,222,222)' }}>
+            <CloseButton onClick={handleVotingModalClose} />
+          </Modal.Header>
+          <Modal.Body>
+            <form onSubmit={handleFormSubmit}>
+              <div>
+                {candidates[selectedCandidate] &&
+                  <div>
+                    <div> 기호 {candidates[selectedCandidate].partyNumber} 번 </div>
+                    <div> {candidates[selectedCandidate].partyName} 팀 </div>
+                    <div> {candidates[selectedCandidate].candidateName} 후보</div>
+                    <div> 선택하신 후보가 맞습니까? </div>
+                  </div>
+                }
+                <button className='candidate-info-modal' type='submit' style={{ backgroundColor: '#fb7e75' }} onClick={handleVotingModalClose}>
+                  예(투표)
+                </button>
+                <button type='button' className='candidate-info-modal' onClick={handleVotingModalClose}>
+                  아닙니다(취소)
+                </button>
+              </div>
+            </form>
+          </Modal.Body>
+        </Modal>
       </div>
-      <Modal show={showVotingModal} onHide={handleVotingModalClose} centered style={{textAlign: 'center'}}>
-        <Modal.Header style={{ borderBottom: 'rgb(222,222,222)' }}>
-          <CloseButton onClick={handleVotingModalClose} />
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleFormSubmit}>
-            <div>
-              {candidates[selectedCandidate] && 
-                <div>
-                  <div> 기호 {candidates[selectedCandidate].partyNumber} 번 </div>
-                  <div> {candidates[selectedCandidate].partyName} 팀 </div>
-                  <div> {candidates[selectedCandidate].candidateName} 후보</div> 
-                  <div> 선택하신 후보가 맞습니까? </div> 
-                </div>
-              }
-              <button className='candidate-info-modal' type='submit' style={{backgroundColor: '#fb7e75'}}>
-                예(투표)
-              </button>
-              <button type='button' className='candidate-info-modal' onClick={handleVotingModalClose}>
-                아닙니다(취소)
-              </button>
-            </div>
-          </form>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };

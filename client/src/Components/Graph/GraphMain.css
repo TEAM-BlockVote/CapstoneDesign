@@ -1,0 +1,17 @@
+.graph-wrap {
+  margin: 0% 20%;
+}
+
+.graph-header {
+  text-align: center;
+}
+
+.graph-container {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.graph-middle {
+  margin-top: 10%;
+}

@@ -1,0 +1,58 @@
+
+.qna-wrap {
+  width: 100%;
+  padding-top: 2rem;
+}
+
+.qna-content {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.qna-right {
+  width: 100%;
+}
+
+.qna-title {
+  color: #242424;
+  font-weight: 700;
+  margin-bottom: 10px;
+  padding-right: 5px;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column; /* 세로로 정렬 */
+  align-items: center; /* 가운데 정렬 */
+  width: 35%;
+  margin-top: 3rem;
+  margin-left: 13%;
+}
+
+.qna-button {
+  width: 100%;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 2rem;
+}
+
+.custom-qna {
+  color: #47c880;
+}
+
+.qna-h2 {
+  margin-bottom: 30px;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+.custom-wrap .custom-content .custom-left p {
+  color: #757575;
+  margin-top: 20px;
+  line-height: 2rem;
+}

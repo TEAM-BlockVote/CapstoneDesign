@@ -1,33 +1,72 @@
-
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import './Qnatable.css';
 import axios from 'axios';
 import WritingForm from '../WriteAll/WritingForm';
+import AuthContext from '../../../Store/auth-context';
+import Loding from '../../Main/Loding';
 
 function Qnatable() {
-  const [showWritingForm, setShowWritingForm] = useState(false);
-  const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
-  const [tableposts, setPosts] = useState([]);
-  const [selectedCandidate, setSelectedCandidate] = useState(null); // 추가된 부분: 선택된 후보자를 저장하는 상태
-  const [isLoading, setIsLoading] = useState(true);
+  const [showWritingForm, setShowWritingForm] = useState(false);
+  const { voteTitle, voteCode } = useParams();
+  const [posts, setPosts] = useState([]);
+  const [copyPosts, setCopyPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedVoteTitle, setSelectedVoteTitle] = useState(voteTitle || '');
+  const [selectedCandidate, setSelectedCandidate] = useState(null); 
+  const [candidateData, setCandidateData] = useState([]);
+  const [isViewingPosts, setIsViewingPosts] = useState(true);
+  const ctx = useContext(AuthContext);
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    if (ctx.isLoggedIn === false) {
+      navigate('/');
+      alert('로그인 후 이용해 주세요');
+    }
+  }, [ctx.isLoggedIn, navigate]);
+  
+  useEffect(() => {
+    axios.get(`/board/candidates/${voteCode}`)
+    .then((response) => {
+      setCandidateData(response.data);
+    })
+    .catch((error) => {
+      console.error('후보자 정보를 가져오기 실패했습니다.', error);
+    });
+  }, [voteCode]);
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     try {
-      const response = await axios.get('/board/qnaposts');
+      setIsLoading(true);
+      const response = await axios.get(`/board/qnaposts/${voteCode}`);
       if (response.status === 200) {
         setPosts(response.data.tableposts);
+        setCopyPosts(response.data.tableposts);
       } else {
         console.error('게시물을 불러오는 데 실패했습니다.');
       }
-      setIsLoading(false); // 데이터 로딩이 완료되었음을 표시
     } catch (error) {
       console.error('게시물을 불러오는 데 실패했습니다.', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [voteCode]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
+  const handleWriteClick = () => {
+    setShowWritingForm(true);
+  };
+
+  const handlePostClick = async (postId) => {
+    try {
+      await axios.post(`/board/qnaposts/${postId}/increase-view`);
+      navigate(`/post/${postId}`);
+    } catch (error) {
+      console.error('조회수 증가 요청에 실패했습니다.', error);
     }
   };
 
@@ -35,114 +74,92 @@ function Qnatable() {
     setPosts((prevPosts) => [...prevPosts, newPost]);
   };
 
-  const handleWriteClick = () => {
-    setShowWritingForm(true);
-  };
-
-  const handlePostClick = (postId) => {
-    navigate(`/post/${postId}`);
-  };
-
-  const handleClick = (page) => {
-    setActivePage(page);
-    // 페이지 변경에 대한 로직 추가
-  };
- 
-
-
-const handleCandidateClick = async (candidateNumber) => {
-  setSelectedCandidate(candidateNumber);
-
-  try {
-    const response = await axios.get(`/board/qnaposts/candidate/${candidateNumber}`);
-    if (response.status === 200) {
-      setPosts(response.data.tableposts);
+  const handleCandidateClick = (candidateName) => {
+    const copyPosts = [...posts];
+    const filteredData = copyPosts.filter(item => item.candidate === candidateName);
+    setCopyPosts(filteredData);
+    
+    if (selectedCandidate === candidateName) {
+      setSelectedCandidate(null);
     } else {
-      console.error('게시물을 불러오는 데 실패했습니다.');
+      setSelectedCandidate(candidateName);
     }
-  } catch (error) {
-    console.error('게시물을 불러오는 데 실패했습니다.', error);
-  }
-};
+  };
 
-
-return (
-  <>
-    {isLoading ? (
-      // 데이터 로딩 중일 때 표시될 메시지
-      <p>게시물을 불러오는 중입니다...</p>
-    ) : showWritingForm ? (
-      // 글 작성 폼 표시
-      <WritingForm addPostToTable={addPostToTable} />
-    ) : (
-      <>
-        <div className="candidate-tabs">
-          <button className={`candidate-tab-button ${selectedCandidate === 1 ? 'active' : ''}`} onClick={() => handleCandidateClick(1)}>후보자 1</button>
-          <button className={`candidate-tab-button ${selectedCandidate === 2 ? 'active' : ''}`} onClick={() => handleCandidateClick(2)}>후보자 2</button>
-          <button className={`candidate-tab-button ${selectedCandidate === 3 ? 'active' : ''}`} onClick={() => handleCandidateClick(3)}>후보자 3</button>
-      </div>
-        <table className="qnatable-table">
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>날짜</th>
-            <th>조회수</th>
-          </tr>
-        </thead>
-          <tbody className="table-body qnatable-table">
-            {tableposts && tableposts.map((post, index) => (
-              <tr key={post.id}>
-                <td>{index + 1}</td>
-                <td>
-              <Link to={`/post/${post.id}`} onClick={() => handlePostClick(post.id)}  style={{ textDecoration: 'none', color: 'inherit' }}>
-              {post.title}
-              </Link>
-              </td>
-                <td>{post.name}</td>
-                <td>{post.date}</td>
-                <td>{post.view}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      <div>
-            <button onClick={handleWriteClick} className="btn btn-default btn-write">
-              글 작성하기
-            </button>
-          </div>
-          <div className="qna-pageCh">
-            <nav aria-label="qna-pageChange">
-              <ul className="qna-pagination">
-                <li className={`qna-page-item ${activePage === 1 ? "disabled" : ""}`}>
-                  <a className="qna-page-link" href="javascript:void(0)" onClick={() => handleClick(activePage - 1)}>
-                    Previous
-                  </a>
-                </li>
-                <li className={`qna-page-item ${activePage === 1 ? "active" : ""}`}>
-                  <a className="page-link" href="javascript:void(0)" onClick={() => handleClick(1)}>
-                    1
-                  </a>
-                </li>
-                <li className={`qna-page-item ${activePage === 3 ? "disabled" : ""}`}>
-                  <a className="qna-page-link" href="javascript:void(0)" onClick={() => handleClick(activePage + 1)}>
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-      </>
-    )}
-  </>
+  return (
+    <div className="qnatable-container">
+      {showWritingForm ? (
+        <WritingForm
+          addPostToTable={addPostToTable}
+          candidateData={candidateData}
+          setShowWritingForm={setShowWritingForm}
+        />
+      ) : (
+        <>
+          {isLoading ? (
+            <Loding/>
+          ) : (
+            isViewingPosts && selectedVoteTitle !== null ? (
+              <div className="qnatable-content">
+                <div className={`btn-write-parent ${showWritingForm ? 'hidden' : ''}`}>
+                  <div className="candidates-container">
+                    {candidateData.map((candidate, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleCandidateClick(candidate.candidateName)}
+                        className={`candidate-button ${selectedCandidate === candidate.candidateName ? 'active' : ''}`}
+                      >
+                        {`기호 ${index+1}번 ${candidate.candidateName}`}
+                      </button>
+                    ))}
+                  </div>
+                  <button onClick={handleWriteClick} className="btn-write"> 글 작성하기 </button>
+                </div>
+                <div id="q_table-container" className={`qnatable-table-container ${showWritingForm ? 'hidden' : ''}`}>
+                  <div id="qna-wrap">
+                    <div id="side">
+                      <div id="side_banner1">
+                        <Link to={`/Nawoo`}>
+                          <div style={{color: 'white'}}>
+                            <h3>지금 어떤 후보자를 찾을지<br />
+                              고민이시라구요?</h3>
+                            <p>지금 '나후찾'을 이용해보세요!</p>
+                          </div>
+                          <img src="https://grepp-programmers.s3.amazonaws.com/production/file_resource/3140/Community-Banner_cote.png" alt="Banner" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                  <ul className="list-group list-group-flush" style={{width: '100%'}}>
+                    { copyPosts.map((post, index) => (
+                      <Link
+                        to={`/post/${post.qnaNumber}`}
+                        onClick={() => handlePostClick(post.qnaNumber)}
+                        key={index}
+                      >
+                        <li className="list-group-item" style={{fontSize: '20px', fontWeight: 'bold'}}>
+                          {post.qnaTitle}
+                          <div style={{fontSize: '13px', color: '#999999'}}>
+                            <span> {post.writer} </span>
+                            <span>{post.makeDate}</span>
+                            <span style={{marginLeft: '60px'}}>조회수 {post.view}</span>
+                          </div>
+                        </li>
+                      </Link>
+                    ))}
+                  </ul>
+                 </div>
+              </div>
+            ) : (
+              <p>선택한 투표 게시판이 없거나 후보자가 없습니다</p>
+            )
+          )}
+        </>
+      )}
+    </div>
   );
 }
 
 export default Qnatable;
-
-
-
-
 
 

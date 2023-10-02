@@ -3,59 +3,58 @@ import { useNavigate } from 'react-router-dom';
 import './WritingForm.css';
 import axios from 'axios';
 
-function WritingForm({ addPostToTable, handleFormCancel }) {
+function WritingForm({ addPostToTable, candidateData, setShowWritingForm }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const navigate = useNavigate();
-  const [candidateIndex, setCandidateIndex] = useState(0);
-  const [promiseIndex, setPromiseIndex] = useState(0);
-  const [isPostSubmitted, setIsPostSubmitted] = useState(false); 
-  const [selectedCandidate, setSelectedCandidate] = useState("후보자 1"); // Default selected candidate
-
-  const candidates = [
-    "후보자 1",
-    "후보자 2",
-    "후보자 3"
-  ];
+  const [isPostSubmitted, setIsPostSubmitted] = useState(false);
+  const [selectedOption1, setSelectedOption1] = useState('');
+  const [selectedCandidate, setSelectedCandidate] = useState('');
+  const [selectedCandidateObject, setSelectedCandidateObject] = useState([]);
+  const [selectedPromise, setSelectedPromise] = useState('');
 
   const handleCandidateChange = (event) => {
-    setSelectedCandidate(event.target.value);
+    if(event.target.value === '') {
+      setSelectedCandidate('');
+      setSelectedOption1('');
+      setSelectedPromise('');
+    } else {
+      const selectedCandidate = candidateData.find(candidate => candidate.candidateName === event.target.value);
+      setSelectedCandidate(selectedCandidate.candidateName);
+      setSelectedCandidateObject(selectedCandidate);
+      setSelectedOption1(event.target.value);
+      setSelectedPromise('');
+    }
   };
 
-  const promises = [
-    [
-      "1번 공약: 더 좋은 대학교를 만들겠습니다.",
-      "2번 공약: 더 많은 일자리를 창출하겠습니다.",
-      "3번 공약: 교통체증 문제를 해결하겠습니다."
-    ],
-    [
-      "1번 공약: 환경 보호를 위해 노력하겠습니다.",
-      "2번 공약: 교육 개혁을 추진하겠습니다.",
-      "3번 공약: 복지 제도를 강화하겠습니다."
-    ],
-    [
-      "1번 공약: 더 나은 병원을 만들겠습니다.",
-      "2번 공약: 소득 격차를 해소하겠습니다.",
-      "3번 공약: 주택 가격 안정을 위해 노력하겠습니다."
-    ]
-  ];
+  const handlePromiseChange = (event) => {
+    setSelectedPromise(event.target.value);
+  }
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
     if (title === '') {
       alert('제목을 입력해주세요.');
+      return;
+    }
+    if (selectedCandidate === '') {
+      alert('후보자를 선택해주세요.');
+      return;
+    }
+    if (selectedPromise === '') {
+      alert('공약을 선택해주세요.');
       return;
     }
     if (content === '') {
       alert('내용을 입력해주세요.');
       return;
     }
-
+    
     const newPost = {
+      voteCode: selectedCandidateObject.voteCode,
       title: title,
       content: content,
-      candidate: selectedCandidate // Include the selected candidate in the newPost object
+      candidate: selectedCandidate,
+      promise: selectedPromise
     };
 
     try {
@@ -65,67 +64,91 @@ function WritingForm({ addPostToTable, handleFormCancel }) {
         alert('글 작성이 완료되었습니다.');
         setTitle('');
         setContent('');
+        setSelectedCandidate('');
         setIsPostSubmitted(true);
-        addPostToTable(newPost); 
+        addPostToTable(newPost);
         window.location.reload();
-      
-      } else {
-        alert('글 작성 중 오류가 발생했습니다.');
       }
     } catch (error) {
-      console.error('글 작성 중 오류가 발생했습니다.', error);
+      console.error('글 작성  오류가 발생했습니다.', error);
       alert('글 작성 중 오류가 발생했습니다.');
     }
   };
 
-  const showTableComponent = () => {
-    setIsPostSubmitted(false);
-    addPostToTable(); 
-  };
   return (
-    <>
-      {isPostSubmitted ? null : (
-        <form className="qna-write-form__container" onSubmit={handleFormSubmit} >
-          <div className="qna-write-form__label">
-            <label htmlFor="qna-form__title">제목:</label>
-            <input
-              id="qna-form__title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="qna-form__input"
-            />
-          </div>
-          <div className="qna-write-form__label">
-            <label htmlFor="qna-form__content">내용:</label>
-            <textarea
-              id="qna-form__content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="qna-write-form__textarea"
-            />
-          </div>
-          <div className="qna-write-form__label">
-            <label htmlFor="qna-form__candidate">후보자:</label>
-            <select
-              id="qna-form__candidate"
-              value={selectedCandidate}
-              onChange={handleCandidateChange}
-              className="qna-form__input"
-            >
-              {candidates.map((candidate) => (
-                <option key={candidate} value={candidate}>
-                  {candidate}
-                </option>
-              ))}
-            </select>
-          </div>
-          <button type="submit" className="qna-write-form__button">작성완료</button>
-        </form>
-      )}
-  
-      {isPostSubmitted && showTableComponent()}
-    </>
+    <div className="parent-container">
+      <div className="qna-write-form__container">
+        {isPostSubmitted ? null : (
+          <form onSubmit={handleFormSubmit}>
+            <div className="qna-write-form__label">
+              <label htmlFor="qna-form__title">제목:</label>
+              <input
+                id="qna-form__title"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="qna-form__input"
+                placeholder="제목을 입력하세요"
+              />
+            </div>
+
+            <div className="qna-write-form__label">
+              <label htmlFor="qna-form__candidate">후보자:</label>
+              <select
+                id="qna-form__candidate"
+                value={selectedCandidate}
+                onChange={handleCandidateChange}
+                className="qna-form__input"
+              >
+                <option value="">후보자를 선택하세요</option>
+                {candidateData.map((candidate, index) => (
+                  <option key={index} value={candidate.candidateName}>
+                    {candidate.candidateName}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {selectedCandidate && (
+              <div className="qna-write-form__label">
+                <label htmlFor="qna-form__promise">공약:</label>
+                <select
+                  id="qna-form__promise"
+                  value={selectedPromise}
+                  onChange={handlePromiseChange}
+                  className="qna-form__input"
+                  disabled={selectedOption1 === ''}
+                >
+                  <option value="">공약를 선택하세요</option>
+                  {selectedCandidateObject.promise.map((promise, index) => (
+                    <option key={index} value={promise}>
+                      {promise}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            <div className="qna-write-form__label">
+              <label htmlFor="qna-form__content">내용:</label>
+              <textarea
+                id="qna-form__content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                className="qna-write-form__textarea"
+                placeholder="내용을 입력하세요"
+              />
+            </div>
+            <button type="submit" className="qna-write-form__button">
+              작성완료
+            </button>
+            <button className="qna-write-form__button qna-cancel-button" onClick={() => {setShowWritingForm(false)}}>
+              작성취소
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
   );
 }
 

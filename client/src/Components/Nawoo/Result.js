@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Loding from '../Main/Loding';
 import "./Result.css";
 
-const Result = ({selectedPromises, candidates}) => {
+const Result = ({ voteCode, selectedPromises, candidates }) => {
   const [ranking, setRanking] = useState();
   const [champions, setChampions] = useState();
 
@@ -36,7 +37,7 @@ const Result = ({selectedPromises, candidates}) => {
     <div className='nw_form'>
       <div className='nw_top'>
         <div className='result_title'>
-          나와 가장 잘 맞는 사람들
+          {/* 나와 가장 잘 맞는 사람들 */}
         </div>
       </div>
       <div className='nw_middle'>
@@ -46,26 +47,28 @@ const Result = ({selectedPromises, candidates}) => {
           </div>
           <div className='result_label2'>
             인공 지능을 활용한<br />
-            가장 정확한 테스트
+            가장 정확한 데이터
           </div>
         </div>
         <div className='result_list'>
           <div className='img_div'>
             {!ranking ? <Loding/> :
               champions.map((winner, index) => (
-                <div key={index} className={`${index % 2 === 0 ? 'even' : 'odd'}`}>
-                  <div className='result_img'>
-                    <img
-                      src={winner.partyimage}
-                      alt='후보자 사진'
-                      className={`${index % 2 === 0 ? 'even_image' : 'odd_image'}`}
-                    />
+                <Link to={`/qnatable/${voteCode}`} key={index} target="_blank">
+                  <div className={`${index % 2 === 0 ? 'even' : 'odd'}`}>
+                    <div className='result_img'>
+                      <img
+                        src={winner.partyimage}
+                        alt='후보자 사진'
+                        className={`${index % 2 === 0 ? 'even_image' : 'odd_image'}`}
+                      />
+                    </div>
+                    <div className={`${index % 2 === 0 ? 'even_label' : 'odd_label'}`}>
+                      {winner.partyName} <br/>
+                      {winner.candidateName}
+                    </div>
                   </div>
-                  <div className={`${index % 2 === 0 ? 'even_label' : 'odd_label'}`}>
-                    {winner.partyName} <br/>
-                    {winner.candidateName}
-                  </div>
-                </div>
+                </Link>
               ))
             }
           </div>

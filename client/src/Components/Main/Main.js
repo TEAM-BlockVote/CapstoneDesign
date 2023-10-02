@@ -65,37 +65,6 @@ const Main = () => {
               </div>
             </div>
           </div>
-          {/* <div className="vote_info_wrapper">
-            <div>
-              현재 진행중인 투표 -
-              <div className="vote_container">
-                <div className="vote_name"> 2023 서일대학교 총학생회 투표 </div>
-                <hr/>
-                <div className="vote_info">
-                  <div className="voting_day">투표일</div>
-                  <div className="voting_day_detail">20-02-18(화) 00:01 ~ 20-03-14(토) 23:59</div>
-                </div>
-                <div className="vote_action">
-                <Link to="/voting"> <button className="main-btn"> 투표하기 </button></Link>
-                  <button className="main-btn"> 결과보기 </button>
-                </div>
-              </div>
-            </div>
-            <div>
-              진행 예정 투표 - 
-              <div className="vote_container">
-                <div className="vote_name"> 2023 서일대학교 총학생회 투표 </div>
-                <hr/>
-                <div className="vote_info">
-                  <div className="voting_day">투표일</div>
-                  <div className="voting_day_detail">20-02-18(화) 00:01 ~ 20-03-14(토) 23:59</div>
-                </div>
-                <div className="vote_action">
-                  <button className="main-btn"> 둘러보기 </button>
-                </div>
-              </div>
-            </div>
-          </div> */}
           <div className="tab-wrapper">
             <ul className="tabs-list" style={{ margin: '0 10%' }}>
               <li className='go-link' onClick={handleVotingModalShow}>
@@ -184,6 +153,7 @@ const Main = () => {
           <form action='vote/hasVoteNumberVoting' method='get'>
             {<VoteBox />}
             <input placeholder='발송 문자 7자리 숫자' name='voteCode' />
+            <input type="hidden" name="type" value="voting" />
             <button className='votebox-submit' type='submit'>
               투표하러가기
             </button>
@@ -196,11 +166,14 @@ const Main = () => {
           <CloseButton onClick={handleResultModalClose} />
         </Modal.Header>
         <Modal.Body>
-          {<VoteBox />}
-          <input placeholder='발송 문자 7자리 숫자' name='voteCode' />
-          <button className='votebox-submit' onClick={() => { alert("아직 투표가 끝나지 않았습니다.") }}>
-            결과보러가기
-          </button>
+          <form action='vote/hasVoteNumberVoting' method='get'>
+            {<VoteBox />}
+            <input placeholder='발송 문자 7자리 숫자' name='voteCode' />
+            <input type="hidden" name="type" value="graph" />
+            <button className='votebox-submit' type='submit'>
+              결과보러가기
+            </button>
+          </form>
         </Modal.Body>
       </Modal>
     </>
