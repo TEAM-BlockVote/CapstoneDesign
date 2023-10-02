@@ -51,19 +51,40 @@ a {
       text-align: center;
       margin: 0 auto;
     }
+
+    @media screen and (max-width:767px) {
+      .candidates-container {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    @media screen and (min-width:768px) and (max-width:1023px) {
+      .candidates-container {
+        display: flex;
+        flex-direction: row;
+        margin-right: 5%;
+      }
+    }
     
     .candidates-container button {
       text-decoration: none;
       transition: .16s;
       padding: 0.6rem 1rem 0.5rem 1rem;
       color: #90a4ae;
-      font-weight: 500;
+      font-weight: 600;
       border-radius: 0;
       border: none;
       margin-left: 0; /* 버튼 간격 없애기 */
       margin-top: 0; /* 버튼 간격 없애기 */
     }
-    
+
+    @media screen and (max-width:767px){
+      .candidates-container button {
+         margin-bottom: 10px;
+      }
+    }
+
     .candidates-container button.active {
       color: #2979FF;
       background-color: transparent;
@@ -79,9 +100,13 @@ a {
     .candidates-container button:not(.active) {
       margin-left: 30px; /* 버튼 간격 없애기 */
     }
-    
-  
 
+    @media screen and (max-width:767px) {
+      .candidates-container button:not(.active) {
+        margin-left: 0; /* 버튼 간격 없애기 */
+      }
+    }
+    
   .btn-write {
     background-color: #007bff;
     color: #fff;
@@ -89,6 +114,7 @@ a {
     border-radius: 20px;
     padding: 10px 20px;
     font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
@@ -97,6 +123,29 @@ a {
     background-color: #0056b3;
   }
   
+  @media screen and (max-width:767px) {
+    .btn-write-parent .btn-write {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width:768px) and (max-width:1023px) {
+    .btn-write-parent .btn-write {
+      width: 150px;
+    }
+  }
+
+  .qna_mobile_write .btn-write {
+    display: none;
+  }
+
+  @media screen and (max-width:767px) {
+    .qna_mobile_write .btn-write {
+      display: block;
+      margin: 0 auto 5% auto;
+    }
+  }
+
   .btn-write-parent {
     align-items: center;
     display: flex;
@@ -112,11 +161,27 @@ a {
     margin-right: 20px; /* 원하는 간격 설정 */
   }
 
-
+  @media screen and (min-width:768px) and (max-width:1023px) {
+    .qna-banner-h3 {
+      font-size: 18px;
+    }
+  }
  
   #q_table-container {
     display: flex;
     justify-content: center; /* 수평 가운데 정렬 */
+  }
+
+  .list-group-item {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  @media screen and (max-width:767px) {
+    .list-group-item {
+      font-size: 15px;
+      font-weight: bold;
+    }
   }
   
   /* 기존 스타일 */
@@ -210,7 +275,18 @@ a {
   margin-bottom: 40px;
 }
 
+@media screen and (max-width:767px) {
+  #side #side_banner1 {
+    display: none;
+  }
+}
 
+@media screen and (min-width:768px) and (max-width:1023px) {
+  #side #side_banner1 {
+    width: 200px; /* 배너 이미지 가로 크기 100%로 설정 */
+    height: 400px; /* 원하는 높이 설정 */
+  }
+}
 
 #wrap #side #side_banner1 a {
   text-decoration: none;

@@ -1,3 +1,7 @@
+.parent-container {
+  margin: 0 -10%;
+}
+
 .qna-write-form__container {
   display: flex;
   flex-direction: column; 
@@ -8,20 +12,45 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); 
   max-width: 800px; 
   text-align: center;
-  margin-left: 27%;
+  margin: 3% auto;
+}
+
+@media screen and (max-width:767px) {
+  .qna-write-form__container {
+    max-width: 400px;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .qna-write-form__container {
+    max-width: 700px;
+  }
 }
 
 .qna-write-form__label {
   display: block; /* 세로로 나열하기 위해 display 속성 변경 */
   margin-bottom: 1rem;
-  width: 700px;
+  min-width: 700px;
   text-align: left; 
   font-size: 20px; 
   font-weight: bold; 
   color: #545ee4; 
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
   font-family: 'Helvetica', sans-serif;
-  background-color: #f3f1f1; 
+}
+
+@media screen and (max-width:767px) {
+  .qna-write-form__label {
+    min-width: 350px;
+    white-space: normal;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .qna-write-form__label {
+    min-width: 600px;
+    white-space: normal;
+  }
 }
 
 /* 입력 필드 스타일 */

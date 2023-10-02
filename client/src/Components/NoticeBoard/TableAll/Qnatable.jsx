@@ -113,7 +113,7 @@ function Qnatable() {
                       </button>
                     ))}
                   </div>
-                  <button onClick={handleWriteClick} className="btn-write"> 글 작성하기 </button>
+                  <button onClick={handleWriteClick} className="btn-write"> 작성하기 </button>
                 </div>
                 <div id="q_table-container" className={`qnatable-table-container ${showWritingForm ? 'hidden' : ''}`}>
                   <div id="qna-wrap">
@@ -121,7 +121,7 @@ function Qnatable() {
                       <div id="side_banner1">
                         <Link to={`/Nawoo`}>
                           <div style={{color: 'white'}}>
-                            <h3>지금 어떤 후보자를 찾을지<br />
+                            <h3 className='qna-banner-h3'>지금 어떤 후보자를 찾을지<br />
                               고민이시라구요?</h3>
                             <p>지금 '나후찾'을 이용해보세요!</p>
                           </div>
@@ -130,14 +130,14 @@ function Qnatable() {
                       </div>
                     </div>
                   </div>
-                  <ul className="list-group list-group-flush" style={{width: '100%'}}>
+                  <ul className="list-group list-group-flush" style={{width: '100%', marginBottom: '5%'}}>
                     { copyPosts.map((post, index) => (
                       <Link
                         to={`/post/${post.qnaNumber}`}
                         onClick={() => handlePostClick(post.qnaNumber)}
                         key={index}
                       >
-                        <li className="list-group-item" style={{fontSize: '20px', fontWeight: 'bold'}}>
+                        <li className="list-group-item">
                           {post.qnaTitle}
                           <div style={{fontSize: '13px', color: '#999999'}}>
                             <span> {post.writer} </span>
@@ -148,6 +148,9 @@ function Qnatable() {
                       </Link>
                     ))}
                   </ul>
+                 </div>
+                 <div className='qna_mobile_write'>
+                 <button onClick={handleWriteClick} className="btn-write"> 작성하기 </button>
                  </div>
               </div>
             ) : (
