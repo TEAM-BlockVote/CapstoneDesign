@@ -36,7 +36,7 @@ const Index = ({setCurrentPage}) => {
             <p> 1분만에 자신의 성향에 맞는 후보자를 추천해 줍니다 </p>
             <p> 후보자들이 어떤 공약을 냈는지 한눈에 볼 수 있습니다. </p>
           </div>
-          <div>
+          <div className='start_button_margin'>
             <img src={touchButton} alt='buttonImg' className='touch_button'/>
           </div>
         </div>
