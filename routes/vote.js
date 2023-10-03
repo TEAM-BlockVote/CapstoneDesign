@@ -23,7 +23,7 @@ router.post('/write', async (req, res, next) => {
     const candidateList = req.body.candidateInfo.map(item => item.partyNumber);
     const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
     const gasPrice = await req.web3.eth.getGasPrice();
-    const gasLimit = 5000000;
+    const gasLimit = 150000;
     const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
     req.web3.eth.accounts.wallet.add(userAccount);
     await contractInstance.methods.createVote(voteCode, candidateList).send({ gasPrice, gas: gasLimit });
@@ -256,19 +256,22 @@ router.post("/voting", async(req, res, next) => {
     ))
     
     if(!isUser) req.web3.eth.accounts.wallet.add(userAccount);
-    await contractInstance.methods.submitVote(voteCode, candidateId).send({ gasLimit, gas: gasPrice });
-    
-    const votingDepartment = "insert into votingByDepartment(voteCode, department, voteTimeStamp) values(?, ?, NOW())";
-    await new Promise((resolve, reject) => {
-      pool.query(votingDepartment, [voteCode, req.user.dep], (err, results, fields) => {
-        if (err) {
-          reject(err);
-        }
-        else
-          resolve(results);
+    const txReceipt = await contractInstance.methods.submitVote(voteCode, candidateId).send({ gasLimit, gas: gasPrice });
+    if(txReceipt.status === 1n) {
+      const votingDepartment = "insert into votingByDepartment(voteCode, department, voteTimeStamp) values(?, ?, NOW())";
+      await new Promise((resolve, reject) => {
+        pool.query(votingDepartment, [voteCode, req.user.dep], (err, results, fields) => {
+          if (err) {
+            reject(err);
+          }
+          else
+            resolve(results);
+        });
       });
-    });
-    res.status(200).send('투표성공');
+      res.status(200).send('투표성공');
+    } else {
+      res.status(500).send('투표실패');
+    }
   } catch (error) {
     console.log(error);
     next(error);

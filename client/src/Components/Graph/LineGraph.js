@@ -35,7 +35,7 @@ const LineGraph = ({ lineGraphDatas, voteInfo }) => {
   const data = {
     labels,
     datasets: [{
-      label: 'Dataset 1',
+      label: '투표수',
       data: cumulativeVoteCounts,
       fill: true,
       borderColor: 'rgb(75, 192, 192)',

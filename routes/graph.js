@@ -4,7 +4,6 @@ const router = express.Router();
 
 router.get('/voteInfo/:voteCode', async (req, res, next) => {
   const voteCode = req.params.voteCode;
-  console.log(voteCode);
   try {
     const voteInfoSql = 'SELECT title, startDate, endDate FROM vote WHERE voteCode = ?';
     const voteInfo = await new Promise((resolve, reject) => {

@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
-import axios from 'axios';
 
-const PieGraph = () => {
+const PieGraph = ({ candidates }) => {
+  const [pieGraphVoteCountData, setPieGraphVoteCountData] = useState([]);
+  const [pieGraphPartyNameData, setPieGraphPartyNameData] = useState([]);
+
   useEffect(() => {
-    axios.get('graph/pie')
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      
-    })
-  }, []);
+    candidates.map(candidate => {
+      setPieGraphVoteCountData(prevData => [...prevData, candidate.votes]);
+      setPieGraphPartyNameData(prevData => [...prevData, `기호${candidate.partyNumber}번 ${candidate.partyName}`]);
+      return 0;
+    });
+  }, [candidates]);
+
   const data = {
-    labels: ['기호1번 전준호;박준호', '기호2번 나윤성;김호민', '기호3번 이서진;유승민'],
+    labels: pieGraphPartyNameData,
     datasets: [
       {
         label: '득표수',
-        data: [16, 19, 16],
+        data: pieGraphVoteCountData,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
