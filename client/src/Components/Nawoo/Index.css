@@ -75,24 +75,12 @@
 
 .nw_label2 {
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  margin: 10% 0% 8% 10%;
+  margin: 10% 0% 8% 0%;
   text-align: left;
   font-size: 1rem;
   white-space: nowrap;
   color: transparent;
   line-height: 2;
-}
-
-@media screen and (max-width:767px) {
-  .nw_label2 {
-    margin-left: 20px;
-  }
-}
-
-@media screen and (min-width:768px) and (max-width:1023px) {
-  .nw_label2 {
-    margin-left: 50px;
-  }
 }
 
 /* .svg_button {
@@ -163,6 +151,12 @@
   padding: 5%;
   margin-bottom: 1rem;
   line-height: 2;
+}
+
+@media screen and (max-width:767px) {
+  .result_borde {
+    font-size: 0.9rem;
+  }
 }
 
 .start_button_margin {
