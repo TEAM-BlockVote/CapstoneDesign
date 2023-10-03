@@ -32,11 +32,23 @@
 
 .qna-button {
   width: 100%;
-  padding: 2rem;
+  padding: 1.5rem;
   margin-bottom: 2rem;
   border-radius: 2rem;
+  background-color: #494fa5; /* 배경색 변경 */
+  color: #fff; /* 텍스트 색상 변경 */
+  font-size: 18px; /* 텍스트 크기 변경 */
+  text-align: center;
+  font-weight: 700; /* 글꼴 두껍게 설정 */
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
+.qna-button:hover {
+  background-color: #78c7d2; /* 호버 시 배경색 변경 */
+}
 .custom-qna {
   color: #47c880;
 }
