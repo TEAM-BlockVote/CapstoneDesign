@@ -23,26 +23,17 @@ router.post('/write', async (req, res, next) => {
     const candidateList = req.body.candidateInfo.map(item => item.partyNumber);
     const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
     const gasPrice = await req.web3.eth.getGasPrice();
-    const gasLimit = 150000;
+    const gasLimit = 500000;
     const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
-    req.web3.eth.accounts.wallet.add(userAccount);
-    await contractInstance.methods.createVote(voteCode, candidateList).send({ gasPrice, gas: gasLimit });
-
-    const createVoteSql = 'INSERT INTO vote (title, writer, type, startDate, endDate, makeDate, voteCode) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    await new Promise((resolve, reject) => {
-      pool.query(createVoteSql, [title, writer, type, startDate, endDate, makeDate, voteCode], (err, results, fields) => {
-        if (err) {
-          reject(err);
-        }
-        else
-          resolve(results);
-      });
-    });
-
-    const insertAllowedVoteDepartmentsSql = 'insert into voteDepartment values(?, ?);';
-    allowedDepartments.map( async(departments, index) => {
+    const isUser = req.web3.eth.accounts.wallet.some((wallet) => (
+      wallet.address === userAccount.address
+    ))
+    if(!isUser) req.web3.eth.accounts.wallet.add(userAccount);
+    const txReceipt = await contractInstance.methods.createVote(voteCode, candidateList).send({ gasLimit, gas: gasPrice });
+    if(txReceipt.status === 1n) {
+      const createVoteSql = 'INSERT INTO vote (title, writer, type, startDate, endDate, makeDate, voteCode) VALUES (?, ?, ?, ?, ?, ?, ?)';
       await new Promise((resolve, reject) => {
-        pool.query(insertAllowedVoteDepartmentsSql, [voteCode, departments], (err, results, fields) => {
+        pool.query(createVoteSql, [title, writer, type, startDate, endDate, makeDate, voteCode], (err, results, fields) => {
           if (err) {
             reject(err);
           }
@@ -50,50 +41,63 @@ router.post('/write', async (req, res, next) => {
             resolve(results);
         });
       });
-    })
+
+      const insertAllowedVoteDepartmentsSql = 'insert into voteDepartment values(?, ?);';
+      allowedDepartments.map( async(departments, index) => {
+        await new Promise((resolve, reject) => {
+          pool.query(insertAllowedVoteDepartmentsSql, [voteCode, departments], (err, results, fields) => {
+            if (err) {
+              reject(err);
+            }
+            else
+              resolve(results);
+          });
+        });
+      })
     
-    const insertInitVotingResultsSql = 'insert into votingResults(voteCode, partyNumber, lastUpdate) values(?, ?, ?)';
-    candidateList.map( async(candidateNumber, index) => {
-      await new Promise((resolve, reject) => {
-        pool.query(insertInitVotingResultsSql, [voteCode, candidateNumber, makeDate], (err, results, fields) => {
-          if (err) {
-            reject(err);
-          }
-          else
-            resolve(results);
+      const insertInitVotingResultsSql = 'insert into votingResults(voteCode, partyNumber, lastUpdate) values(?, ?, ?)';
+      candidateList.map( async(candidateNumber, index) => {
+        await new Promise((resolve, reject) => {
+          pool.query(insertInitVotingResultsSql, [voteCode, candidateNumber, makeDate], (err, results, fields) => {
+            if (err) {
+              reject(err);
+            }
+            else
+              resolve(results);
+          });
+        });
+      })
+      
+      const insertCandidatesSql = 'INSERT INTO candidates (voteCode, partyName, partyNumber, candidateName, promise, partyimage) VALUES (?, ?, ?, ?, ?, ?)';
+      const promises = req.body.candidateInfo.map((candidate, index) => {
+        let base64Data = req.body.candidateInfo[index].imagePreview.replace(/^data:image\/\w+;base64,/, '');
+        let binaryData = Buffer.from(base64Data, 'base64');
+        let uploadDirRelative = '../uploads';
+        let candidateImageFileName = `${voteCode}_${candidate.partyNumber}.png`;
+        let imagePathRelative = path.join(uploadDirRelative, candidateImageFileName);
+        let imagePath = path.join(__dirname, imagePathRelative);
+        fs.writeFile(imagePath, binaryData, (err) => {
+          if (err) console.error(err);
+        });
+        return new Promise((resolve, reject) => {
+          pool.query(insertCandidatesSql, [voteCode, candidate.partyName, candidate.partyNumber, candidate.candidateNames.join(';'), candidate.promises.join(';'), candidateImageFileName], (err, results, fields) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(results);
+            }
+          });
         });
       });
-    })
-    
-    const insertCandidatesSql = 'INSERT INTO candidates (voteCode, partyName, partyNumber, candidateName, promise, partyimage) VALUES (?, ?, ?, ?, ?, ?)';
-    const promises = req.body.candidateInfo.map((candidate, index) => {
-      let base64Data = req.body.candidateInfo[index].imagePreview.replace(/^data:image\/\w+;base64,/, '');
-      let binaryData = Buffer.from(base64Data, 'base64');
-      let uploadDirRelative = '../uploads';
-      let candidateImageFileName = `${voteCode}_${candidate.partyNumber}.png`;
-      let imagePathRelative = path.join(uploadDirRelative, candidateImageFileName);
-      let imagePath = path.join(__dirname, imagePathRelative);
-      fs.writeFile(imagePath, binaryData, (err) => {
-        if (err) console.error(err);
+      Promise.all(promises)
+      .then(() => {
+        console.log("completed");
+        categoryGeneratorService(voteCode);
+      })
+      .catch((err) => {
+        console.error("candidate insert error:", err);
       });
-      return new Promise((resolve, reject) => {
-        pool.query(insertCandidatesSql, [voteCode, candidate.partyName, candidate.partyNumber, candidate.candidateNames.join(';'), candidate.promises.join(';'), candidateImageFileName], (err, results, fields) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(results);
-          }
-        });
-      });
-    });
-    Promise.all(promises)
-    .then(() => {
-      console.log("completed");
-      categoryGeneratorService(voteCode);
-    })
-    .catch((err) => {
-      console.error("candidate insert error:", err);
-    });
+    }
   } catch (error) {
     console.log(error);
     next(error);
@@ -247,7 +251,7 @@ router.post("/voting", async(req, res, next) => {
 
   try{
     const gasPrice = await req.web3.eth.getGasPrice();
-    const gasLimit = 150000; // 필요한 가스 양에 따라 조정합니다
+    const gasLimit = 500000; // 필요한 가스 양에 따라 조정합니다
     const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
     
     const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
