@@ -21,7 +21,14 @@
   flex-direction: column;
   text-align: center;
   border-right: 2px #d1d5db solid;
-  border-radius: 1rem;
+}
+
+@media screen and (max-width:767px) {
+  .file-upload-label {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+  }
 }
 
 .candidate-img-wrapper {
@@ -38,6 +45,14 @@
   object-fit: contain;
   border-radius: 1rem;
   padding: 1rem;
+}
+
+@media screen and (max-width:767px) {
+  .candidate-img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+  }
 }
 
 .candidate-name-inputs {

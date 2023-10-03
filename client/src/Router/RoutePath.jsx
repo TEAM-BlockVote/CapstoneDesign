@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       {path: '/qnaMainInfo', element: <QnaMainInfo />},
       {path: '/TestQna', element: <TestQna />},
       {path: '/TestQna/qnaCandidate/:voteCode', element: <TestCandidateSelect/>},
-      {path: '/Graph', element: <GraphMain/>}
+      {path: '/Graph/:voteCode', element: <GraphMain/>}
     ],
   },
   {path: '/additionalInfo', element: <AdditionalInfo/>},

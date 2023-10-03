@@ -17,6 +17,10 @@ function Makevote() {
   const [allowedDepartments, setAllowedDepartments] = useState([]);
   const dropdownRef = useRef();
 
+  const today = new Date();
+  today.setHours(today.getHours() + 9);
+  const todayFormatted = today.toISOString().split('T')[0];
+
   const handleDepartmentSearch = (event) => {
     const inputValue = event.target.value.toLowerCase();
     setSearchValue(inputValue);
@@ -147,11 +151,11 @@ function Makevote() {
             <div className="row mb-3">
               <div className="col-6">
                 <div htmlFor="start-date" className="form-div">투표 시작일</div>
-                <input type="date" className="form-control" name="startDate" onChange={handleChange} />
+                <input type="date" className="form-control" name="startDate" onChange={handleChange} min={todayFormatted} />
               </div>
               <div className="col-6">
                 <div htmlFor="end-date" className="form-div">투표 종료일</div>
-                <input type="date" className="form-control" name="endDate" onChange={handleChange} />
+                <input type="date" className="form-control" name="endDate" onChange={handleChange} min={voteInfoData.startDate}/>
               </div>
               {dateError && <div style={{ color: 'red' }} >{dateError}</div>}
             </div>

@@ -128,9 +128,9 @@ router.get('/view', async (req, res, next) => {
 router.get('/hasVoteNumberVoting', async (req, res, next) => {
   try {
     const voteCode = req.query.voteCode;
-    const selectvoteCodeSql =  'select * from vote where voteCode = ?';
-    const hasVoteCode  = await new Promise((resolve, reject) => {
-      pool.query(selectvoteCodeSql, [voteCode], (err, results, fields) => {
+    const voteSql =  'select * from vote where voteCode = ?';
+    const vote  = await new Promise((resolve, reject) => {
+      pool.query(voteSql, [voteCode], (err, results, fields) => {
         if (err) {
           reject(err);
         }
@@ -138,13 +138,19 @@ router.get('/hasVoteNumberVoting', async (req, res, next) => {
           resolve(results);
       });
     });
-
-    if (hasVoteCode.length > 0) {
-      if(req.query.type === 'voting') 
-        return res.redirect(`/voting?voteCode=${voteCode}`)
-      else if(req.query.type === 'graph') {
-        return res.redirect(`/Graph?voteCode=${voteCode}`)
+    
+    if (vote.length > 0) {
+      const currentDate = new Date();
+      const startDate = new Date(vote[0].startDate + 'T09:00:00');
+      const endDate = new Date(vote[0].endDate + 'T18:00:00');
+      if(currentDate >= startDate && currentDate <= endDate) {
+        if(req.query.type === 'voting') 
+          return res.redirect(`/voting?voteCode=${voteCode}`)
+        else if(req.query.type === 'graph')
+          return res.redirect(`/Graph/${voteCode}`)
       }
+      else
+        return res.send("<script>alert('투표시간을 확인 해주세요');location.href='/';</script>");  
     } else {
       return res.send("<script>alert('존재하지 않는 번호입니다 다시 확인해주세요');location.href='/';</script>");
     }
@@ -222,7 +228,10 @@ router.get('/:voteCode', async (req, res, next) => {
     }
 
     if (voteInfo.length > 0) {
-      return res.json(vote);
+      const currentDate = new Date();
+      const startDate = new Date(voteInfo[0].startDate + 'T09:00:00');
+      const endDate = new Date(voteInfo[0].endDate + 'T18:00:00');
+      return currentDate >= startDate && currentDate <= endDate ? res.json(vote) : res.status(707).json({ error: '투표 시간 아님' });
     } else {
       res.status(404).json({ error: '투표를 찾을 수 없습니다.' });
     }

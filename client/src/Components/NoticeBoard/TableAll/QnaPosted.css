@@ -1,7 +1,14 @@
 
 .qna-posted-container {
-  margin: 0 auto;
+  margin: 3% auto;
   width: 60%;
+}
+
+@media screen and (max-width:767px) {
+  .qna-posted-container {
+    margin: 5% auto;
+    width: 90%;
+  }
 }
 
 .qna-posted {
@@ -59,6 +66,8 @@
   font-size: 14px;
   cursor: pointer;
   border-radius:10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .qna-posted-comment-submit-button:hover {
@@ -69,4 +78,5 @@
   padding: 20px;
   border: 1px solid black;
   border-radius: 5px;
+  margin-top: 5px;
 }

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Loding from '../Main/Loding';
 import "./VotableItemList.css";
 
-const VotableItemList = ({voteList}) => {
+const VotableItemList = ({ voteList }) => {
   return (
     <div className='nw_form'>
       <div className='nw_top'>
@@ -20,15 +20,17 @@ const VotableItemList = ({voteList}) => {
             <p className='nw_select_text3'> 아래 투표들은 현재 학과에서 진행중인 투표입니다. </p>
             <p className='nw_select_text3'>원하시는 투표를 선택하세요</p>
           </div>
-          { !voteList ? <Loding/> : voteList.map((vote, index) => (
-            <Link to={`CategorySelect/${voteList[index].voteCode}`} key={index}>
-              <div className='nw_votelist'>
-                <label className='nw_vote'>
-                {vote.title}
-                </label>
-              </div>
-            </Link>
-          ))}
+          <div className="nw_votebox_button">
+            {!voteList ? <Loding /> : voteList.map((vote, index) => (
+              <Link to={`CategorySelect/${voteList[index].voteCode}`} key={index}>
+                <div className='nw_votelist'>
+                  <label className='nw_vote'>
+                    {vote.title}
+                  </label>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

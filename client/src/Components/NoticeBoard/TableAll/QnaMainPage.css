@@ -10,8 +10,35 @@
   display: flex;
 }
 
+@media screen and (max-width:767px) {
+  .qna-content {
+    flex-direction: column;
+  }
+}
+
+.qna-left {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+}
+
+@media screen and (max-width:767px) {
+  .qna-left {
+    width: auto;
+    margin: 0 10px;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .qna-left {
+    width: 80%;
+    margin-left: 50px;
+  }
+}
+
 .qna-right {
-  width: 100%;
+  width: 50%;
 }
 
 .qna-title {
@@ -21,13 +48,30 @@
   padding-right: 5px;
 }
 
+@media screen and (max-width:767px) {
+  .qna-title {
+    font-size: 1.8rem;
+  }
+}
+
 .categories {
   display: flex;
   flex-direction: column; /* 세로로 정렬 */
   align-items: center; /* 가운데 정렬 */
-  width: 35%;
+  width: 40%;
   margin-top: 3rem;
-  margin-left: 13%;
+}
+
+@media screen and (max-width:767px) {
+  .categories {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .categories {
+    width: 50%;
+  }
 }
 
 .qna-button {
@@ -44,6 +88,25 @@
   cursor: pointer;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out;
+<<<<<<< HEAD
+=======
+}
+
+.qna-button:hover {
+  background-color: #78c7d2; /* 호버 시 배경색 변경 */
+}
+
+@media screen and (max-width:767px) {
+  .qna-button{
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .qna-button{
+    font-size: 16px;
+  }
+>>>>>>> 5d0d902c4fef441ec033ecc9f873d819e795cade
 }
 
 .qna-button:hover {
@@ -61,6 +124,35 @@
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   font-weight: bold;
+  color: rgb(11, 2, 110);
+}
+
+@media screen and (max-width:767px) {
+  .qna-h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .qna-h2 {
+    font-size: 1.4rem;
+  }
+}
+
+.qna_info {
+  font-weight: 600;
+}
+
+@media screen and (max-width:767px) {
+  .qna_info {
+    display: none;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .qna_info {
+    font-size: 0.9rem;
+  }
 }
 
 .custom-wrap .custom-content .custom-left p {

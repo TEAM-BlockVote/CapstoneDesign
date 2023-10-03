@@ -7,16 +7,18 @@
   background-color: #1e2029;
   flex-direction: column;
   margin: auto;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media screen and (max-width:767px) {
+  .nw_form {
+    overflow-x: hidden;
+  }
 }
 
 .nw_form p {
   margin-bottom: 0rem;
-}
-
-.nw_top {
-  
-  
 }
 
 .nw_wrapper {
@@ -42,7 +44,6 @@
   position: absolute;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   left: 0px;
-  top: 110px;
   width: 100%;
   clip: rect(0px,300px,300px,0px);
   color: #fff;
@@ -152,14 +153,19 @@
   line-height: 2;
 }
 
+@media screen and (max-width:767px) {
+  .result_borde {
+    font-size: 0.9rem;
+  }
+}
+
+.start_button_margin {
+  display: flex;
+}
+
 .touch_button {
-  position: absolute;
-  bottom: 7%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 50px auto;
   height: 25px;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 @media (max-height: 600px) {
