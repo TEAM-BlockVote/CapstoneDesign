@@ -43,10 +43,34 @@ function QTableItem({ title, author, date, views }) { // 컴포넌트
 
 const qTableData = [
   {
-    title: "전준호바보전준호바전준호바보",
+    title: "도서관 시설 개선에 대해 질문 드립니다.",
     author: "홍길동",
     date: "2023.05.17",
     views: 23,
+  },
+  {
+    title: "부학회장 후보님께 질문 드립니다.",
+    author: "전준호",
+    date: "2023.06.03",
+    views: 142,
+  },
+  {
+    title: "운동장 잔디밭 관련 질문 드립니다.",
+    author: "유승민",
+    date: "2023.05.24",
+    views: 213,
+  },
+  {
+    title: "우리 학교 축제 공약에 대해 질문 드립니다.",
+    author: "나윤성",
+    date: "2023.05.31",
+    views: 354,
+  },
+  {
+    title: "2번 공약에 관해 질문 드립니다.",
+    author: "이서진",
+    date: "2023.06.04",
+    views: 873,
   },
   // 더미 데이터
 ];
