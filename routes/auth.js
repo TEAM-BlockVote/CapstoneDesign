@@ -49,10 +49,9 @@ router.get('/additionalInfo', isLoggedIn, (req, res, next) => {
 });
 
 router.get('/isLoggedIn', async(req, res, next)=>{
-  const weiBalance = await req.web3.eth.getBalance(req.user.walletAddr);
-  const etherBalance = parseFloat(req.web3.utils.fromWei(weiBalance, 'ether')).toFixed(5);
-  
   if(req.user) {
+    const weiBalance = await req.web3.eth.getBalance(req.user.walletAddr);
+    const etherBalance = parseFloat(req.web3.utils.fromWei(weiBalance, 'ether')).toFixed(5);
     res.json({
       isLoggedIn:req.isAuthenticated(),
       user: req.user.name,
