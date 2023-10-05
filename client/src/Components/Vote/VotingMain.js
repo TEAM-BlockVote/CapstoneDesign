@@ -6,6 +6,7 @@ import './VotingMain.css';
 import axios from 'axios';
 import help from '../Main/images/help.png';
 import { Tooltip } from 'react-tooltip'
+import Loading01 from '../AdminPage/Loading01';
 
 const VotingMain = () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -25,6 +26,8 @@ const VotingMain = () => {
   const handleVotingModalShow = () => setShowVotingModal(true);
 
   const [remainingTime, setRemainingTime] = useState();
+
+  const [isVotingLoading, setIsVotingLoading] = useState(false);
 
   useEffect(() => {
     if (!isLoading) {
@@ -105,6 +108,7 @@ const VotingMain = () => {
   const handleFormSubmit = (e) => {
     console.log(selectedCandidate);
     e.preventDefault();
+    setIsVotingLoading(true);
     axios.post(`/vote/voting`, {
       "selectedCandidatedata": selectedCandidate, //기호 1번은 인덱스 0으로 데이터를 보냅니다..
       "voteCode": voteCode,
@@ -113,6 +117,8 @@ const VotingMain = () => {
         if (res.status === 200) {
           setShowVotingModal(false);
           alert("투표완료");
+          setIsVotingLoading(false);
+          
         }
       })
       .catch((err) => {
@@ -131,6 +137,7 @@ const VotingMain = () => {
     const currentTime = new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}`);
     const endTime = new Date(voteInfo[0].endDate + 'T18:00:00');
     const timeDifference = endTime - currentTime;
+
     setRemainingTime(timeDifference);
   }
 
@@ -210,7 +217,17 @@ const VotingMain = () => {
             </ul>
           </div>
           <div className='voting_left_bottom'>
-            <button className='vote_button' onClick={handleVotingSubmit}> 투표하기 </button>
+          {isVotingLoading ? (
+              <Loading01 /> 
+            ) : (
+              <button
+                className='vote_button'
+                onClick={handleVotingSubmit}
+                disabled={isVotingLoading}
+              >
+                투표하기
+              </button>
+            )}
           </div>
         </div>
         <div className='voting_right'>
@@ -253,7 +270,7 @@ const VotingMain = () => {
                   아닙니다(취소)
                 </button>
               </div>
-            </form>
+            </form> 
           </Modal.Body>
         </Modal>
       </div>

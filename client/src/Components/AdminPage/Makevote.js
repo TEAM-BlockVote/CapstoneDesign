@@ -4,6 +4,7 @@ import VotePlus from './VotePlus';
 import { depDataArray } from '../Register/depDataArray';
 import { useRef } from 'react';
 import { validateMakeVoteForm } from './errCheck/validateMakeForm';
+import Loading01 from './Loading01';
 depDataArray.unshift("ALL");
 
 function Makevote() {
@@ -16,6 +17,7 @@ function Makevote() {
   const [userDepCard, setUserDepCard] = useState("depcard");
   const [allowedDepartments, setAllowedDepartments] = useState([]);
   const dropdownRef = useRef();
+  const [isBtnDisable, setIsBtnDisable] = useState(false);
 
   const today = new Date();
   today.setHours(today.getHours() + 9);
@@ -92,7 +94,10 @@ function Makevote() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    validateMakeVoteForm(voteInfoData, candidateInfo, setTitleError, setTypeError, setDateError, event);
+   
+    validateMakeVoteForm(voteInfoData, candidateInfo, setTitleError, setTypeError, setDateError, event, setIsBtnDisable)
+    
+
   }
 
   return (
@@ -174,12 +179,16 @@ function Makevote() {
             </div>
           </div>
           <div className='vote_btn_margin'>
-            <button type="submit" className="vote_btn">투표 등록</button>
+            {isBtnDisable ? 
+              <Loading01/>
+             : (
+              <button type="submit" className="vote_btn">투표 등록</button>
+            )}
           </div>
         </form>
       </div>
     </>
   )
-}
+} 
 
 export default Makevote;
