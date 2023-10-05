@@ -14,25 +14,40 @@ const GraphMain = () => {
   const [graph, setGraph] = useState('');
   const [candidates, setCandidates] = useState('');
   const [voteInfo, setVoteInfo] = useState('');
-  const [lineGraphData, setLineGraphData] = useState('');
+  const [GraphData, setGraphData] = useState('');
   const [totalVotes, setTotalVotes] = useState(0);
+  const [remainingTime, setRemainingTime] = useState('');
 
   useEffect(() => {
     axios.get(`/graph/voteInfo/${voteCode}`)
     .then((res) => {
+      formatTime(new Date(res.data.voteInfo.endDate + 'T18:00:00'));
       const votes = res.data.pieGraphData.reduce((accumulator, currentValue) => {
         return accumulator + currentValue.votes;
       }, 0);
       setTotalVotes(votes);
       setCandidates(res.data.pieGraphData);
       setVoteInfo(res.data.voteInfo);
-      setLineGraphData(res.data.lineGraphData);
+      setGraphData(res.data.lineGraphData);
       setGraph(<LineGraph lineGraphDatas={res.data.lineGraphData} voteInfo={res.data.voteInfo}/>);
     })
     .catch((err) => {
       console.log(err);
     })
   }, [voteCode]);
+
+  const formatTime = (endDate) => {
+    const currentDateDate = new Date();
+    const timeDifference = endDate - currentDateDate;
+    let seconds = timeDifference / 1000;
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    let days = Math.floor(hours / 24);
+    seconds %= 60;
+    minutes %= 60;
+    hours %= 24;
+    return setRemainingTime(`${days}일 ${hours.toString().padStart(2, '0')}시 ${minutes.toString().padStart(2, '0')}분`);
+  };
 
   if(!voteInfo && !candidates)
     return <Loding/>
@@ -52,7 +67,7 @@ const GraphMain = () => {
           </div>
           <div className='graph-property'>
             <p>남은 시간</p>
-            <span>3일 3시간 23분</span>
+            <span>{ remainingTime }</span>
           </div>
         </div>
       </div>
@@ -61,9 +76,9 @@ const GraphMain = () => {
         {graph}
       </div>
       <div className='graph-middle_buttons'>
-        <button className='graph-middle_button' onClick={ () => {setGraph(<LineGraph lineGraphDatas={lineGraphData} voteInfo={voteInfo} />)}}> 실시간 투표수 </button>
-        <button className='graph-middle_button' onClick={ () => {setGraph(<PieGraph />)} }> 후보자별 투표율 </button>
-        <button className='graph-middle_button' onClick={ () => {setGraph(<BarGraph />)} }> 학과별 투표율 </button>
+        <button className='graph-middle_button' onClick={ () => {setGraph(<LineGraph lineGraphDatas={GraphData} voteInfo={voteInfo} />)}}> 실시간 투표수 </button>
+        <button className='graph-middle_button' onClick={ () => {setGraph(<PieGraph candidates={candidates} />)} }> 후보자별 투표율 </button>
+        <button className='graph-middle_button' onClick={ () => {setGraph(<BarGraph barGraphDatas={GraphData}/>)} }> 학과별 투표율 </button>
       </div>
       <div className='graph-footer'>
         <h1> SNS에 공유하기! </h1>

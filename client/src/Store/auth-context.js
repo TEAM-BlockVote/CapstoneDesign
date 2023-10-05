@@ -5,17 +5,27 @@ const AuthContext = createContext({
   isLoggedIn: false,
   logout: () => {},
   userName: "",
+  studentNumber: "",
+  walletAddr: "",
+  etherBalance: "",
 });
 
 export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [userName, setUserName] = useState("");
+  const [studentNumber, setStudentNumber] = useState("");
+  const [walletAddr, setWalletAddr] = useState("");
+  const [etherBalance, setEtherBalance] = useState("");
 
   useEffect(() => {
     axios.get('/auth/isLoggedIn')
     .then((res) => {
+      console.log(res);
       setIsLoggedIn(res.data.isLoggedIn);
       setUserName(res.data.user);
+      setStudentNumber(res.data.studentNumber);
+      setWalletAddr(res.data.walletAddr);
+      setEtherBalance(res.data.etherBalance);
     })
     .catch((err) => {
       console.log(err);
@@ -32,7 +42,7 @@ export const AuthContextProvider = (props) => {
     }
   };
 
-  return <AuthContext.Provider value={{isLoggedIn: isLoggedIn, logout: logout, userName: userName}}> {props.children} </AuthContext.Provider>
+  return <AuthContext.Provider value={{isLoggedIn: isLoggedIn, logout: logout, userName: userName, studentNumber: studentNumber, walletAddr: walletAddr, etherBalance: etherBalance}}> {props.children} </AuthContext.Provider>
 }
 
 export default AuthContext;

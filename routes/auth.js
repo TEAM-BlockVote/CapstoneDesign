@@ -41,8 +41,6 @@ router.get('/googleLogin/callback', passport.authenticate('google', {
 // });
 
 router.get('/additionalInfo', isLoggedIn, (req, res, next) => {
-  console.log(req.user.verificationStatus);
-  
   if(req.user.verificationStatus === "true") {
     res.redirect('http://52.78.93.185/');
   } else {
@@ -50,11 +48,17 @@ router.get('/additionalInfo', isLoggedIn, (req, res, next) => {
   }
 });
 
-router.get('/isLoggedIn', (req, res, next)=>{
+router.get('/isLoggedIn', async(req, res, next)=>{
+  const weiBalance = await req.web3.eth.getBalance(req.user.walletAddr);
+  const etherBalance = parseFloat(req.web3.utils.fromWei(weiBalance, 'ether')).toFixed(5);
+  
   if(req.user) {
     res.json({
       isLoggedIn:req.isAuthenticated(),
-      user: req.user.name
+      user: req.user.name,
+      studentNumber: req.user.studentNumber,
+      walletAddr: req.user.walletAddr,
+      etherBalance: etherBalance,
     });
   } else {
     res.json({
