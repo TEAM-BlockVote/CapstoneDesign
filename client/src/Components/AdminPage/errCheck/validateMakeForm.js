@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const validateMakeVoteForm = (voteInfoData, candidateInfo,  setTitleError, setTypeError, setdateError, event) => {
+export const validateMakeVoteForm = (voteInfoData, candidateInfo,  setTitleError, setTypeError, setdateError, event, setIsBtnDisable) => {
   candidateInfo.map((formData, index) => {
     if(formData.imagePreview === null) {
       alert("후보정보가 필요합니다.");
@@ -30,6 +30,9 @@ export const validateMakeVoteForm = (voteInfoData, candidateInfo,  setTitleError
     voteInfoData: voteInfoData,
     candidateInfo: candidateInfo
   };
+
+  setIsBtnDisable(true);  
+
   
   axios.post('/vote/write', postData)
   .then(function (response) {
