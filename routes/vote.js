@@ -23,7 +23,7 @@ router.post('/write', async (req, res, next) => {
     const candidateList = req.body.candidateInfo.map(item => item.partyNumber);
     const contractInstance = new req.web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS, { from: req.user.walletAddr });
     const gasPrice = await req.web3.eth.getGasPrice();
-    const gasLimit = 500000;
+    const gasLimit = 300000;
     const userAccount = req.web3.eth.accounts.privateKeyToAccount(req.user.walletPrivateKey);
     const isUser = req.web3.eth.accounts.wallet.some((wallet) => (
       wallet.address === userAccount.address
