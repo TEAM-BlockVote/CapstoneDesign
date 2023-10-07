@@ -1,6 +1,6 @@
 .voting_wrapper {
   text-align: center;
-  overflow-x: hidden;
+  overflow-x: auto;
   border-top: 2px solid #aaaaaac4;
 }
 
@@ -14,6 +14,7 @@
 @media screen and (max-width:767px) {
   .voting_main {
     flex-direction: column;
+    overflow-x: hidden;
   }
 }
 
@@ -193,20 +194,22 @@
 
 .vote_button {
   width: 200px;
-  background-color: white;
+  background-color: rgb(126, 116, 255);
   border-radius: 3px;
-  color: rgb(33, 23, 95);
+  color: white;
   font-weight: 500;
-  border: 2px solid rgb(33, 23, 95);
+  border: 2px solid rgb(126, 116, 255);
   transition: 0.5s;
   font-size: 1.2rem;
   font-weight: 600;
+  opacity: 0.8;
 }
 
 .vote_button:hover {
-  background-color: rgb(33, 23, 95);
+  background-color: rgb(65, 59, 154);
   color: rgb(255, 255, 255);
-  border: 2px solid rgb(33, 23, 95);
+  border: 2px solid rgb(65, 59, 154);
+  opacity: 0.9;
 }
 
 @media screen and (max-width:767px) {
@@ -225,6 +228,9 @@
   display: flex;
   flex-direction: column;
   width: auto;
+  position: fixed;
+  z-index: 50;
+  right: 24px;
 }
 
 @media screen and (max-width:767px) {
@@ -240,6 +246,14 @@
     flex-direction: row;
     position: fixed;
     right: 5px;
+  }
+}
+
+@media screen and (min-width:1024px) {
+  .voting_right {
+    background-color: #ffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 18px -7px rgba(0,0,0,1);
   }
 }
 
@@ -269,13 +283,13 @@
 
 .promise_button {
   display: none;
-  background-color: white;
-  border: 2px solid #6d1313;
+  background-color: #db6262;
+  border: 2px solid #902d2d;
   border-radius: 50px;
-  color: #6d1313;
+  color: white;
   margin: auto;
   width: 60px;
-  font-weight: 500;
+  font-weight: 600;
   transition: 0.5s;
   margin-right: 10px;
   position: relative;
@@ -283,12 +297,14 @@
 }
 
 .promise_button:hover {
-  background-color: #6d1313;
+  background-color: #902d2d;
+  border: 2px solid #db6262;
   color: white;
 }
 
 .promise_button.clicked {
-  background-color: #6d1313;
+  background-color: #902d2d;
+  border: 2px solid #db6262;
   color: white;
   bottom: 5px;
   position: relative;
@@ -331,11 +347,12 @@
 .voting_categories {
   margin: 3px;
   border-radius: 5px;
-  background-color: rgb(255, 255, 255);
-  border: 2px solid rgb(33, 23, 95);
-  color: rgb(33, 23, 95);
+  background-color: rgb(126, 116, 255);
+  border: 2px solid rgb(126, 116, 255);
+  color: rgb(255, 255, 255);
   font-weight: 600;
   transition: 0.5s;
+  opacity: 0.8;
 }
 
 @media screen and (max-width:767px) {
@@ -351,9 +368,10 @@
 }
 
 .voting_categories:hover {
-  background-color: rgb(33, 23, 95);
-  border: 2px solid rgb(33, 23, 95);
+  background-color: rgb(65, 59, 154);
+  border: 2px solid rgb(65, 59, 154);
   color: white;
+  opacity: 0.9;
 }
 
 .voting_right_bottom {
