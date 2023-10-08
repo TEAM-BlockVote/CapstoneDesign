@@ -18,6 +18,7 @@ function Makevote() {
   const [allowedDepartments, setAllowedDepartments] = useState([]);
   const dropdownRef = useRef();
   const [isBtnDisable, setIsBtnDisable] = useState(false);
+  const [isTestMode, setIsTestMode] = useState(false);
 
   const today = new Date();
   today.setHours(today.getHours() + 9);
@@ -57,9 +58,6 @@ function Makevote() {
       "allowedDepartments": item === "ALL" ? ["ALL"] : [...prevFormData.allowedDepartments, item],
     }));
   };
-
-  
-  
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -107,15 +105,18 @@ function Makevote() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-   
     validateMakeVoteForm(voteInfoData, candidateInfo, setTitleError, setTypeError, setDateError, event, setIsBtnDisable)
-    
-
   }
 
+  const testMode = (event) => {
+    event.preventDefault();
+    alert("TestMode On");
+    setIsTestMode(true);
+  }
   return (
     <>
       <h1 className="custom-title mt-5" >투표 만들기</h1>
+      <button style={{opacity: 0}} onClick={testMode}> TestMode </button>
       <div>
         <form className='make_vote' onSubmit={handleFormSubmit} action='/vote/write' method='post'>
           <div className="rounded-form">
@@ -184,6 +185,7 @@ function Makevote() {
                   id={index}
                   formData={formData}
                   setFormData={setCandidateInfo}
+                  testMode={isTestMode}
                 />
               ))}
               <button className="new-candidate" onClick={increaseCandidate}>

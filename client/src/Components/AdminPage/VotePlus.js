@@ -7,8 +7,9 @@ import Modal from 'react-bootstrap/Modal';
 import ImgSvg from  './ImgSvg';
 import CandidateNameForm from './CandidateNameForm';
 import CandidatePromiseForm from './CandidatePromiseForm';
+import { testModeIncreasePromise } from './testModeIncreasePromise';
 
-function VotePlus({id, formData, setFormData}) {
+function VotePlus({id, formData, setFormData, testMode}) {
 
   const [labelDisplay, setLabelDisplay] = useState("");
   const [candidateNameCount, setCandidateCount] = useState(1);
@@ -92,6 +93,11 @@ function VotePlus({id, formData, setFormData}) {
     setcandidatePromiseCount((prevCount) => prevCount + 1);
   }
 
+  const testModeIncreasePromiseCount = (event) => {
+    event.preventDefault();
+    setcandidatePromiseCount(11);
+  }
+
   return (
     <div className="file-upload-wrapper">
       
@@ -117,6 +123,23 @@ function VotePlus({id, formData, setFormData}) {
               <button style={{width: '50%', border: '2px #d1d5db solid', backgroundColor: '#fff', borderRadius: '0.5rem'}} onClick={increaseCandidateCount}> 팀원 추가</button>
               <button style={{width: '50%', border: '2px #d1d5db solid', backgroundColor: '#59a2ff', color: 'white', borderRadius: '0.5rem'}} onClick={handleVotingModalShow}> 공약 추가</button>
             </div>
+            {testMode ?
+            (
+              <div>
+                <button onClick={testModeIncreasePromiseCount}> 공약 11개 추가 </button>
+                <div>
+                  <button onClick={(e) => { e.preventDefault(); testModeIncreasePromise('1', 'A', handleCandidatePromiseChange); }}> #1 A </button>
+                  <button onClick={(e) => { e.preventDefault(); testModeIncreasePromise('1', 'B', handleCandidatePromiseChange); }}> #1 B </button>
+                  <button onClick={(e) => { e.preventDefault(); testModeIncreasePromise('1', 'C', handleCandidatePromiseChange); }}> #1 C </button>
+                </div>
+                <div>
+                  <button onClick={(e) => { e.preventDefault(); testModeIncreasePromise('2', 'A', handleCandidatePromiseChange); }}> #2 A </button>
+                  <button onClick={(e) => { e.preventDefault(); testModeIncreasePromise('2', 'B', handleCandidatePromiseChange); }}> #2 B </button>
+                  <button onClick={(e) => { e.preventDefault(); testModeIncreasePromise('2', 'C', handleCandidatePromiseChange); }}> #2 C </button>
+                </div>
+              </div>
+            )
+            : null}
           </div>
         </div>
       )}
