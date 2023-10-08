@@ -42,7 +42,19 @@
     height: 100%;
     padding: 0 1.25rem;
     grid-template-columns: auto 380px;
+    animation: sign_fade 1s ease-in-out;
 }
+
+@keyframes sign_fade{
+    0% {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
 
 @media (max-width: 575px) {
     .sign_main {

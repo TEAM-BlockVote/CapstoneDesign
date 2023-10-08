@@ -3,6 +3,18 @@
   height: 100%;
 }
 
+@media screen and (max-width:767px) {
+  .graph-wrap {
+    margin: 0% 5%;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .graph-wrap {
+    margin: 0% 17%;
+  }
+}
+
 .graph-header {
   text-align: center;
 }
@@ -13,6 +25,18 @@
   margin-top: 5%;
   padding-bottom: 3%;
   border-bottom: solid black 1px;
+}
+
+@media screen and (max-width:767px) {
+  .graph-title {
+    font-size: 1.8rem
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .graph-title {
+    font-size: 2.5rem
+  }
 }
 
 .graph-container {
@@ -31,6 +55,18 @@
   font-weight: bold;
 }
 
+@media screen and (max-width:767px) {
+  .graph-property p {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .graph-property p {
+    font-size: 1.2rem;
+  }
+}
+
 .graph-property span {
   color: #b1b1b1;
   font-weight: 400;
@@ -43,6 +79,18 @@
 .graph-middle h1 {
   font-size: 2.3rem;
   font-weight: bold;
+}
+
+@media screen and (max-width:767px) {
+  .graph-middle h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .graph-middle h1 {
+    font-size: 1.9rem;
+  }
 }
 
 .graph-middle_buttons {
@@ -65,4 +113,16 @@
 
 .graph-footer {
   margin-top: 7%;
+}
+
+@media screen and (max-width:767px) {
+  .graph-footer h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .graph-footer h1 {
+    font-size: 1.8rem;
+  }
 }
