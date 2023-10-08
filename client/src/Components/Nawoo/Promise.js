@@ -21,7 +21,6 @@ function Promise ({selectCategories, setCurrentPage, setPromises}) {
   
     if(!newPromise.some(seleteCategory => seleteCategory.promise === data.promise)) {
       if(maxChoices > 0) {
-        console.log(maxChoices);
         setSelectedPromises([...newPromise, data]);
         newButtons[index] = true;
         setSelectedButtons(newButtons);
