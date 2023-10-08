@@ -36,17 +36,30 @@ function Makevote() {
     }
   };
 
-  const handleSelectItem = (item) => {
-    if(!allowedDepartments.includes(item)) {
-      setAllowedDepartments([...allowedDepartments, item]);
-      setVoteInfoData((prevFormData) => ({
-        ...prevFormData,
-        "allowedDepartments": [...prevFormData.allowedDepartments, item],
-      }));
+    const handleSelectItem = (item) => {
+    if (item === "ALL") {
+      setAllowedDepartments(["ALL"]); // "ALL" 선택 시 "ALL" 학과만 표시하고 모든 학과가 투표 가능
+    } else {
+      if (allowedDepartments.includes("ALL")) {
+        // "ALL"이 선택된 상태에서 다른 학과를 선택한 경우 "ALL" 선택 해제하고 선택한 학과로 초기화
+        setAllowedDepartments([item]);
+      } else {
+        // "ALL"이 선택되지 않은 상태에서 다른 학과를 선택한 경우 추가
+        if (!allowedDepartments.includes(item)) {
+          setAllowedDepartments([...allowedDepartments, item]);
+        }
+      }
     }
     setSearchValue('');
     setFilteredData([]);
+    setVoteInfoData((prevFormData) => ({
+      ...prevFormData,
+      "allowedDepartments": item === "ALL" ? ["ALL"] : [...prevFormData.allowedDepartments, item],
+    }));
   };
+
+  
+  
 
   useEffect(() => {
     const handleClickOutside = (e) => {
