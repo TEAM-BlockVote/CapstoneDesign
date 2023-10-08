@@ -32,6 +32,7 @@ const smsRouter = require('./routes/sms');
 const passportConfig = require('./passport');
 const nawooRouter = require('./routes/nawoo');
 const graphRouter = require('./routes/graph');
+const scanRouter = require('./routes/scan');
 const { updateVoteDataScheduler } = require('./scheduler/updateVoteDataScheduler');
 const { abi } = require('./artifacts/contracts/Voting.sol/Voting.json');
 
@@ -74,6 +75,7 @@ app.use('/board', boardRouter);
 app.use('/sms', smsRouter);
 app.use('/nawoo', nawooRouter);
 app.use('/graph', graphRouter);
+app.use('/scan', scanRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build/index.html"));
