@@ -6,42 +6,24 @@
 
   router.get('/voteList', async (req, res, next) => {
     try {
-      let VoteListSql;
-
-      if (req.query.department === 'ALL') {
-        // "ALL" 선택 시 모든 학과의 투표를 가져오는 쿼리
-        VoteListSql = 'SELECT * FROM vote';
-      } else {
-        VoteListSql = 'SELECT * FROM vote WHERE voteCode IN (SELECT voteCode FROM voteDepartment WHERE department = ?)';
-      }
-
+      const VoteListSql = `SELECT * FROM vote WHERE voteCode IN (SELECT voteCode FROM voteDepartment WHERE department = ? OR department = 'ALL')`;
       const voteList = await new Promise((resolve, reject) => {
-        if (req.query.department === 'ALL') {
-          pool.query(VoteListSql, (err, results, fields) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(results);
-            }
-          });
-        } else {
-          pool.query(VoteListSql, [req.user.dep], (err, results, fields) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(results);
-            }
-          });
-        }
+        pool.query(VoteListSql, [req.user.dep], (err, results, fields) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(results);
+          }
+        });
       });
-
       res.json(voteList);
     } catch (error) {
       console.log(error);
       next(error);
     }
   });
-
+  
+  
   router.get('/CategorySelects/:voteCode', async (req, res, next) => {
     const voteCode = req.params.voteCode;
     try {
