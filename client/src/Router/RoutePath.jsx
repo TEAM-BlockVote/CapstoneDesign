@@ -17,6 +17,7 @@ import Qnatable from '../Components/NoticeBoard/TableAll/Qnatable';
 import TestQna from '../Components/NoticeBoard/TableAll/TestQna';
 import TestCandidateSelect from '../Components/NoticeBoard/TableAll/TestCandidateSelect';
 import GraphMain from "../Components/Graph/GraphMain";
+import QRcodeScanner from "../Components/Scanner/QRcodeScanner";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
   {path: '/additionalInfo', element: <AdditionalInfo/>},
   {path: '/Nawoo', element: <NawooMain/>},
   {path: '/Nawoo/CategorySelect/:voteCode', element: <CategorySelect/>},
+  {path: '/Scanner', element: <QRcodeScanner/>},
 ]);
 
 export default router;

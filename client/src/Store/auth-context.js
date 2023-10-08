@@ -20,7 +20,6 @@ export const AuthContextProvider = (props) => {
   useEffect(() => {
     axios.get('/auth/isLoggedIn')
     .then((res) => {
-      console.log(res);
       setIsLoggedIn(res.data.isLoggedIn);
       setUserName(res.data.user);
       setStudentNumber(res.data.studentNumber);

@@ -15,7 +15,7 @@ router.get('/user/:studentNumber', async (req, res, next) => {
         }
       });
     });
-    user.length === 1 ? res.json(user) : res.sendStatus(300);
+    user.length === 1 ? res.json(user[0]) : res.sendStatus(404);
   } catch (error) {
     console.log(error);
     next(error);
