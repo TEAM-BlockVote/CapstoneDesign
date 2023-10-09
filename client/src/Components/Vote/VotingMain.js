@@ -7,6 +7,7 @@ import axios from 'axios';
 import help from '../Main/images/help.png';
 import { Tooltip } from 'react-tooltip'
 import Loading01 from '../AdminPage/Loading01';
+import PromisesController from './PromisesController';
 
 const VotingMain = () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -17,9 +18,7 @@ const VotingMain = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [opacityStyleState, setOpacityStyleState] = useState(null);
-
-  const [isCategoriesVisible, setIsCategoriesVisible] = useState(false);
-  const [isPromiseButtonClicked, setIsPromiseButtonClicked] = useState(false);
+  const [categories, setCategories] = useState(null);
 
   const [showVotingModal, setShowVotingModal] = useState(false);
   const handleVotingModalClose = () => setShowVotingModal(false);
@@ -79,10 +78,15 @@ const VotingMain = () => {
     }
   }
 
-  const handlePromiseButtonClick = () => {
-    setIsCategoriesVisible(!isCategoriesVisible);
-    setIsPromiseButtonClicked(!isPromiseButtonClicked);
-  };
+  const handlePromisesFetch = (categories) => {
+    const uniqueCategories = Array.from(new Set(categories.map(item => item.category)));
+    const sortedData = [];
+    uniqueCategories.forEach(category => {
+      const categoryItems = categories.filter(item => item.category === category);
+      sortedData.push(categoryItems[0]);
+  });
+  setCategories(uniqueCategories);
+  }
 
   useEffect(() => {
     axios.get(`/vote/${voteCode}`)
@@ -90,6 +94,7 @@ const VotingMain = () => {
         const votes = res.data.candidatesInfo.reduce((accumulator, currentValue) => {
           return accumulator + currentValue.votes;
         }, 0);
+        handlePromisesFetch(res.data.categories);
         setTotalVotes(votes);
         setVoteInfo(res.data.voteInfo);
         setCandidates(res.data.candidatesInfo);
@@ -230,24 +235,7 @@ const VotingMain = () => {
             )}
           </div>
         </div>
-        <div className='voting_right'>
-          <div className='voting_right_top'>
-            <div className='voting_right_title'>
-              <span className='promise_title'>공약 카테고리</span>
-              <button className={`promise_button ${isPromiseButtonClicked ? 'clicked' : ''}`} onClick={handlePromiseButtonClick}>공약</button>
-            </div>
-            <div className={`categories_group ${isCategoriesVisible ? 'visible' : 'hidden'}`}>
-              <button className='voting_categories'>강의실 시설</button>
-              <button className='voting_categories'>화장실 시설</button>
-              <button className='voting_categories'>학생식당 개선</button>
-              <button className='voting_categories'>각종 행사</button>
-              <button className='voting_categories'>교통 시설</button>
-              <button className='voting_categories'>보건 복지</button>
-              
-            </div>
-          </div>
-        </div>
-
+        <PromisesController categories={ categories }/>
         <Modal show={showVotingModal} onHide={handleVotingModalClose} centered style={{ textAlign: 'center' }}>
           <Modal.Header style={{ borderBottom: 'rgb(222,222,222)' }}>
             <CloseButton onClick={handleVotingModalClose} />

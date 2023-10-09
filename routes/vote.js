@@ -225,10 +225,21 @@ router.get('/:voteCode', async (req, res, next) => {
         console.error(err);
       }
     });
+    const selectCategoriesSql = `select category, promise, candidateNumber from categories where voteCode = ?`;
+    const categories = await new Promise((resolve, reject) => {
+      pool.query(selectCategoriesSql, [voteCode], (err, results, fields) => {
+        if (err) {
+          reject(err);
+        }
+        else
+          resolve(results);
+      });
+    });
     
     const vote = {
       voteInfo,
-      candidatesInfo
+      candidatesInfo,
+      categories
     }
 
     if (voteInfo.length > 0) {
