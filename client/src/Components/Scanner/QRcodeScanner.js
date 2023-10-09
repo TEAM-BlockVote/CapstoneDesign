@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useZxing } from "react-zxing";
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
+import './QRcodeScanner.css'
 
 const QRcodeScanner = () => {
   const [user, setUser] = useState(null);
@@ -31,27 +32,32 @@ const QRcodeScanner = () => {
   }
 
   return (
-    <div>
-      <video ref={ref} />
-      <Modal show={showVotingModal} onHide={handleVotingModalClose} centered style={{ textAlign: 'center' }}>
+    <div className="scanner_wrapper">
+      <div className="qr_div">
+        <h2 className="qr_title">화면에 QR 코드를 인식시키시오.</h2>
+        <video className="qr_user" ref={ref} />
+      </div>
+      <Modal show={showVotingModal} onHide={handleVotingModalClose} centered>
         <Modal.Body>
           <form>
-            <div>
+            <div className="modal_div">
             {user &&
-                <div>
-                  <p> {user.dep} </p>
-                  <p> {user.name} </p>
-                  <p> {user.studentNumber} </p>
-                  <p> {user.telNumber} </p>
+                <div className="modal_info">
+                  <p> 학과: {user.dep} </p>
+                  <p> 이름: {user.name} </p>
+                  <p> 학번: {user.studentNumber} </p>
+                  <p> 전화번호: {user.telNumber} </p>
                   <div> 이벤트에 참여 하시겠습니까? </div>
                 </div>
               }
-              <button type='button' onClick={() => { alert("투표 용지 받아가세요~"); handleVotingModalClose(); setPaused(true)}}>
-                예
-              </button>
-              <button type='button' onClick={() => { handleVotingModalClose(); setPaused(false)}}>
-                아니요
-              </button>
+            <div className="modal_button">
+                <button className='modal_button_accept' type='button' onClick={() => { alert("투표 용지 받아가세요~"); handleVotingModalClose(); setPaused(true)}}>
+                  예
+                </button>
+                <button className='modal_button_ignore' type='button' onClick={() => { handleVotingModalClose(); setPaused(false)}}>
+                  아니요
+                </button>
+              </div>
             </div>
           </form>
           
