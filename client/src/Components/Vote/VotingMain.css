@@ -371,6 +371,10 @@
   transition: 0.5s;
 }
 
+.voting_categories.selected {
+  background-color: red;
+}
+
 @media screen and (max-width:767px) {
   .voting_categories {
     border-radius: 10px;

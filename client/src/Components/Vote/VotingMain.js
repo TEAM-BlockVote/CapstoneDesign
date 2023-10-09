@@ -19,6 +19,8 @@ const VotingMain = () => {
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [opacityStyleState, setOpacityStyleState] = useState(null);
   const [categories, setCategories] = useState(null);
+  const [sortedCandidatePromises, setSortedCandidatePromises] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const [showVotingModal, setShowVotingModal] = useState(false);
   const handleVotingModalClose = () => setShowVotingModal(false);
@@ -78,14 +80,28 @@ const VotingMain = () => {
     }
   }
 
-  const handlePromisesFetch = (categories) => {
+  const handleCategoriesSort = (categories) => {
     const uniqueCategories = Array.from(new Set(categories.map(item => item.category)));
     const sortedData = [];
     uniqueCategories.forEach(category => {
       const categoryItems = categories.filter(item => item.category === category);
       sortedData.push(categoryItems[0]);
-  });
+    });
   setCategories(uniqueCategories);
+  }
+
+  const handlePromisesSort = (promises) => {
+    const candidates = {};
+    promises.forEach((ele, i) => {
+      if (!candidates[ele.candidateNumber]) {
+          candidates[ele.candidateNumber] = {};
+      }
+      if (!candidates[ele.candidateNumber][ele.category]) {
+          candidates[ele.candidateNumber][ele.category] = [];
+      }
+      candidates[ele.candidateNumber][ele.category].push(ele.promise);
+    });
+    setSortedCandidatePromises(candidates);
   }
 
   useEffect(() => {
@@ -94,7 +110,8 @@ const VotingMain = () => {
         const votes = res.data.candidatesInfo.reduce((accumulator, currentValue) => {
           return accumulator + currentValue.votes;
         }, 0);
-        handlePromisesFetch(res.data.categories);
+        handleCategoriesSort(res.data.categories);
+        handlePromisesSort(res.data.categories)
         setTotalVotes(votes);
         setVoteInfo(res.data.voteInfo);
         setCandidates(res.data.candidatesInfo);
@@ -211,9 +228,14 @@ const VotingMain = () => {
                         </div>
                       </div>
                       <div className='voting_promise'>
-                        <p>통학 버스 운행 시간 연장</p>
-                        <p>학생 식당 메뉴 추가</p>
-                        <p>교수 온라인 상담</p>
+                      {
+                        (selectedCategory === null) ? <p> 카테고리를 골라주세요 </p> : (sortedCandidatePromises[index + 1][selectedCategory])
+                        ? (sortedCandidatePromises[index + 1][selectedCategory].length === 0) ? <p> 해당 공약이 없습니다. </p>
+                        : sortedCandidatePromises[index + 1][selectedCategory].map((promise, index) => (
+                            <p key={index}>{promise}</p>
+                          ))
+                        : <p> 해당 카테고리가 없습니다 </p>
+                      }
                       </div>
                     </div>
                   </li>
@@ -235,7 +257,7 @@ const VotingMain = () => {
             )}
           </div>
         </div>
-        <PromisesController categories={ categories }/>
+        <PromisesController categories={ categories } setSelectedCategory={ (category) => setSelectedCategory(category) }/>
         <Modal show={showVotingModal} onHide={handleVotingModalClose} centered style={{ textAlign: 'center' }}>
           <Modal.Header style={{ borderBottom: 'rgb(222,222,222)' }}>
             <CloseButton onClick={handleVotingModalClose} />
