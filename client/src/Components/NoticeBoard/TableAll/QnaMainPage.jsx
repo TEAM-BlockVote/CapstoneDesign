@@ -32,29 +32,25 @@ function QnaMainPage() {
           <h1 className="qna-title">
             <span className="custom-qna">Q&A</span> 페이지
           </h1>
-          <span className="qna-h2">당신이 질문할 후보자가 있는 투표를 선택하세요!</span>
-          <p className='qna_info'>
-            저희 Blockvote는 유권자들에게 Q&A페이지를 제공합니다.
-          </p>
-          <p className='qna_info'>
-            투표 플랫폼에서 Q&A 페이지가 주는 여러가지 부정적인 작용으로는 <br/>
-            익명 사용자의 무분별한 도배와 광고성 게시글 등의 문제가 있습니다.
-          </p>
-          <p className='qna_info'>
-            그러나 'Blockvote'에서는 이러한 문제를 방지하기 위해 <br/>
-            이 페이지를 이용할 수 있는 권한을 인증된 사용자에게만 부여하고 있습니다.
-          </p>
-        </div>
-        <div className="categories">
-        {!voteList ? <Loding/> : voteList.map((candidate, index) => (
-          <div className="qna-right" key={index}>
-            <Link to={`/qnatable/${candidate.voteCode}`} key={index}>
-              <button className="qna-button">
-                {candidate.title}    
-              </button>    
-            </Link>
+          <div className='qna_writes'>
+            <span className="qna-h2">당신이 질문할 후보자가 있는 투표를 선택하세요!</span>
+            <p className='qna_info'>
+            'Blockvote'는 유권자를 위한 Q&A 페이지를 제공합니다. <br/>
+            익명 사용자의 도배 및 광고 게시물 등을 방지하기 위해 <br/>
+            이 페이지는 인증된 사용자에게만 허용됩니다.
+            </p>
           </div>
-        ))}
+        </div>
+        <div className="qna-right">
+          <ul className='qna_categories'>
+          {!voteList ? <Loding/> : voteList.map((candidate, index) => (
+            <li className="qna-button" key={index}>
+              <Link to={`/qnatable/${candidate.voteCode}`} key={index}>
+                  {candidate.title} 
+              </Link>
+            </li>
+          ))}
+          </ul>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 .modal_container {
   width: 300px;
+  height: auto;
   z-index: 999;
   position: absolute;
   top: 38.8vh;
@@ -7,14 +8,22 @@
   transform: translate(-50%, -50%);
   background-color: #f6faff;
   border-radius: 8px;
-  box-shadow: 1px 1px 1px 1px #e7ebee;
+  box-shadow: 0 0 0 1px #dadcdf, 0 4px 8px 0 rgba(0, 0, 0, .15);
+  display: flex;
+  flex-direction: column;
 }
 
 .close {
   position: absolute;
-  margin-left: 75%;
+  margin-left: 80%;
   font-weight: bold;
   font-size: 18px;
+}
+
+@media screen and (max-width:767px) {
+  .close {
+    margin-left: 85%;
+  }
 }
 
 .modal_header {
@@ -111,8 +120,7 @@
 @media screen and (max-width: 767px) {
   .modal_container {
     /* 모달창 크기 */
-    width: 100%;
-    height: 100vh;
+    width: 400px;
     /* 최상단 위치 */
     z-index: 999;
 
@@ -120,9 +128,9 @@
     /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
     /* translate는 본인의 크기 기준으로 작동한다. */
     position: absolute;
-    top: 50vh;
+    top: 5vh;
     left: 50vw;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%);
 
     /* 모달창 디자인 */
   }
