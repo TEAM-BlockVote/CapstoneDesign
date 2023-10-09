@@ -14,11 +14,38 @@
   }
 }
 
+.nav-link {
+  color: rgb(115, 115, 115);
+}
+
+.nav-link:hover {
+  color: #133f68;
+}
+
+@media screen and (min-width:1024px) {
+  .nav-link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: #23496e; /* 원하는 줄의 색상으로 변경하세요 */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: 0.5s;
+  }
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
 @media screen and (min-width: 1024px) {
   .nav-link {
     position: relative;
     right: 20%;
     font-weight: bold;
     margin-left: 30px;
+    color: rgb(115, 115, 115);
   }
 }

@@ -2,7 +2,7 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import HorizonLine from './HorizonLine';
 import './Main.css';
@@ -46,6 +46,39 @@ const Main = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleScroll = () => {
+    const sectionTitles = document.querySelectorAll('.section-title');
+    const sectionContents = document.querySelectorAll('.section-content');
+    const mySwipers = document.querySelectorAll('.mySwiper');
+    const problemLists = document.querySelectorAll('.problem-list');
+    const tabContentContainers = document.querySelectorAll('.tab_content_container');
+    const futureWrappers = document.querySelectorAll('.future-wrapper')
+
+    const sections = [...sectionTitles, ...sectionContents, ...mySwipers, ...problemLists, ...tabContentContainers, ...futureWrappers];
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight;
+      if (isVisible) {
+        section.classList.add('active');
+      }
+    });
+  };
+
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <>
       {/* {<SignInModal/>} */}
@@ -84,7 +117,7 @@ const Main = () => {
             <p className="main_title">특별함</p>
           </div>
           <div className="section-info">
-            <div className="section_content">
+            <div className="section-content">
               <div className="section-info-wrapper" >
                 <span className="section-info-title" > 온라인 전자투표 서비스 </span>
                 <div className="section-info-content" >
@@ -117,7 +150,7 @@ const Main = () => {
             <p className="sub_title">이런 별거 없었던 문제들 해결해 드리겠습니다.</p>
           </div>
           <div className="tab-wrapper">
-            <ul className="tabs-list">
+            <ul className="problem-list">
               <li className={activeIndex === 0 ? 'tab active' : 'tab'} onClick={() => handleTabClick(<Tab index={0} />, 0)}>개인사정</li>
               <li className={activeIndex === 1 ? 'tab active' : 'tab'} onClick={() => handleTabClick(<Tab index={1} />, 1)}>정보부족</li>
               <li className={activeIndex === 2 ? 'tab active' : 'tab'} onClick={() => handleTabClick(<Tab index={2} />, 2)}>전산화</li>
@@ -134,7 +167,7 @@ const Main = () => {
       </div>
       <div className="footer">
         <div className='main_move_top'>
-          <img className='move_logo' src={moveLogo} onClick={() => scrollToTop()}/>
+          <img className='move_logo' src={moveLogo} alt="move_logo" onClick={() => scrollToTop()}/>
         </div>
         <div className="footer-list">
           <label className='producers'>전준호</label>

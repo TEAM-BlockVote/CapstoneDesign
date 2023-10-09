@@ -1,3 +1,52 @@
+.section-title,
+.section-content,
+.mySwiper,
+.problem-list,
+.tab_content_container,
+.future-wrapper {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s, transform 1s;
+}
+
+.section-title.active,
+.section-content.active,
+.mySwiper.active,
+.problem-list.active,
+.tab_content_container.active,
+.future-wrapper.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.future-wrapper.active .future-info {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.future-wrapper .future-info {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.future-wrapper.active .future-info:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.future-wrapper.active .future-info:nth-child(2) {
+  transition-delay: 0.3s;
+}
+
+.future-wrapper.active .future-info:nth-child(3) {
+  transition-delay: 0.5s;
+}
+
+.future-wrapper.active .future-info:nth-child(4) {
+  transition-delay: 0.7s;
+}
+
 .main_content_wrapper {
   position: relative;
   display: flex;
@@ -295,14 +344,14 @@
   text-align: center;
 }
 
-.section_content {
+.section-content {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 @media screen and (min-width:1024px) {
-  .section_content {
+  .section-content {
     width: 50%;
   }
 }
@@ -318,6 +367,7 @@
 .mySwiper {
   width: 50%;
   height: 50%;
+  object-fit: cover;
 }
 
 @media screen and (max-width:767px) {
@@ -330,6 +380,17 @@
   .mySwiper {
     width: 70%;
   }
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  opacity: 1;
 }
 
 .tab-wrapper {
@@ -358,6 +419,14 @@
   .tab-img {
     width: 80px;
   }
+}
+
+.problem-list {
+  display: flex;
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  cursor: pointer;
 }
 
 .tab {
@@ -493,6 +562,11 @@
   border-radius: 16px;
   padding-top: 10px;
   height: auto;
+  transition: 0.5s;
+}
+
+.go-link:hover {
+  box-shadow: 0 0 10px 5px rgb(206, 206, 206);
 }
 
 @media screen and (max-width:767px) {
