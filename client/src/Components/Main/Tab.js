@@ -6,6 +6,7 @@ import absent from "./images/absent.png";
 import man from "./images/man.png";
 import candidate from "./images/candidate.png";
 import promotion from "./images/promotion.png";
+import question from "./images/question.png";
 
 import './Tab.css';
 
@@ -38,6 +39,12 @@ const DATA = [
       content:
         "후보자의 공약을 볼 수 있는 접근성이 떨어져 공약을 모른채 투표를 진행했던 문제.",
       img: candidate,
+    },
+    {
+      title: "QnA",
+      content:
+        "후보자 공약 실연 가능성",
+      img: question,
     },
   ],
   [

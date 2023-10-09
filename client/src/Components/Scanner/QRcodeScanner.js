@@ -34,7 +34,7 @@ const QRcodeScanner = () => {
   return (
     <div className="scanner_wrapper">
       <div className="qr_div">
-        <h2 className="qr_title">화면에 QR 코드를 인식시키시오.</h2>
+        <h2 className="qr_title">기표</h2>
         <video className="qr_user" ref={ref} />
       </div>
       <Modal show={showVotingModal} onHide={handleVotingModalClose} centered>
@@ -51,10 +51,10 @@ const QRcodeScanner = () => {
                 </div>
               }
             <div className="modal_button">
-                <button className='modal_button_accept' type='button' onClick={() => { alert("투표 용지 받아가세요~"); handleVotingModalClose(); setPaused(true)}}>
+                <button className='candidate-info-modal' type='button' onClick={() => { alert("투표 용지 받아가세요~"); handleVotingModalClose(); setPaused(true)}} style={{backgroundColor: 'rgb(251, 126, 117)'}}>
                   예
                 </button>
-                <button className='modal_button_ignore' type='button' onClick={() => { handleVotingModalClose(); setPaused(false)}}>
+                <button className='candidate-info-modal' type='button' onClick={() => { handleVotingModalClose(); setPaused(false)}}>
                   아니요
                 </button>
               </div>

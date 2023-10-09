@@ -87,9 +87,9 @@ const Main = () => {
           <div className="banner">
             <div className="banner_info">
               <div className="banner_left">
-                <p className='banner-vote'> 2023년 총학생회 투표 </p>
+                <p className='banner-vote'> 2023년 졸업작품 전시회 </p>
                 <p className='banner-written'> 서일대학교의 미래를 위해 함께 이끌어나갈 당신을 찾습니다. </p>
-                <p className='banner-date'> 투표기간: 04.17 - 04.30 </p>
+                <p className='banner-date'> 투표기간: 10.12 - 10.13 </p>
               </div>
               <div className="banner_right">
                 <img className="banner_img" src={bannerLogo} alt="seoilLogo" />
@@ -105,10 +105,6 @@ const Main = () => {
               <li className='go-link' onClick={handleResultModalShow}>
                 <img className='tab-img' src={Result} alt='결과보기'></img>
                 <div className='tab-label'> 결과보기 </div>
-              </li>
-              <li className='go-link'>
-                <img className='tab-img' src={MakeVote} alt='투표 신청하기'></img>
-                <div className='tab-label'> 투표 신청하기 </div>
               </li>
             </ul>
           </div>
