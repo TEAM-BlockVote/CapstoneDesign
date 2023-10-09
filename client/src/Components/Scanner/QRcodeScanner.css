@@ -31,27 +31,3 @@
   margin: auto;
   font-weight: 600;
 }
-
-.modal_button {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-column-gap: 5px;
-  margin: auto;
-  padding-top: 20px;
-  font-size: 1rem;
-  width: 30%;
-}
-
-.modal_button_accept {
-  background-color: rgb(117, 117, 255);
-  border: none;
-  border-radius: 3px;
-  color: azure;
-}
-
-.modal_button_ignore {
-  background-color: rgb(255, 97, 97);
-  border: none;
-  border-radius: 3px;
-  color: azure;
-}
