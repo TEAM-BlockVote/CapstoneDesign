@@ -35,6 +35,18 @@
   font-weight: bold;
 }
 
+@media screen and (max-width:767px) {
+  .future-title {
+    font-size: 1.2rem;
+  }
+}
+
 .future-written {
   font-weight: 500;
+}
+
+@media screen and (max-width:767px) {
+  .future-written {
+    font-size: 0.9rem;
+  }
 }
