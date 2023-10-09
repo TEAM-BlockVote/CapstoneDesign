@@ -4,7 +4,7 @@ const pool = require('../server/Router/pool');
 const CryptoJS = require("crypto-js");
 const axios = require('axios');
 
-function send_message(phone) {
+function send_message(phone, voteCode) {
   var user_phone_number = phone;//수신 전화번호 기입
   var resultCode = 404;
   const date = Date.now().toString();
@@ -41,7 +41,7 @@ function send_message(phone) {
       type: "SMS",
       countryCode: "82",
       from: my_number,
-      content: `[BlockVote-전자투표] http://52.78.93.185/voting?voteCode=5922389`,
+      content: `[BlockVote-전자투표] http://52.78.93.185/voting?voteCode=${voteCode}`,
       messages: [
         { to: `${user_phone_number}`, },],
     },
@@ -53,24 +53,45 @@ function send_message(phone) {
   return resultCode;
 }
 
-router.get('/sendSms', async (req, res, next) => {
-  const telNumberSelectSql = "select telNumber from users";
-  try {
-    const numbers = await new Promise((resolve, reject) => {
-      pool.query(telNumberSelectSql, [], (err, results, fields) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(results);
-        }
-      });
+router.get('/user', async (req, res, next) => {
+  const telNumberSelectSql = "select studentNumber, name, dep, telNumber from users";
+  const users = await new Promise((resolve, reject) => {
+    pool.query(telNumberSelectSql, [], (err, results, fields) => {
+      if (err) {
+        reject(err);
+      }
+      else
+        resolve(results);
     });
+  });
 
-    const uniqueNumbers = [...new Set(numbers.map(item => JSON.stringify(item)))].map(item => JSON.parse(item));
+  const voteListSql = "SELECT voteCode, title FROM vote";
+  const voteList = await new Promise((resolve, reject) => {
+    pool.query(voteListSql, [], (err, results, fields) => {
+      if (err) {
+        reject(err);
+      }
+      else
+        resolve(results);
+    });
+  });
 
-    for (const phone of uniqueNumbers) {
-      send_message(phone.telNumber);
-    }
+  const data = {
+    users,
+    voteList
+  }
+  res.json(data);
+});
+
+router.post('/sendSms', async (req, res, next) => {
+  const telNumbers = req.body.telNumbers;
+  const voteCode = req.body.voteCode;
+  try {
+    telNumbers.forEach(async(telNumber, i) => {
+      await send_message(telNumber, voteCode);
+    })
+
+    res.sendStatus(200);
   } catch (error) {
     console.error('핸드폰 번호 불러오는중 오류발생', error);
     res.status(500).json({ error: '핸드폰 번호 불러오는중 오류발생' });
