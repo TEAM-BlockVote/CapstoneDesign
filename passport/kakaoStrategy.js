@@ -9,7 +9,8 @@ module.exports = () => {
   passport.use(new kakaoStrategy({
     clientID: process.env.KAKAO_ID,
     callbackURL: '/auth/kakaoLogin/callback',
-  }, async (accessToken, refreshToken, profile, done) => {
+    passReqToCallback: true,
+  }, async (req, accessToken, refreshToken, profile, done) => {
     const sql = 'select * from users where snsId = ? and provider = ?;';
     const checkUser = async() => {
       try {
@@ -78,7 +79,7 @@ module.exports = () => {
         );
       });
       const user = await checkUser();
-      sendEther(user);
+      sendEther(req.web3, user);
       done(null, user);
     }    
   } catch (error) {
