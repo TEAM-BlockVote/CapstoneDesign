@@ -1,15 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CloseButton from 'react-bootstrap/CloseButton';
 import Modal from 'react-bootstrap/Modal';
 import Loding from '../Main/Loding';
 import './VotingMain.css';
 import axios from 'axios';
 import help from '../Main/images/help.png';
+import AuthContext from '../../Store/auth-context';
 import { Tooltip } from 'react-tooltip'
 import Loading01 from '../AdminPage/Loading01';
 import PromisesController from './PromisesController';
 
 const VotingMain = () => {
+  const ctx = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (ctx.isLoggedIn === false) {
+      navigate("/");
+      alert("로그인 후 이용해 주세요");
+    }
+  }, [ctx.isLoggedIn, navigate]);
+
   const urlParams = new URLSearchParams(window.location.search);
   const voteCode = urlParams.get('voteCode');
   const [voteInfo, setVoteInfo] = useState('');
@@ -167,7 +179,7 @@ const VotingMain = () => {
     return <Loding />
   }
 
-  return (
+  return ctx.isLoggedIn === false || ctx.isLoggedIn === null ? null : (
     <div className='voting_wrapper'>
       <div className='voting_main'>
         <div className='voting_left'>
