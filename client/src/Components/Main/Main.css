@@ -429,7 +429,6 @@
   position: relative;
   display: inline-block;
   border-radius: 50%;
-  -webkit-box-shadow: 0 0 0 1px #dadcdf, 0 4px 8px 0 rgba(0, 0, 0, .15);
   box-shadow: 0 0 0 1px #dadcdf, 0 4px 8px 0 rgba(0, 0, 0, .15);
   vertical-align: top;
   padding: 5px;
