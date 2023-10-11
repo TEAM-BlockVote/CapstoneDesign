@@ -42,8 +42,13 @@ export const validateMakeVoteForm = (voteInfoData, candidateInfo,  setTitleError
     }
   })
   .catch(function (error) {
-    alert("헐 에러 발생했는데 어캄...?");
-    console.error('에러 발생:', error);
+    if(error.response.status === 403) {
+      alert("관리자만 투표 등록이 가능합니다.");
+      window.location.href='/AdminMain';
+    } else {
+      alert("헐 에러 발생했는데 어캄...?");
+      console.error('에러 발생:', error);
+    }
   });
 
   // event.target.submit();

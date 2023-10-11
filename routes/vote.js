@@ -5,8 +5,9 @@ const pool = require('../server/Router/pool');
 const { abi } = require('../artifacts/contracts/Voting.sol/Voting.json')
 const router = express.Router();
 const { categoryGeneratorService } = require('../service/categoryGeneratorService');
+const { authenticatedUser } = require('../middlewares/index');
 
-router.post('/write', async (req, res, next) => {  
+router.post('/write', authenticatedUser, async (req, res, next) => {
   const { title, type, startDate, endDate, allowedDepartments } = req.body.voteInfoData;
   
   const writer = String(req.user.name);
