@@ -41,7 +41,7 @@ function send_message(phone, voteCode) {
       type: "SMS",
       countryCode: "82",
       from: my_number,
-      content: `[BlockVote-전자투표] http://52.78.93.185/voting?voteCode=${voteCode}`,
+      content: `[BlockVote-전자투표] http://52.78.93.185/voting?voteCode=${voteCode} .`,
       messages: [
         { to: `${user_phone_number}`, },],
     },
