@@ -41,9 +41,9 @@ const DATA = [
       img: candidate,
     },
     {
-      title: "QnA",
+      title: "후보자 공약 실현 가능성",
       content:
-        "후보자 공약 실연 가능성",
+        "후보자가 공약을 제대로 이행할 수 있는지 의문이 드는 문제",
       img: question,
     },
   ],
