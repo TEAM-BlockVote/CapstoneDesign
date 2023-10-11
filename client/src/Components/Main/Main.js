@@ -9,6 +9,10 @@ import './Main.css';
 import bannerLogo from './images/seoilLogo.png';
 import underLogo from '../Main/images/underLogo.png';
 import Team from './images/Team.png';
+import Team2 from './images/Team2.jpg';
+import Nawoo from './images/nawooPic.png';
+import Block from './images/blockPic.png';
+import ballotVote from './images/ballotVotePic.png';
 import MakeVote from './images/makeVote.png';
 import Voting from './images/voting.png';
 import Result from './images/result.png';
@@ -134,10 +138,11 @@ const Main = () => {
                 }
               }}
             >
+              <SwiperSlide><img className="swiper-img" src={Block} alt="swiperImg" /></SwiperSlide>
+              <SwiperSlide><img className="swiper-img" src={Nawoo} alt="swiperImg" /></SwiperSlide>
+              <SwiperSlide><img className="swiper-img" src={ballotVote} alt="swiperImg" /></SwiperSlide>
               <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg" /></SwiperSlide>
-              <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg" /></SwiperSlide>
-              <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg" /></SwiperSlide>
-              <SwiperSlide><img className="swiper-img" src={Team} alt="swiperImg" /></SwiperSlide>
+              <SwiperSlide><img className="swiper-img" src={Team2} alt="swiperImg" /></SwiperSlide>
             </Swiper>
           </div>
           <HorizonLine />
