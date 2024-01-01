@@ -5,8 +5,8 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
-const redis = require('redis');
-const RedisStore = require('connect-redis')(session);
+// const redis = require('redis');
+// const RedisStore = require('connect-redis')(session);
 const schedule = require('node-schedule');
 const path = require('path');
 const { Web3 } = require('web3');
@@ -14,11 +14,11 @@ const { Web3 } = require('web3');
 app.use(cors());
 dotenv.config();
 
-const redisClient = redis.createClient({
-  url: `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/0`,
-  legacyMode: true,
-});
-redisClient.connect().then();
+// const redisClient = redis.createClient({
+//   url: `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/0`,
+//   legacyMode: true,
+// });
+// redisClient.connect().then();
 
 const web3 = new Web3(process.env.INFURA_API);
 const adminWallet = web3.eth.accounts.privateKeyToAccount(process.env.METAMASK_PRIVATE_KEY);
@@ -57,7 +57,7 @@ app.use(session({
     httpOnly: true,
     secure: false,
   },
-  store: new RedisStore({ client: redisClient }),
+  // store: new RedisStore({ client: redisClient }),
 }));
 app.use((req, res, next) => {
   req.web3 = web3;
